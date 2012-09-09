@@ -8,7 +8,9 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Caverns;
 
+using KuriosityXLib.TileMap;
 
 namespace KuriosityXLib.TileMap
 {
@@ -19,13 +21,13 @@ namespace KuriosityXLib.TileMap
     {
         #region Fields
 
-        Game game;
+        Game1 game;
         Map map;
 
 
-        Vector2 position;
+        Rectangle position;
 
-        Vector2 Position
+        Rectangle Position
         {
             get { return Position; }
             set { position = value; }
@@ -33,11 +35,13 @@ namespace KuriosityXLib.TileMap
 
         #endregion
 
-        public Camera(Game game, Map map)
+        public Camera(Game1 game, Map map)
             : base(game)
         {
             this.game = game;
             this.map = map;
+
+            position = new Rectangle(0, 0, (game.GraphicsDevice.DisplayMode.Width / 32) + 1, (game.GraphicsDevice.DisplayMode.Height / 32) + 1);
         }
 
         /// <summary>
@@ -60,6 +64,18 @@ namespace KuriosityXLib.TileMap
             // TODO: Add your update code here
 
             base.Update(gameTime);
+        }
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+            game.SpriteBatch.Begin();
+            for (int x = 0; 0 < position.Width; x++) {
+                for (int y = 0; 0 < position.Height; y++)
+                {
+                    map.getTile(x, y).Draw(game.SpriteBatch, 1);
+                }
+            }
+            
         }
     }
 }

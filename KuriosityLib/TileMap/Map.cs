@@ -15,34 +15,27 @@ namespace KuriosityXLib.TileMap
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public class Map : Microsoft.Xna.Framework.DrawableGameComponent
+    public class Map : Microsoft.Xna.Framework.GameComponent
     {
-        public Map(Game game)
+        Tile[,] tiles;
+
+        public Map(Game game, Vector2 scale, int x, int y, Texture2D spriteMap)
             : base(game)
         {
+            tiles = new Tile[x, y];
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    tiles[i, j] = new Tile(x,y,new Rectangle(0,0,32,32),spriteMap);
+                }
+            }
             // TODO: Construct any child components here
         }
 
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
-        public override void Initialize()
+        public Tile getTile(int x, int y)
         {
-            // TODO: Add your initialization code here
-
-            base.Initialize();
-        }
-
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        public override void Update(GameTime gameTime)
-        {
-            // TODO: Add your update code here
-
-            base.Update(gameTime);
+            return tiles[x, y];
         }
     }
 }
