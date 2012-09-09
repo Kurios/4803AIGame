@@ -28,7 +28,7 @@ namespace KuriosityXLib.TileMap
             get { return position; }
         }
 
-        Texture2D spriteResource;
+        public Texture2D spriteResource {get; set;}
 
         Rectangle source;
 
@@ -44,10 +44,12 @@ namespace KuriosityXLib.TileMap
         }
         #endregion
 
-        public void Draw(SpriteBatch spriteBatch, float scale)
+        public void Draw(SpriteBatch spriteBatch, int x, int y, float scale)
         {
-            spriteBatch.Begin();
-            spriteBatch.Draw(spriteResource, source, new Rectangle((int)position.X, (int)position.Y, (int)(source.Width * scale), (int)(source.Height * scale)), Color.White);
+            //spriteBatch.Begin();
+            Console.WriteLine(source);
+            spriteBatch.Draw(spriteResource, new Rectangle(x * (int)(source.Width * scale), y * (int)(source.Height * scale), (int)(source.Width * scale), (int)(source.Height * scale)), source, Color.White);
+            //spriteBatch.End();
         }
     }
 }

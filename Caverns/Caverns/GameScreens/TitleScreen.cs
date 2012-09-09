@@ -55,7 +55,7 @@ namespace Caverns.GameScreens
             newLabel.SelectedColor = Color.Chocolate;
             newLabel.TabStop = true;
             newLabel.HasFocus = true;
-            //newLabel.Selected += new EventHandler(newLabel_Selected);
+            newLabel.Selected += new EventHandler(newLabel_Selected);
          
             ControlManager.Add(newLabel);
 
@@ -72,6 +72,14 @@ namespace Caverns.GameScreens
 
             
 
+        }
+
+        private void newLabel_Selected(Object sender, EventArgs e)
+        {
+            if (sender == newLabel)
+            {
+                GameStateManager.PushState(gameref.MapScreen);
+            }
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)

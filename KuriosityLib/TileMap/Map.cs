@@ -18,7 +18,7 @@ namespace KuriosityXLib.TileMap
     public class Map : Microsoft.Xna.Framework.GameComponent
     {
         Tile[,] tiles;
-
+        Random r = new Random();
         public Map(Game game, Vector2 scale, int x, int y, Texture2D spriteMap)
             : base(game)
         {
@@ -27,7 +27,30 @@ namespace KuriosityXLib.TileMap
             {
                 for (int j = 0; j < y; j++)
                 {
-                    tiles[i, j] = new Tile(x,y,new Rectangle(0,0,32,32),spriteMap);
+                    switch (r.Next(0,6))
+                    {
+                        case 0:
+                            tiles[i, j] = new Tile(x, y, new Rectangle(10 * 32, 6 * 32, 32, 32), spriteMap);
+                            break;
+                        case 1:
+                            tiles[i, j] = new Tile(x, y, new Rectangle(9 * 32, 6 * 32, 32, 32), spriteMap);
+                            break;
+                        case 2:
+                            tiles[i, j] = new Tile(x, y, new Rectangle(10 * 32, 7 * 32, 32, 32), spriteMap);
+                            break;
+                        case 3:
+                            tiles[i, j] = new Tile(x, y, new Rectangle(8 * 32, 7 * 32, 32, 32), spriteMap);
+                            break;
+                        case 4:
+                            tiles[i, j] = new Tile(x, y, new Rectangle(9 * 32, 7 * 32, 32, 32), spriteMap);
+                            break;
+                        case 5:
+                            tiles[i, j] = new Tile(x, y, new Rectangle(10 * 32, 8 * 32, 32, 32), spriteMap);
+                            break;
+                        case 6:
+                            tiles[i, j] = new Tile(x, y, new Rectangle(10 * 32, 9 * 32, 32, 32), spriteMap);
+                            break;
+                    }
                 }
             }
             // TODO: Construct any child components here
@@ -35,7 +58,19 @@ namespace KuriosityXLib.TileMap
 
         public Tile getTile(int x, int y)
         {
-            return tiles[x, y];
+            if (tiles.GetLength(0) > x && tiles.GetLength(1) > y)
+            {
+                return tiles[x, y];
+            }
+            return null;
+        }
+
+        public void setSpriteMap(Texture2D spriteMap)
+        {
+            foreach (Tile tile in tiles)
+            {
+                tile.spriteResource = spriteMap;
+            }
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Caverns
         SpriteBatch spriteBatch;
         GameStateManager gameStateManager;
 
+
         public SpriteBatch SpriteBatch
         {
             get { return spriteBatch; }
@@ -40,6 +41,12 @@ namespace Caverns
         #region GameStates
         
         private TitleScreen titleScreen;
+        MapScreen mapScreen;
+
+        public MapScreen MapScreen
+        {
+            get{return mapScreen;}
+        }
 
         #endregion
 
@@ -60,6 +67,7 @@ namespace Caverns
             gameStateManager = new GameStateManager(this);
             Components.Add(gameStateManager);
 
+            mapScreen = new MapScreen(this, gameStateManager);
             titleScreen = new TitleScreen(this, gameStateManager);
             gameStateManager.ChangeState(titleScreen);
         }

@@ -41,7 +41,7 @@ namespace KuriosityXLib.TileMap
             this.game = game;
             this.map = map;
 
-            position = new Rectangle(0, 0, (game.GraphicsDevice.DisplayMode.Width / 32) + 1, (game.GraphicsDevice.DisplayMode.Height / 32) + 1);
+            position = new Rectangle(0, 0, (game.ScreenRect.Width/32) + 1, (game.ScreenRect.Height / 32) + 1);
         }
 
         /// <summary>
@@ -68,11 +68,11 @@ namespace KuriosityXLib.TileMap
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            game.SpriteBatch.Begin();
-            for (int x = 0; 0 < position.Width; x++) {
-                for (int y = 0; 0 < position.Height; y++)
+            for (int x = 0; x < position.Width; x++) {
+                for (int y = 0; y < position.Height; y++)
                 {
-                    map.getTile(x, y).Draw(game.SpriteBatch, 1);
+                    if(map.getTile(x,y) != null)
+                        map.getTile(x, y).Draw(game.SpriteBatch,x,y, 1);
                 }
             }
             
