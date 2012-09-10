@@ -20,6 +20,9 @@ namespace Caverns.Char
         //3 UP
         int facing = 0;
 
+        int lastTime = 0;
+        Random r = new Random();
+
 
         public Woman(Texture2D sprite, Map map)
             : base(sprite, map)
@@ -32,11 +35,34 @@ namespace Caverns.Char
             timeItt++;
             if (timeItt > 3) timeItt = 0;
 
+           if( lastTime !=  time.TotalGameTime.Seconds){
+               switch (r.Next(0, 3))
+               {
+
+                   case 0:
+                       if (Map.inBounds((int)Position.X, (int)Position.Y + 1))
+                           Position = Position + new Vector2(0, 1);
+                       break;
+                   case 1:
+                       if (Map.inBounds((int)Position.X, (int)Position.Y - 1))
+                           Position = Position + new Vector2(0, -1);
+                       break;
+                   case 2:
+                       if (Map.inBounds((int)Position.X - 1, (int)Position.Y))
+                           Position = Position + new Vector2(-1, 0);
+                       break;
+                   case 3:
+                       if (Map.inBounds((int)Position.X + 1, (int)Position.Y))
+                           Position = Position + new Vector2(1, 0);
+                       break;
+               }
+            }
+           lastTime = time.TotalGameTime.Seconds;
         }
 
         public override void draw(SpriteBatch spriteBatch, Point offset)
         {
-            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y- offset.Y) * 32 - 32 , 64, 90), new Rectangle(64 * timeItt, 90 * facing, 64, 90), Color.Black);
+            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y- offset.Y) * 32 - 32 , 64, 90), new Rectangle(64 * timeItt, 90 * facing, 64, 90), Color.White);
         }
     }
 }
