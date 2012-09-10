@@ -23,13 +23,14 @@ namespace KuriosityXLib.TileMap
 
         Game1 game;
         Map map;
-
+        Character focus;
 
         Rectangle position;
+        public Rectangle ScreenDef { get; set; }
 
         Rectangle Position
         {
-            get { return Position; }
+            get { return position; }
             set { position = value; }
         }
 
@@ -42,6 +43,8 @@ namespace KuriosityXLib.TileMap
             this.map = map;
 
             position = new Rectangle(0, 0, (game.ScreenRect.Width/32) + 1, (game.ScreenRect.Height / 32) + 1);
+            ScreenDef = new Rectangle(0, 0, (game.ScreenRect.Width / 32) + 1, (game.ScreenRect.Height / 32) + 1);
+            
         }
 
         /// <summary>
@@ -65,14 +68,28 @@ namespace KuriosityXLib.TileMap
 
             base.Update(gameTime);
         }
+
+        public void SetFocus(Character pc)
+        {
+            focus = pc;
+        }
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            for (int x = 0; x < position.Width; x++) {
-                for (int y = 0; y < position.Height; y++)
+            if(focus != null)
+                Position = new Rectangle((int)focus.Position.X-ScreenDef.Width/2, (int)focus.Position.Y-ScreenDef.Height/2, Position.Width, Position.Height);
+            for (int x = Position.X; x < position.Width+Position.X; x++) {
+                for (int y = Position.Y; y < position.Height+Position.Y; y++)
                 {
                     if(map.getTile(x,y) != null)
-                        map.getTile(x, y).Draw(game.SpriteBatch,x,y, 1);
+                        map.getTile(x, y).Draw(game.SpriteBatch,new Point(x,y), position.Location, 1);
+                }
+            }
+            foreach (Character character in map.characterList)
+            {
+                if (position.Contains((int)character.Position.X, (int)character.Position.Y))
+                {
+                    character.draw(game.SpriteBatch,position.Location);
                 }
             }
             

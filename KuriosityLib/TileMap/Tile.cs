@@ -31,6 +31,7 @@ namespace KuriosityXLib.TileMap
         public Texture2D spriteResource {get; set;}
 
         Rectangle source;
+        public Rectangle accentText {get;set;}
 
         #endregion
 
@@ -44,11 +45,12 @@ namespace KuriosityXLib.TileMap
         }
         #endregion
 
-        public void Draw(SpriteBatch spriteBatch, int x, int y, float scale)
+        public void Draw(SpriteBatch spriteBatch, Point pos, Point offset, float scale)
         {
             //spriteBatch.Begin();
-            Console.WriteLine(source);
-            spriteBatch.Draw(spriteResource, new Rectangle(x * (int)(source.Width * scale), y * (int)(source.Height * scale), (int)(source.Width * scale), (int)(source.Height * scale)), source, Color.White);
+            //Console.WriteLine(source);
+            spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(source.Width * scale), (pos.Y-offset.Y) * (int)(source.Height * scale), (int)(source.Width * scale), (int)(source.Height * scale)), source, Color.White);
+            if (!accentText.IsEmpty) spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(source.Width * scale), (pos.Y-offset.Y) * (int)(source.Height * scale), (int)(source.Width * scale), (int)(source.Height * scale)), accentText, Color.White);
             //spriteBatch.End();
         }
     }

@@ -17,11 +17,16 @@ namespace KuriosityXLib.TileMap
     /// </summary>
     public class Map : Microsoft.Xna.Framework.GameComponent
     {
+
+        public List<Character> characterList { get; set; }
+       
+
         Tile[,] tiles;
         Random r = new Random();
         public Map(Game game, Vector2 scale, int x, int y, Texture2D spriteMap)
             : base(game)
         {
+            characterList = new List<Character>();
             tiles = new Tile[x, y];
             for (int i = 0; i < x; i++)
             {
@@ -58,11 +63,24 @@ namespace KuriosityXLib.TileMap
 
         public Tile getTile(int x, int y)
         {
-            if (tiles.GetLength(0) > x && tiles.GetLength(1) > y)
+            if (tiles.GetLength(0) > x && tiles.GetLength(1) > y && x > 0 && y > 0)
             {
                 return tiles[x, y];
             }
             return null;
+        }
+
+        public bool inBounds(int x, int y)
+        {
+            return tiles.GetLength(0) > x && tiles.GetLength(1) > y && x > 0 && y > 0;
+        }
+
+        public void update(GameTime time)
+        {
+            foreach (Character entity in characterList)
+            {
+                entity.update(time);
+            }
         }
 
         public void setSpriteMap(Texture2D spriteMap)

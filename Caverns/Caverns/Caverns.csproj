@@ -107,6 +107,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Char\PlayerChar.cs" />
+    <Compile Include="Char\Woman.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
     <Compile Include="GameScreens\MapScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
