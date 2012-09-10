@@ -36,32 +36,54 @@ namespace Caverns.Char
 
             if (timeItt > 3) timeItt = 0;
 
+            
+
             if (InputHandler.KeyPressed(Keys.Down))
             {
-                if(Map.inBounds((int)Position.X,(int)Position.Y+1))
+                facing = 0;
+                if (Map.canMove((int)Position.X, (int)Position.Y + 1, this ))
+                {
                     Position = Position + new Vector2(0, 1);
+                }
             }
             else if (InputHandler.KeyPressed(Keys.Up))
             {
-                if (Map.inBounds((int)Position.X, (int)Position.Y - 1)) 
+                facing = 3;
+                if (Map.canMove((int)Position.X, (int)Position.Y - 1, this ))
+                {
                     Position = Position + new Vector2(0, -1);
+                }
             }
             else if (InputHandler.KeyPressed(Keys.Left))
             {
-                if (Map.inBounds((int)Position.X - 1, (int)Position.Y)) 
+                facing = 1;
+                if (Map.canMove((int)Position.X - 1, (int)Position.Y, this ))
+                {
                     Position = Position + new Vector2(-1, 0);
+                }
             }
             else if (InputHandler.KeyPressed(Keys.Right))
             {
-                if (Map.inBounds((int)Position.X + 1, (int)Position.Y)) 
+                facing = 2;
+                if (Map.canMove((int)Position.X + 1, (int)Position.Y, this ))
+                {
                     Position = Position + new Vector2(1, 0);
+                }
             }
 
         }
 
+        public override Rectangle getBoundingRect()
+        {
+            return new Rectangle((int)Position.X - 1, (int)Position.Y - 1, 1, 2);
+        }
+
+
         public override void draw(SpriteBatch spriteBatch,Point offset)
         {
-            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32-32, (int)(Position.Y - offset.Y) * 32 - 32, 64, 90), new Rectangle(64 * timeItt, 90 * facing, 64, 90), Color.BlueViolet);
+            spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 32, 32), Color.White);
+
+            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (32+16), (int)(Position.Y - offset.Y) * 32 - 32, 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.BlueViolet);
         }
     }
 }

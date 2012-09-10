@@ -75,6 +75,24 @@ namespace KuriosityXLib.TileMap
             return tiles.GetLength(0) > x && tiles.GetLength(1) > y && x > 0 && y > 0;
         }
 
+        public bool canMove(int x, int y, Character character)
+        {
+            Rectangle bounds = character.getBoundingRect();
+            bool ret = true;
+            if (inBounds(x, y))
+            {
+                foreach (Character entity in characterList)
+                {
+                    if(character != entity)
+                        ret = ret && !entity.getBoundingRect().Intersects(new Rectangle(x, y, bounds.Width/32, bounds.Height/32)) && !entity.getBoundingRect().Contains(new Rectangle(x, y, bounds.Width/32, bounds.Height/32));
+                }
+            }
+            else
+            {
+                ret = false;
+            }
+            return ret;
+        }
         public void update(GameTime time)
         {
             foreach (Character entity in characterList)
