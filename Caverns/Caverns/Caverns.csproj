@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Char\NonPlayableChar.cs" />
     <Compile Include="Char\PlayerChar.cs" />
     <Compile Include="Char\Woman.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />

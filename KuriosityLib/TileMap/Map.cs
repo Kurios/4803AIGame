@@ -15,19 +15,38 @@ namespace KuriosityXLib.TileMap
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public class Map : Microsoft.Xna.Framework.GameComponent
+    public class Map
     {
 
         public List<Character> characterList { get; set; }
-       
 
-        Tile[,] tiles;
+
+        SubMap[,] subMaps;
+        Point worldSize;
+   
+
         Random r = new Random();
+        //public Map(Game game, int x, int y Texture2D spriteMap)
+
         public Map(Game game, Vector2 scale, int x, int y, Texture2D spriteMap)
-            : base(game)
         {
             characterList = new List<Character>();
-            tiles = new Tile[x, y];
+            subMaps = new SubMap[x/64+1, y/64+1];
+            for (int i = 0; i < x/64+1; i++)
+            {
+                for (int j = 0; j < y/64+1; j++)
+                {
+                    subMaps[i,j] = new SubMap();
+                        for( int u = 0; u < 64; u++)
+                        {
+                            for (int v = 0; v < 64; v++)
+                            {
+                                subMaps[i,j].tiles[u,v] = new Tile(x, y, new Rectangle(10 * 32, 6 * 32, 32, 32), spriteMap);
+                            }
+                        }
+                }
+            }
+
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
@@ -35,44 +54,45 @@ namespace KuriosityXLib.TileMap
                     switch (r.Next(0,6))
                     {
                         case 0:
-                            tiles[i, j] = new Tile(x, y, new Rectangle(10 * 32, 6 * 32, 32, 32), spriteMap);
+                            subMaps[i/64, j/64].tiles[i%64,j%64] = new Tile(x, y, new Rectangle(10 * 32, 6 * 32, 32, 32), spriteMap);
                             break;
                         case 1:
-                            tiles[i, j] = new Tile(x, y, new Rectangle(9 * 32, 6 * 32, 32, 32), spriteMap);
+                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(9 * 32, 6 * 32, 32, 32), spriteMap);
                             break;
                         case 2:
-                            tiles[i, j] = new Tile(x, y, new Rectangle(10 * 32, 7 * 32, 32, 32), spriteMap);
+                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(10 * 32, 7 * 32, 32, 32), spriteMap);
                             break;
                         case 3:
-                            tiles[i, j] = new Tile(x, y, new Rectangle(8 * 32, 7 * 32, 32, 32), spriteMap);
+                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(8 * 32, 7 * 32, 32, 32), spriteMap);
                             break;
                         case 4:
-                            tiles[i, j] = new Tile(x, y, new Rectangle(9 * 32, 7 * 32, 32, 32), spriteMap);
+                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(9 * 32, 7 * 32, 32, 32), spriteMap);
                             break;
                         case 5:
-                            tiles[i, j] = new Tile(x, y, new Rectangle(10 * 32, 8 * 32, 32, 32), spriteMap);
+                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(10 * 32, 8 * 32, 32, 32), spriteMap);
                             break;
                         case 6:
-                            tiles[i, j] = new Tile(x, y, new Rectangle(10 * 32, 9 * 32, 32, 32), spriteMap);
+                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(10 * 32, 9 * 32, 32, 32), spriteMap);
                             break;
                     }
                 }
             }
+            worldSize = new Point(100, 100);
             // TODO: Construct any child components here
         }
 
         public Tile getTile(int x, int y)
         {
-            if (tiles.GetLength(0) > x && tiles.GetLength(1) > y && x > 0 && y > 0)
+            if (worldSize.X > x && worldSize.Y > y && x > 0 && y > 0)
             {
-                return tiles[x, y];
+                return subMaps[x / 64, y / 64].tiles[x % 64, y % 64];
             }
             return null;
         }
 
         public bool inBounds(int x, int y)
         {
-            return tiles.GetLength(0) > x && tiles.GetLength(1) > y && x > 0 && y > 0;
+            return worldSize.X > x && worldSize.Y > y && x > 0 && y > 0;
         }
 
         public bool canMove(int x, int y, Character character)
@@ -103,9 +123,12 @@ namespace KuriosityXLib.TileMap
 
         public void setSpriteMap(Texture2D spriteMap)
         {
-            foreach (Tile tile in tiles)
+            foreach (SubMap subMap in subMaps)
             {
-                tile.spriteResource = spriteMap;
+                foreach (Tile tile in subMap.tiles)
+                {
+                    tile.spriteResource = spriteMap;
+                }
             }
         }
     }
