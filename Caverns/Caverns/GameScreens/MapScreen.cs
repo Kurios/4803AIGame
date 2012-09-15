@@ -40,7 +40,7 @@ namespace Caverns.GameScreens
             Woman woman = new Woman(charTex, map);
             woman.Position = new Vector2(10, 10);
             map.characterList.Add(woman);
-            pc = new PlayerChar(charTex, map);
+            pc = new PlayerChar(charTex, map, Game);
             pc.Position = new Vector2(20, 20);
             map.characterList.Add(pc);
             camera.SetFocus(pc);
