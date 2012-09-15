@@ -21,6 +21,11 @@ namespace Caverns.Char
     /// </summary>
     class PlayerChar : Character
     {
+
+        public enum PlayerState
+        {
+
+        }
         //A Player Character has a timer and able to tell which direction they're facing.
         int timeItt = 0;
 
@@ -35,7 +40,9 @@ namespace Caverns.Char
         /// </summary>
         /// <param name="sprite">The sprite to be used to move the Player Character.</param>
         /// <param name="map">The map associated with the Player Character.</param>
-        public PlayerChar(Texture2D sprite, Map map)
+        public PlayerChar(Texture2D sprite, Map map);
+
+        public PlayerChar(Texture2D sprite, Map map, Game game)
             : base(sprite, map)
         {
         }
@@ -108,7 +115,7 @@ namespace Caverns.Char
         /// <param name="offset"></param>
         public override void draw(SpriteBatch spriteBatch,Point offset)
         {
-            spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 32, 32), Color.White);
+            //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 32, 32), Color.White);
 
             spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (32+16), (int)(Position.Y - offset.Y) * 32 - 32, 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.BlueViolet);
         }

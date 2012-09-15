@@ -113,6 +113,25 @@ namespace KuriosityXLib.TileMap
             }
             return ret;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns>Null if none, the char in the square if one</returns>
+        public Character[] checkForCharacter(int x, int y)
+        {
+            List<Character> ret = new List<Character>();
+            foreach (Character c in characterList)
+            {
+                if (c.Position.Equals(new Vector2(x, y)))
+                    ret.Add(c);
+            }
+            return ret.ToArray();
+        }
+
+
         public void update(GameTime time)
         {
             foreach (Character entity in characterList)

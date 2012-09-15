@@ -10,11 +10,18 @@ using Microsoft.Xna.Framework.Graphics;
 using KuriosityXLib;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace Caverns.Char
 {
+
     //She is 64x90. 4 frames, 4 directions.
+    
+    /// <summary>
+    /// This is the player character, a child of the Character class.
+    /// </summary>
     class PlayerChar : Character
     {
+        //A Player Character has a timer and able to tell which direction they're facing.
         int timeItt = 0;
 
         //0 DOWN
@@ -23,12 +30,29 @@ namespace Caverns.Char
         //3 UP
         int facing = 0;
 
-
+<<<<<<< HEAD
+        /// <summary>
+        /// Player Character constructor.  It calls the base class' constructor.
+        /// </summary>
+        /// <param name="sprite">The sprite to be used to move the Player Character.</param>
+        /// <param name="map">The map associated with the Player Character.</param>
         public PlayerChar(Texture2D sprite, Map map)
+=======
+
+        public PlayerChar(Texture2D sprite, Map map, Game game)
+>>>>>>> a7909312512b41f1626c2b8f17d6c0015bc3486e
             : base(sprite, map)
         {
         }
 
+        /// <summary>
+        /// Updates the Player Character based on gametime.
+        /// The character timer is utilized in this method, and for the time being, it is here that the
+        /// character changes his or her direction based on what is pressed.
+        /// </summary>
+        /// <param name="time">Time related to the gameTime</param>
+        /// 
+        //update() will be updated with helper methods and to use the enumeration to determine direction facing.
         public override void update(GameTime time)
         {
             timeItt = (int)Math.Floor(1 / (float)(time.ElapsedGameTime.Milliseconds * 4));
@@ -73,15 +97,23 @@ namespace Caverns.Char
 
         }
 
+        /// <summary>
+        /// Retrieves the Player Character's bounding box.
+        /// </summary>
+        /// <returns></returns>
         public override Rectangle getBoundingRect()
         {
             return new Rectangle((int)Position.X - 1, (int)Position.Y - 1, 1, 2);
         }
 
-
+        /// <summary>
+        /// Draws the Player Character
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="offset"></param>
         public override void draw(SpriteBatch spriteBatch,Point offset)
         {
-            spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 32, 32), Color.White);
+            //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 32, 32), Color.White);
 
             spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (32+16), (int)(Position.Y - offset.Y) * 32 - 32, 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.BlueViolet);
         }
