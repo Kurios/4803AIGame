@@ -25,5 +25,12 @@ namespace Caverns.Char
         {
 
         }
+
+        public override Rectangle getBoundingRect()
+        {
+            return new Rectangle((int)Position.X - 1, (int)Position.Y - 1, 1, 2);
+        }
+
+
     }
 }

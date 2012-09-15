@@ -21,6 +21,11 @@ namespace Caverns.Char
     /// </summary>
     class PlayerChar : Character
     {
+
+        public enum PlayerState
+        {
+
+        }
         //A Player Character has a timer and able to tell which direction they're facing.
         int timeItt = 0;
 
@@ -30,17 +35,14 @@ namespace Caverns.Char
         //3 UP
         int facing = 0;
 
-<<<<<<< HEAD
         /// <summary>
         /// Player Character constructor.  It calls the base class' constructor.
         /// </summary>
         /// <param name="sprite">The sprite to be used to move the Player Character.</param>
         /// <param name="map">The map associated with the Player Character.</param>
-        public PlayerChar(Texture2D sprite, Map map)
-=======
+        public PlayerChar(Texture2D sprite, Map map);
 
         public PlayerChar(Texture2D sprite, Map map, Game game)
->>>>>>> a7909312512b41f1626c2b8f17d6c0015bc3486e
             : base(sprite, map)
         {
         }
