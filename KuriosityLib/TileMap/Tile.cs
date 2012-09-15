@@ -30,27 +30,33 @@ namespace KuriosityXLib.TileMap
 
         public Texture2D spriteResource {get; set;}
 
-        Rectangle source;
+        public Rectangle baseText {get;set;}
         public Rectangle accentText {get;set;}
+        public Rectangle topText { get; set; }
+        public bool Passible { get; set; }
+
 
         #endregion
 
         #region constructor
 
-        public Tile(int x, int y, Rectangle source, Texture2D spriteResource)
+        public Tile(int x, int y, Rectangle baseText, Texture2D spriteRebaseText)
         {
             position = new Vector2(x,y);
-            this.source = source;
-            this.spriteResource = spriteResource;
+            this.baseText = baseText;
+            this.spriteResource = spriteRebaseText;
         }
         #endregion
 
         public void Draw(SpriteBatch spriteBatch, Point pos, Point offset, float scale)
         {
             //spriteBatch.Begin();
-            //Console.WriteLine(source);
-            spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(source.Width * scale), (pos.Y-offset.Y) * (int)(source.Height * scale), (int)(source.Width * scale), (int)(source.Height * scale)), source, Color.White);
-            if (!accentText.IsEmpty) spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(source.Width * scale), (pos.Y-offset.Y) * (int)(source.Height * scale), (int)(source.Width * scale), (int)(source.Height * scale)), accentText, Color.White);
+            //Console.WriteLine(baseText);
+            spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(baseText.Width * scale), (pos.Y-offset.Y) * (int)(baseText.Height * scale), (int)(baseText.Width * scale), (int)(baseText.Height * scale)), baseText, Color.White);
+            
+            if (!accentText.IsEmpty) spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(accentText.Width * scale), (pos.Y-offset.Y) * (int)(accentText.Height * scale), (int)(accentText.Width * scale), (int)(accentText.Height * scale)), accentText, Color.White);
+            
+            if (!topText.IsEmpty) spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(topText.Width * scale), (pos.Y-offset.Y) * (int)(topText.Height * scale), (int)(topText.Width * scale), (int)(topText.Height * scale)), topText, Color.White);
             //spriteBatch.End();
         }
     }
