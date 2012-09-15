@@ -22,6 +22,8 @@ namespace KuriosityXLib.TileMap
             Map = map;
         }
 
+        public abstract Rectangle getBoundingRect();
+
         public abstract void update(GameTime time);
 
         public abstract void draw(SpriteBatch spriteBatch, Point offset);
