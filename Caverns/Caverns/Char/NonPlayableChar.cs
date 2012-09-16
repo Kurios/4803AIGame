@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Graphics;
 using KuriosityXLib;
 using Microsoft.Xna.Framework.Input;
 
+using Caverns.Dialogs;
+
 
 namespace Caverns.Char
 {
@@ -17,10 +19,13 @@ namespace Caverns.Char
     /// A Nonplayable character.  In contrast to a PlayableCharacter, a Nonplayable character may not
     /// have movement options, but has dialog options.
     /// </summary>
+    /// 
+
+
     abstract class NonPlayableChar: Character
     {
         int timeItt = 0;
-
+        Dialog npcDialog;
         /// <summary>
         /// NonPlayableChar constructor.
         /// </summary>
@@ -30,21 +35,28 @@ namespace Caverns.Char
             : base(sprite, map)
         {
 
+            Dialog npcDialog = new Dialog();
         }
 
+        //public abstract void update(GameTime time);
         public override void update(GameTime time)
         {
 
         }
+        
+
 
         public override Rectangle getBoundingRect()
         {
             return new Rectangle((int)Position.X - 1, (int)Position.Y - 1, 1, 2);
         }
 
+        //public abstract void draw(SpriteBatch spriteBatch, Point offset);
+
         public override void draw(SpriteBatch spriteBatch, Point offset)
         {
 
         }
+         
     }
 }
