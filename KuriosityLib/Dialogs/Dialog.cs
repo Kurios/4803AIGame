@@ -9,12 +9,12 @@ using Microsoft.Xna.Framework.Input;
 
 using System.Diagnostics;
 
-namespace Caverns.Dialogs
+namespace KuriosityXLib.Dialogs
 {
     /// <summary>
     /// Our Dialog class is what will be handling the entire 'Dialog Map'.  
     /// </summary>
-    class Dialog
+    public class Dialog
     {
         #region Constructors
         /// <summary>

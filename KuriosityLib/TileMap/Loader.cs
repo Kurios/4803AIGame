@@ -15,7 +15,7 @@ namespace KuriosityXLib.TileMap
             Map ret = null;
             //int subMapCounter = 0;
             Regex tileRegex = new Regex(@"t (?:(\d+),(\d+)) (?:(\d+),(\d+)|null) (?:(\d+),(\d+)|null) (true)?");
-            Regex subMapRegex = new Regex(@"(\d+)\-(\d+)  ?(\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+)");
+            Regex subMapRegex = new Regex(@"(\d+)\-(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)  ?(\d+)");
             Regex mapDefine = new Regex(@"md (\d+) (\d+)");
             //Regex subMapModeRegex = new Regex(@"(?:(\d),(\d)|null) (?:(\d),(\d)|null) (?:(\d),(\d)|null) (true|false)");
             Regex mapSet = new Regex(@"ms (\d+) (\d+) (\d+)");
@@ -50,11 +50,11 @@ namespace KuriosityXLib.TileMap
                 else if (subMapRegex.IsMatch(line))
                 {
                     matches = subMapRegex.Matches(line);
-                    for (int x = 0; x < 64; x++)
+                    for (int x = 0; x < 32; x++)
                     {
                         subMaps.setTile(x, int.Parse(matches[0].Groups[2].Value), int.Parse(matches[0].Groups[x + 3].Value), int.Parse(matches[0].Groups[1].Value));
                     }
-                    if (int.Parse(matches[0].Groups[1].Value) == 63) subMaps.AddSubMap();
+                    if (int.Parse(matches[0].Groups[1].Value) == 31) subMaps.AddSubMap();
                 }
                 else if (mapSet.IsMatch(line))
                 {

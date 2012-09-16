@@ -39,15 +39,15 @@ namespace KuriosityXLib.TileMap
         public Map(Game game, Vector2 scale, int x, int y, Texture2D spriteMap)
         {
             characterList = new List<Character>();
-            subMaps = new SubMap[x/64+1, y/64+1];
-            for (int i = 0; i < x/64+1; i++)
+            subMaps = new SubMap[x/32+1, y/32+1];
+            for (int i = 0; i < x/32+1; i++)
             {
-                for (int j = 0; j < y/64+1; j++)
+                for (int j = 0; j < y/32+1; j++)
                 {
                     subMaps[i,j] = new SubMap();
-                        for( int u = 0; u < 64; u++)
+                        for( int u = 0; u < 32; u++)
                         {
-                            for (int v = 0; v < 64; v++)
+                            for (int v = 0; v < 32; v++)
                             {
                                 subMaps[i,j].tiles[u,v] = new Tile(x, y, new Rectangle(10 * 32, 6 * 32, 32, 32), spriteMap);
                             }
@@ -62,25 +62,25 @@ namespace KuriosityXLib.TileMap
                     switch (r.Next(0,6))
                     {
                         case 0:
-                            subMaps[i/64, j/64].tiles[i%64,j%64] = new Tile(x, y, new Rectangle(10 * 32, 6 * 32, 32, 32), spriteMap);
+                            subMaps[i/32, j/32].tiles[i%32,j%32] = new Tile(x, y, new Rectangle(10 * 32, 6 * 32, 32, 32), spriteMap);
                             break;
                         case 1:
-                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(9 * 32, 6 * 32, 32, 32), spriteMap);
+                            subMaps[i / 32, j / 32].tiles[i % 32, j % 32] = new Tile(x, y, new Rectangle(9 * 32, 6 * 32, 32, 32), spriteMap);
                             break;
                         case 2:
-                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(10 * 32, 7 * 32, 32, 32), spriteMap);
+                            subMaps[i / 32, j / 32].tiles[i % 32, j % 32] = new Tile(x, y, new Rectangle(10 * 32, 7 * 32, 32, 32), spriteMap);
                             break;
                         case 3:
-                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(8 * 32, 7 * 32, 32, 32), spriteMap);
+                            subMaps[i / 32, j / 32].tiles[i % 32, j % 32] = new Tile(x, y, new Rectangle(8 * 32, 7 * 32, 32, 32), spriteMap);
                             break;
                         case 4:
-                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(9 * 32, 7 * 32, 32, 32), spriteMap);
+                            subMaps[i / 32, j / 32].tiles[i % 32, j % 32] = new Tile(x, y, new Rectangle(9 * 32, 7 * 32, 32, 32), spriteMap);
                             break;
                         case 5:
-                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(10 * 32, 8 * 32, 32, 32), spriteMap);
+                            subMaps[i / 32, j / 32].tiles[i % 32, j % 32] = new Tile(x, y, new Rectangle(10 * 32, 8 * 32, 32, 32), spriteMap);
                             break;
                         case 6:
-                            subMaps[i / 64, j / 64].tiles[i % 64, j % 64] = new Tile(x, y, new Rectangle(10 * 32, 9 * 32, 32, 32), spriteMap);
+                            subMaps[i / 32, j / 32].tiles[i % 32, j % 32] = new Tile(x, y, new Rectangle(10 * 32, 9 * 32, 32, 32), spriteMap);
                             break;
                     }
                 }
@@ -98,15 +98,15 @@ namespace KuriosityXLib.TileMap
         public Map(int x, int y,Texture2D spriteMap)
         {
             characterList = new List<Character>();
-            subMaps = new SubMap[x / 64 + 1, y / 64 + 1];
-            for (int i = 0; i < x / 64 + 1; i++)
+            subMaps = new SubMap[x / 32 + 1, y / 32 + 1];
+            for (int i = 0; i < x / 32 + 1; i++)
             {
-                for (int j = 0; j < y / 64 + 1; j++)
+                for (int j = 0; j < y / 32 + 1; j++)
                 {
                     subMaps[i, j] = new SubMap();
-                    for (int u = 0; u < 64; u++)
+                    for (int u = 0; u < 32; u++)
                     {
-                        for (int v = 0; v < 64; v++)
+                        for (int v = 0; v < 32; v++)
                         {
                             subMaps[i, j].tiles[u, v] = new Tile(x, y, new Rectangle(10 * 32, 6 * 32, 32, 32), spriteMap);
                         }
@@ -120,7 +120,7 @@ namespace KuriosityXLib.TileMap
         {
             if (worldSize.X > x && worldSize.Y > y && x > 0 && y > 0)
             {
-                return subMaps[x / 64, y / 64].tiles[x % 64, y % 64];
+                return subMaps[x / 32, y / 32].tiles[x % 32, y % 32];
             }
             return null;
         }
@@ -134,7 +134,7 @@ namespace KuriosityXLib.TileMap
         {
             Rectangle bounds = character.getBoundingRect();
             bool ret = true;
-            if (inBounds(x, y) && subMaps[x/64,y/64].tiles[x%64,y%64].Passible)
+            if (inBounds(x, y) && subMaps[x/32,y/32].tiles[x%32,y%32].Passible)
             {
                 foreach (Character entity in characterList)
                 {

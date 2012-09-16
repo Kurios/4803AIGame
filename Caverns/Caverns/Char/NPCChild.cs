@@ -10,7 +10,6 @@ using Microsoft.Xna.Framework.Graphics;
 using KuriosityXLib;
 using Microsoft.Xna.Framework.Input;
 
-using Caverns.Dialogs;
 
 namespace Caverns.Char
 {

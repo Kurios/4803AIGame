@@ -111,10 +111,8 @@
     <Compile Include="Char\NPCChild.cs" />
     <Compile Include="Char\PlayerChar.cs" />
     <Compile Include="Char\Woman.cs" />
-    <Compile Include="Dialogs\Dialog.cs" />
-    <Compile Include="Dialogs\DialogState.cs" />
-    <Compile Include="Dialogs\Response.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
+    <Compile Include="GameScreens\DialogScreen.cs" />
     <Compile Include="GameScreens\EtaProductionsScreen.cs" />
     <Compile Include="GameScreens\MapScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />

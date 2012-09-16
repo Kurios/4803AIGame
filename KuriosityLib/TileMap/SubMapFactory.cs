@@ -14,12 +14,12 @@ namespace KuriosityXLib.TileMap
         public SubMapFactory(TileFactory factory)
         {
             fact = factory;
-            def.Add(new int[64, 64]);
+            def.Add(new int[32, 32]);
         }
 
         public int AddSubMap()
         {
-            def.Add(new int[64, 64]);
+            def.Add(new int[32, 32]);
             head++;
             return head;
         }
@@ -37,9 +37,9 @@ namespace KuriosityXLib.TileMap
         public SubMap getMap()
         {
             SubMap ret = new SubMap();
-            for (int x = 0; x < 64; x++)
+            for (int x = 0; x < 32; x++)
             {
-                for (int y = 0; y < 64; y++)
+                for (int y = 0; y < 32; y++)
                 {
                     ret.tiles[x, y] = fact.getTile(x, y, def[head][x, y]);
                 }
@@ -50,9 +50,9 @@ namespace KuriosityXLib.TileMap
         public SubMap getMap(int map)
         {
             SubMap ret = new SubMap();
-            for (int x = 0; x < 64; x++)
+            for (int x = 0; x < 32; x++)
             {
-                for (int y = 0; y < 64; y++)
+                for (int y = 0; y < 32; y++)
                 {
                     ret.tiles[x, y] = fact.getTile(x, y, def[map][x, y]);
                 }

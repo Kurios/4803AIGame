@@ -28,7 +28,7 @@ namespace KuriosityXLib.TileMap
         public SubMap()
         {
             characterList = new List<Character>();
-            tiles = new Tile[64,64];
+            tiles = new Tile[32,32];
         }
 
         public Tile getTile(int x, int y)

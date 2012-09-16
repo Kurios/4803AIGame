@@ -6,9 +6,9 @@ using System.Text;
 
 using System.Diagnostics;
 
-namespace Caverns.Dialogs
+namespace KuriosityXLib.Dialogs
 {
-    class DialogState
+    public class DialogState
     {
         #region Constructors
         /// <summary>

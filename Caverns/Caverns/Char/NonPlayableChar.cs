@@ -10,7 +10,6 @@ using Microsoft.Xna.Framework.Graphics;
 using KuriosityXLib;
 using Microsoft.Xna.Framework.Input;
 
-using Caverns.Dialogs;
 
 
 namespace Caverns.Char
@@ -22,10 +21,9 @@ namespace Caverns.Char
     /// 
 
 
-    abstract class NonPlayableChar: Character
+    abstract class NonPlayableChar: DialogCharacter
     {
-        int timeItt = 0;
-        Dialog npcDialog;
+        //int timeItt = 0;
         /// <summary>
         /// NonPlayableChar constructor.
         /// </summary>
@@ -35,7 +33,6 @@ namespace Caverns.Char
             : base(sprite, map)
         {
 
-            Dialog npcDialog = new Dialog();
         }
 
         //public abstract void update(GameTime time);
