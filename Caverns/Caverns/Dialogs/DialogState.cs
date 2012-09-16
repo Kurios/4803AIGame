@@ -4,23 +4,20 @@ using System.Linq;
 using System.Text;
 
 
-//using System.Diagnostics;
+using System.Diagnostics;
 
 namespace Caverns.Dialogs
 {
     class DialogState
     {
-        int stateID;
-        String npcText;
-        List<Response> responses;
-
+        #region Constructors
         /// <summary>
         /// Basic constructor for DialogState.
         /// </summary>
         public DialogState(int theID)
         {
             stateID = theID;
-            npcText = "";
+            stateText = "";
             responses = new List<Response>();
         }
 
@@ -31,7 +28,7 @@ namespace Caverns.Dialogs
         public DialogState(int theID, String text)
         {
             stateID = theID;
-            npcText = text;
+            stateText = text;
             responses = new List<Response>();
         }
 
@@ -42,7 +39,7 @@ namespace Caverns.Dialogs
         public DialogState(int theID, List<Response> possibleResponses)
         {
             stateID = theID;
-            npcText = "";
+            stateText = "";
             responses = possibleResponses;
         }
 
@@ -55,38 +52,49 @@ namespace Caverns.Dialogs
         public DialogState(int theID, String text, List<Response> possibleResponses)
         {
             stateID = theID;
-            npcText = text;
+            stateText = text;
             responses = possibleResponses;
         }
 
-        /// <summary>
-        /// Returns the state ID.
-        /// </summary>
-        /// <returns>The State ID number</returns>
-        public int getID()
-        {
-            return stateID;
-        }
+        #endregion
 
+        #region Fields
+        /// <summary>
+        /// Getter and Setter for the stateID.  This ID is used to tell which state we are at.
+        /// </summary>
+        public int stateID { get; set; }
 
         /// <summary>
-        /// Returns the dialog text for the state.
+        /// Getter and Setter for 
         /// </summary>
-        /// <returns>The text for the NPC</returns>
-        public String getStateText()
-        {
-            return npcText;
-        }
+        public String stateText { get; set; }
+
+        public List<Response> responses { get; set; }
+
+        public Response currentResponse { get; set; }
+        #endregion
 
         /// <summary>
-        /// Sets the dialog text for the state.
+        /// Go to a specific response
         /// </summary>
-        /// <param name="text">The text for the NPC</param>
-        public void setStateText(String text)
+        public Response goToResponse(int respIndex)
         {
-            npcText = text;
+            if (respIndex > responses.Count)    //This will cycle from end to beginning of list
+            {
+                currentResponse = responses[0];
+            }
+            else if (respIndex < 0)    //This will cycle from beginning to end of list
+            {
+                currentResponse = responses[responses.Count - 1];
+            }
+            else
+            {
+                currentResponse = responses[respIndex];
+            }
+            return currentResponse;
         }
 
+        #region Adding Responses
         /// <summary>
         /// Adds a response with the specified text.  By default, it will lead to a 'quit' state.
         /// </summary>
@@ -96,7 +104,6 @@ namespace Caverns.Dialogs
             Response r = new Response(respText);
             responses.Add(r);
         }
-
         /// <summary>
         /// Adds a response with the specified text and direction to the next state.
         /// </summary>
@@ -108,18 +115,22 @@ namespace Caverns.Dialogs
             responses.Add(r);
         }
 
+        #endregion
+
+        #region Print Debug
         /// <summary>
         /// Prints out the DialogState.
         /// </summary>
         public void print()
         {
-            Console.WriteLine("STATE #" + this.getID());
-            Console.WriteLine(this.getStateText());
+            Debug.WriteLine("STATE #" + stateID);
+            Debug.WriteLine(stateText);
             for (int i = 0; i < responses.Count; i++)
             {
                 responses[i].print();
             }
-            Console.WriteLine("");
+            Debug.WriteLine("");
         }
+        #endregion
     }
 }

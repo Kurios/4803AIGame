@@ -4,15 +4,19 @@ using System.Linq;
 using System.Text;
 
 
+using KuriosityXLib;
+using Microsoft.Xna.Framework.Input;
+
 using System.Diagnostics;
 
 namespace Caverns.Dialogs
 {
+    /// <summary>
+    /// Our Dialog class is what will be handling the entire 'Dialog Map'.  
+    /// </summary>
     class Dialog
     {
-        List<DialogState> states;   //List of Dialog States.  These are all possible dialogs by character.
-        int startingStateID = 0;  //The starting dialogState.  By default, this is set to 0.
-
+        #region Constructors
         /// <summary>
         /// Basic constructor for list of states
         /// </summary>
@@ -20,6 +24,8 @@ namespace Caverns.Dialogs
         {
             states = new List<DialogState>();
             startingStateID = -1;
+            currentID = startingStateID;
+            needResponse = true;
         }
 
         /// <summary>
@@ -29,6 +35,9 @@ namespace Caverns.Dialogs
         public Dialog(List<DialogState> dialogStates)
         {
             states = dialogStates;
+            currentID = startingStateID;
+
+            needResponse = true;
         }
 
         /// <summary>
@@ -39,25 +48,42 @@ namespace Caverns.Dialogs
         public Dialog(List<String> dialogs, int startState)
         {
             startingStateID = startState;
+            currentID = startingStateID;
             for (int k = 0; k < dialogs.Count; k++)
             {
                 String dialogResponse = dialogs[k];
                 states.Add(new DialogState(k,dialogResponse));
             }
+
+            needResponse = true;
         }
+        #endregion
 
-
-        
+        #region Fields/Parameters
 
         /// <summary>
-        /// Returns the list of dialogStates
+        /// Getter/Setter for list of states
         /// </summary>
-        /// <returns>Retrieves the list of states</returns>
-        public List<DialogState> getStates()
-        {
-            return states;
-        }
+        public List<DialogState> states { get; set; }
 
+        /// <summary>
+        /// Getter/Setter for ID of starting state
+        /// </summary>
+        public int startingStateID { get; set; }
+
+        /// <summary>
+        /// Getter/Setter for ID of current state
+        /// </summary>
+        public int currentID { get; set; }
+
+        /// <summary>
+        /// Getter/Setter for if the NPC requires a response.  
+        /// This is a 'just in case' item.
+        /// </summary>
+        public Boolean needResponse { get; set; }
+        #endregion
+
+        #region Adding States
         /// <summary>
         /// Adds the given DialogState
         /// </summary>
@@ -86,18 +112,31 @@ namespace Caverns.Dialogs
             states.Add(new DialogState(states.Count, dialog, responses));
         }
 
-        /// <summary>
-        /// Retrieves the starting state ID.
-        /// </summary>
-        /// <returns></returns>
-        public int getStartStateID()
-        {
-            return startingStateID;
-        }
+        #endregion
 
-        public void setStartStateID(int ID)
+        #region Dialog Actions
+
+        /// <summary>
+        /// This can be repeatedly called 
+        /// </summary>
+
+        /// <summary>
+        /// Goes to the next dialog state
+        /// </summary>
+        public void toNextDialogState()
         {
-            startingStateID = ID;
+
+            int nextStateID = states[currentID].currentResponse.nextStateID;
+
+            if (nextStateID == -1)
+            {
+                //Finished with dialog
+            }
+            else
+            {
+                currentID = nextStateID;
+            }
+
         }
 
         /// <summary>
@@ -113,7 +152,7 @@ namespace Caverns.Dialogs
 
             for (int i = 0; i < states.Count; i++)  //Find the starting state.
             {
-                if (startingStateID==(states[i]).getID())
+                if (startingStateID==(states[i]).stateID)
                 {
                     return states[i];
                 }
@@ -121,6 +160,13 @@ namespace Caverns.Dialogs
             return null;    //No starting state found.
         }
 
+        public DialogState getCurrentState()
+        {
+            return states[currentID];
+        }
+        #endregion
+
+        #region print
         /// <summary>
         /// Prints the current state of the dialog.
         /// </summary>
@@ -132,5 +178,6 @@ namespace Caverns.Dialogs
                 states[i].print();
             }
         }
+        #endregion
     }
 }

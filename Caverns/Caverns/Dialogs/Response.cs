@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-//using System.Diagnostics;
+using System.Diagnostics;
 
 namespace Caverns.Dialogs
 {
     class Response
     {
+        #region Constructors
         /// <summary>
         /// A response consists of a text stated by an NPC and an integer representing which state
         /// to go to.
         /// </summary>
-        String responseText;
-        int nextState = -1;
         //May have to add functionPointer for an Action later.
 
         /// <summary>
@@ -23,6 +22,7 @@ namespace Caverns.Dialogs
         public Response()
         {
             responseText = "";
+            nextStateID = -1;
         }
 
         /// <summary>
@@ -32,6 +32,7 @@ namespace Caverns.Dialogs
         public Response(String textForResponse)
         {
             responseText = textForResponse;
+            nextStateID = -1;
         }
 
         /// <summary>
@@ -40,7 +41,8 @@ namespace Caverns.Dialogs
         /// <param name="toNextState">integer of the next state</param>
         public Response(int toNextState)
         {
-            nextState = toNextState;
+            responseText = "";
+            nextStateID = toNextState;
         }
 
         /// <summary>
@@ -51,53 +53,25 @@ namespace Caverns.Dialogs
         public Response(String textForResponse, int toNextState)
         {
             responseText = textForResponse;
-            nextState = toNextState;
+            nextStateID = toNextState;
         }
+        #endregion
 
-        /// <summary>
-        /// Returns the response text.
-        /// </summary>
-        /// <returns>responseText</returns>
-        public String getResponseText()
-        {
-            return responseText;
-        }
+        #region Fields
+        public String responseText { get; set; }
+        public int nextStateID { get; set; }
+        #endregion
 
-        /// <summary>
-        /// Sets the responseText as the given response.
-        /// </summary>
-        /// <param name="response">The response to be set.</param>
-        public void setResponseText(String response)
-        {
-            responseText = response;
-        }
-
-        /// <summary>
-        /// Returns the direction to the next state.
-        /// </summary>
-        /// <returns>direction to the next state</returns>
-        public int getNextState()
-        {
-            return nextState;
-        }
-
-        /// <summary>
-        /// Sets the next state
-        /// </summary>
-        /// <param name="toState">integer representing the next state</param>
-        public void setNextState(int toState)
-        {
-            nextState = toState;
-        }
-
+        #region Printing and Debugging
         /// <summary>
         /// Prints the response.  A DEBUG FUNCTION.
         /// </summary>
         public void print()
         {
-            Console.WriteLine("RESPONSE");
-            Console.WriteLine("Response Text: " + this.getResponseText());
-            Console.WriteLine("directs to state ID" + this.getNextState());
+            Debug.WriteLine("RESPONSE");
+            Debug.WriteLine("Response Text: " + this.responseText);
+            Debug.WriteLine("directs to state ID" + this.nextStateID);
         }
+        #endregion
     }
 }
