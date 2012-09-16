@@ -63,15 +63,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="tilemap\woodsLandForest.png">
-      <Name>woodsLandForest</Name>
+    <Compile Include="characters\catLady.png">
+      <Name>catLady</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="characters\catLady.png">
-      <Name>catLady</Name>
+    <Compile Include="tilemap\woodsLandForest.png">
+      <Name>woodsLandForest</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

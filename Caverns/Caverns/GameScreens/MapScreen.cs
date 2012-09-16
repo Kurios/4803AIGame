@@ -24,7 +24,7 @@ namespace Caverns.GameScreens
         public MapScreen(Game1 game, GameStateManager manager)
             : base(game, manager)
         {
-            map = new Map(game,new Vector2(32,32),100,100,spriteMap);
+            //map = new Map(game,new Vector2(32,32),100,100,spriteMap);
             camera = new Camera(game,map);
         }
 
@@ -35,8 +35,10 @@ namespace Caverns.GameScreens
         {
             base.LoadContent();
             spriteMap = gameref.Content.Load<Texture2D>("tilemap/woodsLandForest");
-            map.setSpriteMap(spriteMap);
+            //map.setSpriteMap(spriteMap);
             Texture2D charTex = gameref.Content.Load<Texture2D>("characters/catLady");
+            map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("map"));
+            camera.setMap(map);
             Woman woman = new Woman(charTex, map);
             woman.Position = new Vector2(10, 10);
             map.characterList.Add(woman);

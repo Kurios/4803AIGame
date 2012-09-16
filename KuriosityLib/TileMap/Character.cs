@@ -13,6 +13,11 @@ namespace KuriosityXLib.TileMap
     /// </summary>
     public abstract class Character
     {
+        bool passable = false; 
+        public bool Passable{
+            get { return passable; }
+            set { passable = value; }
+        }
         //ENUMERATION
         public enum facingDirection
         {

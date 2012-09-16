@@ -73,6 +73,10 @@ namespace KuriosityXLib.TileMap
         {
             focus = pc;
         }
+        public void setMap(Map map)
+        {
+            this.map = map;
+        }
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);

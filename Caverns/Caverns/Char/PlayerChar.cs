@@ -40,10 +40,6 @@ namespace Caverns.Char
         /// </summary>
         /// <param name="sprite">The sprite to be used to move the Player Character.</param>
         /// <param name="map">The map associated with the Player Character.</param>
-        public PlayerChar(Texture2D sprite, Map map)
-            : base(sprite, map)
-        {
-        }
         public PlayerChar(Texture2D sprite, Map map, Game game)
             : base(sprite, map)
         {

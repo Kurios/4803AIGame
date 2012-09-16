@@ -26,6 +26,7 @@ namespace KuriosityXLib.TileMap
    
 
         Random r = new Random();
+
         //public Map(Game game, int x, int y Texture2D spriteMap)
 
         public Map(Game game, Vector2 scale, int x, int y, Texture2D spriteMap)
@@ -78,7 +79,34 @@ namespace KuriosityXLib.TileMap
                 }
             }
             worldSize = new Point(100, 100);
+            throw new System.InvalidOperationException();
             // TODO: Construct any child components here
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x">tiles X</param>
+        /// <param name="y">tiles y</param>
+        public Map(int x, int y,Texture2D spriteMap)
+        {
+            characterList = new List<Character>();
+            subMaps = new SubMap[x / 64 + 1, y / 64 + 1];
+            for (int i = 0; i < x / 64 + 1; i++)
+            {
+                for (int j = 0; j < y / 64 + 1; j++)
+                {
+                    subMaps[i, j] = new SubMap();
+                    for (int u = 0; u < 64; u++)
+                    {
+                        for (int v = 0; v < 64; v++)
+                        {
+                            subMaps[i, j].tiles[u, v] = new Tile(x, y, new Rectangle(10 * 32, 6 * 32, 32, 32), spriteMap);
+                        }
+                    }
+                }
+            }
+            this.worldSize = new Point(x, y);
         }
 
         public Tile getTile(int x, int y)
@@ -103,8 +131,9 @@ namespace KuriosityXLib.TileMap
             {
                 foreach (Character entity in characterList)
                 {
-                    if(character != entity)
-                        ret = ret && !entity.getBoundingRect().Intersects(new Rectangle(x, y, bounds.Width/32, bounds.Height/32)) && !entity.getBoundingRect().Contains(new Rectangle(x, y, bounds.Width/32, bounds.Height/32));
+                    if(character.Passable)
+                        if(character != entity)
+                            ret = ret && !entity.getBoundingRect().Intersects(new Rectangle(x, y, bounds.Width/32, bounds.Height/32)) && !entity.getBoundingRect().Contains(new Rectangle(x, y, bounds.Width/32, bounds.Height/32));
                 }
             }
             else
@@ -149,6 +178,11 @@ namespace KuriosityXLib.TileMap
                     tile.spriteResource = spriteMap;
                 }
             }
+        }
+
+        internal void setSubSector(int i, int j, SubMap subMap)
+        {
+            subMaps[i, j] = subMap;
         }
     }
 }
