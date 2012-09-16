@@ -14,7 +14,7 @@ namespace KuriosityXLib.TileMap
         public static Map CreateMap(Game game,Texture2D spriteMap, String[] gameDesc){
             Map ret = null;
             //int subMapCounter = 0;
-            Regex tileRegex = new Regex(@"t (?:(\d),(\d)|null) (?:(\d),(\d)|null) (?:(\d),(\d)|null) (true|false)");
+            Regex tileRegex = new Regex(@"t (?:(\d+),(\d+)) (?:(\d+),(\d+)|null) (?:(\d+),(\d+)|null) (true|false)");
             Regex subMapRegex = new Regex(@"(\d+)\-(\d+)  ?(\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+)");
             Regex mapDefine = new Regex(@"md (\d+) (\d+)");
             //Regex subMapModeRegex = new Regex(@"(?:(\d),(\d)|null) (?:(\d),(\d)|null) (?:(\d),(\d)|null) (true|false)");
@@ -23,43 +23,43 @@ namespace KuriosityXLib.TileMap
             //Regex tileRegex = new Regex(@"(?:(\d),(\d)|null) (?:(\d),(\d)|null) (?:(\d),(\d)|null) (true|false)");
             MatchCollection matches;
             MapFactory mapFact = null;
+            TileFactory tiles = new TileFactory(spriteMap);
+            SubMapFactory subMaps = new SubMapFactory(tiles);
             foreach (String line in gameDesc)
             {
-                TileFactory tiles = new TileFactory(spriteMap);
-                SubMapFactory subMaps = new SubMapFactory(tiles);
-                
                 if (mapDefine.IsMatch(line))
                 {
                     matches = mapDefine.Matches(line);
-                    mapFact = new MapFactory(subMaps, int.Parse(matches[0].Value), int.Parse(matches[1].Value));
+                    mapFact = new MapFactory(subMaps, int.Parse(matches[0].Groups[1].Value), int.Parse(matches[0].Groups[2].Value));
                 }
                 else if (tileRegex.IsMatch(line))
                 {
                     matches = tileRegex.Matches(line);
-                    tiles.SetBaseSprite(new Rectangle(int.Parse(matches[0].Value), int.Parse(matches[1].Value), 32, 32));
-                    if (matches[2].Success)
+                    tiles.SetBaseSprite(new Rectangle(int.Parse(matches[0].Groups[1].Value), int.Parse(matches[0].Groups[2].Value), 32, 32));
+                    if (matches[0].Groups[3].Success)
                     {
-                        tiles.SetAccentSprite(new Rectangle(int.Parse(matches[2].Value), int.Parse(matches[3].Value), 32, 32));
+                        tiles.SetAccentSprite(new Rectangle(int.Parse(matches[0].Groups[3].Value), int.Parse(matches[0].Groups[4].Value), 32, 32));
                     }
-                    if (matches[4].Success)
+                    if (matches[0].Groups[5].Success)
                     {
-                        tiles.SetTopSprite(new Rectangle(int.Parse(matches[4].Value), int.Parse(matches[5].Value), 32, 32));
+                        tiles.SetTopSprite(new Rectangle(int.Parse(matches[0].Groups[5].Value), int.Parse(matches[0].Groups[6].Value), 32, 32));
                     }
-                    tiles.SetPassible(bool.Parse(matches[6].Value));
+                    tiles.SetPassible(bool.Parse(matches[0].Groups[7].Value));
+                    tiles.AddTile();
                 }
                 else if (subMapRegex.IsMatch(line))
                 {
                     matches = subMapRegex.Matches(line);
                     for (int x = 0; x < 64; x++)
                     {
-                        subMaps.setTile(x, int.Parse(matches[1].Value), int.Parse(matches[x + 2].Value), int.Parse(matches[0].Value));
+                        subMaps.setTile(x, int.Parse(matches[0].Groups[2].Value), int.Parse(matches[0].Groups[x + 3].Value), int.Parse(matches[0].Groups[1].Value));
                     }
-                    if (int.Parse(matches[0].Value) == 63) subMaps.AddSubMap();
+                    if (int.Parse(matches[0].Groups[1].Value) == 63) subMaps.AddSubMap();
                 }
                 else if (mapSet.IsMatch(line))
                 {
                     matches = mapSet.Matches(line);
-                    mapFact.setSubSector(int.Parse(matches[0].Value), int.Parse(matches[1].Value), int.Parse(matches[2].Value));
+                    mapFact.setSubSector(int.Parse(matches[0].Groups[1].Value), int.Parse(matches[0].Groups[2].Value), int.Parse(matches[0].Groups[3].Value));
                 }
                 else
                 {

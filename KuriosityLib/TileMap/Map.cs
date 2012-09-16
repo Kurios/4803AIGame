@@ -79,6 +79,7 @@ namespace KuriosityXLib.TileMap
                 }
             }
             worldSize = new Point(100, 100);
+            throw new System.InvalidOperationException();
             // TODO: Construct any child components here
         }
 

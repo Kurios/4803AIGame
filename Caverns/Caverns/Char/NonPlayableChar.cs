@@ -17,7 +17,7 @@ namespace Caverns.Char
     /// A Nonplayable character.  In contrast to a PlayableCharacter, a Nonplayable character may not
     /// have movement options, but has dialog options.
     /// </summary>
-    class NonPlayableChar: Character
+    abstract class NonPlayableChar: Character
     {
         int timeItt = 0;
 

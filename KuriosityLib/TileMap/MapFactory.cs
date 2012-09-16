@@ -31,7 +31,7 @@ namespace KuriosityXLib.TileMap
 
         internal Map generate(Microsoft.Xna.Framework.Graphics.Texture2D spriteMap)
         {
-            Map ret = new Map(x*32, y*32,spriteMap);
+            Map ret = new Map(x*64, y*64,spriteMap);
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
