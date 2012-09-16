@@ -42,6 +42,9 @@ namespace Caverns.Char
             return new Rectangle((int)Position.X - 1, (int)Position.Y - 1, 1, 2);
         }
 
+        public override void draw(SpriteBatch spriteBatch, Point offset)
+        {
 
+        }
     }
 }

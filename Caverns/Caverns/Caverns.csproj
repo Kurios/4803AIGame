@@ -110,6 +110,9 @@
     <Compile Include="Char\NonPlayableChar.cs" />
     <Compile Include="Char\PlayerChar.cs" />
     <Compile Include="Char\Woman.cs" />
+    <Compile Include="Dialog\Dialog.cs" />
+    <Compile Include="Dialog\DialogState.cs" />
+    <Compile Include="Dialog\Response.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
     <Compile Include="GameScreens\MapScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
