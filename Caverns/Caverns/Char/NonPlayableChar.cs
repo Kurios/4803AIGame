@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Caverns.Char
 {
-    class NonPlayableChar: Character
+    abstract class NonPlayableChar: Character
     {
         /// <summary>
         /// NonPlayableChar constructor.

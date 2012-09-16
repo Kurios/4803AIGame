@@ -121,6 +121,7 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
+    <None Include="map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\KLib\KLib.csproj">
