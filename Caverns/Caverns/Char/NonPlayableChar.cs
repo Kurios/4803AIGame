@@ -13,8 +13,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Caverns.Char
 {
-    abstract class NonPlayableChar: Character
+    /// <summary>
+    /// A Nonplayable character.  In contrast to a PlayableCharacter, a Nonplayable character may not
+    /// have movement options, but has dialog options.
+    /// </summary>
+    class NonPlayableChar: Character
     {
+        int timeItt = 0;
+
         /// <summary>
         /// NonPlayableChar constructor.
         /// </summary>
@@ -25,5 +31,17 @@ namespace Caverns.Char
         {
 
         }
+
+        public override void update(GameTime time)
+        {
+
+        }
+
+        public override Rectangle getBoundingRect()
+        {
+            return new Rectangle((int)Position.X - 1, (int)Position.Y - 1, 1, 2);
+        }
+
+
     }
 }

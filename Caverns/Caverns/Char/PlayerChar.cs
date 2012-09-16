@@ -21,6 +21,11 @@ namespace Caverns.Char
     /// </summary>
     class PlayerChar : Character
     {
+
+        public enum PlayerState
+        {
+
+        }
         //A Player Character has a timer and able to tell which direction they're facing.
         int timeItt = 0;
 
@@ -29,15 +34,13 @@ namespace Caverns.Char
         //2 RIGHT
         //3 UP
         int facing = 0;
-
-
+        
         /// <summary>
         /// Player Character constructor.  It calls the base class' constructor.
         /// </summary>
         /// <param name="sprite">The sprite to be used to move the Player Character.</param>
         /// <param name="map">The map associated with the Player Character.</param>
         public PlayerChar(Texture2D sprite, Map map);
-
 
         public PlayerChar(Texture2D sprite, Map map, Game game)
             : base(sprite, map)
@@ -63,7 +66,7 @@ namespace Caverns.Char
 
             if (InputHandler.KeyPressed(Keys.Down))
             {
-                facing = 0;
+                facing = (int)facingDirection.DOWN;
                 if (Map.canMove((int)Position.X, (int)Position.Y + 1, this ))
                 {
                     Position = Position + new Vector2(0, 1);
@@ -71,7 +74,7 @@ namespace Caverns.Char
             }
             else if (InputHandler.KeyPressed(Keys.Up))
             {
-                facing = 3;
+                facing = (int)facingDirection.UP;
                 if (Map.canMove((int)Position.X, (int)Position.Y - 1, this ))
                 {
                     Position = Position + new Vector2(0, -1);
@@ -79,7 +82,7 @@ namespace Caverns.Char
             }
             else if (InputHandler.KeyPressed(Keys.Left))
             {
-                facing = 1;
+                facing = (int)facingDirection.LEFT;
                 if (Map.canMove((int)Position.X - 1, (int)Position.Y, this ))
                 {
                     Position = Position + new Vector2(-1, 0);
