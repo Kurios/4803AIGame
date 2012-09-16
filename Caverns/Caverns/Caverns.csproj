@@ -115,6 +115,7 @@
     <Compile Include="Dialogs\DialogState.cs" />
     <Compile Include="Dialogs\Response.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
+    <Compile Include="GameScreens\EtaProductionsScreen.cs" />
     <Compile Include="GameScreens\MapScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
     <Compile Include="GUI\Camera.cs" />

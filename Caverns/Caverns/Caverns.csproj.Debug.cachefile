@@ -1,6 +1,9 @@
 Content\backgrounds\titleScreen.xnb
 Content\backgrounds\titleScreen2.xnb
-Content\characters\catLady.xnb
 Content\tilemap\woodsLandForest.xnb
 Content\font\title.xnb
+Content\characters\catLady.xnb
+Content\backgrounds\cloudText.xnb
+Content\backgrounds\Lensflare.xnb
+Content\backgrounds\Top.xnb
 map

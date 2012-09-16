@@ -39,11 +39,11 @@ namespace KuriosityXLib.TileMap
 
         public void SetBaseSprite(int x, int y, int tile)
         {
-            designs[tile].baseText = new Rectangle(x, y, 32, 32);
+            designs[tile].baseText = new Rectangle(x*32, y*32, 32, 32);
         }
         public void SetBaseSprite(int x, int y)
         {
-            designs[curDesign].baseText = new Rectangle(x, y, 32, 32);
+            designs[curDesign].baseText = new Rectangle(x*32, y*32, 32, 32);
         }
 
         //Accent Sprite
@@ -60,11 +60,11 @@ namespace KuriosityXLib.TileMap
 
         public void SetAccentSprite(int x, int y, int tile)
         {
-            designs[tile].accentText = new Rectangle(x, y, 32, 32);
+            designs[tile].accentText = new Rectangle(x*32, y*32, 32, 32);
         }
         public void SetAccentSprite(int x, int y)
         {
-            designs[curDesign].accentText = new Rectangle(x, y, 32, 32);
+            designs[curDesign].accentText = new Rectangle(x*32, y*32, 32, 32);
         }
 
         //Top Sprite
@@ -81,11 +81,11 @@ namespace KuriosityXLib.TileMap
 
         public void SetTopSprite(int x, int y, int tile)
         {
-            designs[tile].topText = new Rectangle(x, y, 32, 32);
+            designs[tile].topText = new Rectangle(x*32, y*32, 32, 32);
         }
         public void SetTopSprite(int x, int y)
         {
-            designs[curDesign].topText = new Rectangle(x, y, 32, 32);
+            designs[curDesign].topText = new Rectangle(x*32, y*32, 32, 32);
         }
 
         //Passable

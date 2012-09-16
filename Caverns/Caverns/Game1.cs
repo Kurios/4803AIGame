@@ -67,9 +67,11 @@ namespace Caverns
             gameStateManager = new GameStateManager(this);
             Components.Add(gameStateManager);
 
+            EtaProductionsScreen etaScreen = new EtaProductionsScreen(this, gameStateManager);
             mapScreen = new MapScreen(this, gameStateManager);
             titleScreen = new TitleScreen(this, gameStateManager);
             gameStateManager.ChangeState(titleScreen);
+            gameStateManager.PushState(etaScreen);
         }
 
         /// <summary>

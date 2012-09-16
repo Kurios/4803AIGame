@@ -80,8 +80,19 @@ namespace KuriosityXLib.TileMap
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            if(focus != null)
-                Position = new Rectangle((int)focus.Position.X-ScreenDef.Width/2, (int)focus.Position.Y-ScreenDef.Height/2, Position.Width, Position.Height);
+            if (focus != null)
+            {
+                Position = new Rectangle((int)focus.Position.X - ScreenDef.Width / 2, (int)focus.Position.Y - ScreenDef.Height / 2, Position.Width, Position.Height);
+                //And Make sure it doesnt go off the map
+                if (Position.X < 1)
+                    position.X = 1;
+                if (Position.Y < 1)
+                    position.Y = 1;
+                if ((Position.X + (Position.Width / 2)) > map.Width)
+                    position.X = map.Width - Position.Width / 2;
+                if ((Position.Y + (Position.Height / 2)) > map.Height)
+                    position.Y = map.Height - Position.Height / 2;
+            }
             for (int x = Position.X; x < position.Width+Position.X; x++) {
                 for (int y = Position.Y; y < position.Height+Position.Y; y++)
                 {

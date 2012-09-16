@@ -24,6 +24,13 @@ namespace KuriosityXLib.TileMap
         SubMap[,] subMaps;
         Point worldSize;
    
+        public int Width {
+            get{return worldSize.X;}
+        }
+
+        public int Height {
+            get{return worldSize.Y;}
+        }
 
         Random r = new Random();
 
@@ -127,7 +134,7 @@ namespace KuriosityXLib.TileMap
         {
             Rectangle bounds = character.getBoundingRect();
             bool ret = true;
-            if (inBounds(x, y))
+            if (inBounds(x, y) && subMaps[x/64,y/64].tiles[x%64,y%64].Passible)
             {
                 foreach (Character entity in characterList)
                 {

@@ -14,7 +14,7 @@ namespace KuriosityXLib.TileMap
         public static Map CreateMap(Game game,Texture2D spriteMap, String[] gameDesc){
             Map ret = null;
             //int subMapCounter = 0;
-            Regex tileRegex = new Regex(@"t (?:(\d+),(\d+)) (?:(\d+),(\d+)|null) (?:(\d+),(\d+)|null) (true|false)");
+            Regex tileRegex = new Regex(@"t (?:(\d+),(\d+)) (?:(\d+),(\d+)|null) (?:(\d+),(\d+)|null) (true)?");
             Regex subMapRegex = new Regex(@"(\d+)\-(\d+)  ?(\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+) (\d+)");
             Regex mapDefine = new Regex(@"md (\d+) (\d+)");
             //Regex subMapModeRegex = new Regex(@"(?:(\d),(\d)|null) (?:(\d),(\d)|null) (?:(\d),(\d)|null) (true|false)");
@@ -35,16 +35,16 @@ namespace KuriosityXLib.TileMap
                 else if (tileRegex.IsMatch(line))
                 {
                     matches = tileRegex.Matches(line);
-                    tiles.SetBaseSprite(new Rectangle(int.Parse(matches[0].Groups[1].Value), int.Parse(matches[0].Groups[2].Value), 32, 32));
+                    tiles.SetBaseSprite(new Rectangle(int.Parse(matches[0].Groups[1].Value)*32, int.Parse(matches[0].Groups[2].Value)*32, 32, 32));
                     if (matches[0].Groups[3].Success)
                     {
-                        tiles.SetAccentSprite(new Rectangle(int.Parse(matches[0].Groups[3].Value), int.Parse(matches[0].Groups[4].Value), 32, 32));
+                        tiles.SetAccentSprite(new Rectangle(int.Parse(matches[0].Groups[3].Value)*32, int.Parse(matches[0].Groups[4].Value)*32, 32, 32));
                     }
                     if (matches[0].Groups[5].Success)
                     {
-                        tiles.SetTopSprite(new Rectangle(int.Parse(matches[0].Groups[5].Value), int.Parse(matches[0].Groups[6].Value), 32, 32));
+                        tiles.SetTopSprite(new Rectangle(int.Parse(matches[0].Groups[5].Value)*32, int.Parse(matches[0].Groups[6].Value)*32, 32, 32));
                     }
-                    tiles.SetPassible(bool.Parse(matches[0].Groups[7].Value));
+                    tiles.SetPassible(matches[0].Groups[7].Success);
                     tiles.AddTile();
                 }
                 else if (subMapRegex.IsMatch(line))
@@ -66,6 +66,7 @@ namespace KuriosityXLib.TileMap
                     throw new System.ArgumentException("Line does not match known regex lines", "line");
                 }
             }
+            
             ret = mapFact.generate(spriteMap);
             return ret;
         }
