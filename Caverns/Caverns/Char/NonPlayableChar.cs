@@ -13,8 +13,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Caverns.Char
 {
+    /// <summary>
+    /// A Nonplayable character.  In contrast to a PlayableCharacter, a Nonplayable character may not
+    /// have movement options, but has dialog options.
+    /// </summary>
     class NonPlayableChar: Character
     {
+        int timeItt = 0;
+
         /// <summary>
         /// NonPlayableChar constructor.
         /// </summary>
@@ -22,6 +28,11 @@ namespace Caverns.Char
         /// <param name="map"></param>
         public NonPlayableChar(Texture2D sprite, Map map)
             : base(sprite, map)
+        {
+
+        }
+
+        public override void update(GameTime time)
         {
 
         }

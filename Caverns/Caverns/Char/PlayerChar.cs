@@ -34,7 +34,7 @@ namespace Caverns.Char
         //2 RIGHT
         //3 UP
         int facing = 0;
-
+        
         /// <summary>
         /// Player Character constructor.  It calls the base class' constructor.
         /// </summary>
@@ -66,7 +66,7 @@ namespace Caverns.Char
 
             if (InputHandler.KeyPressed(Keys.Down))
             {
-                facing = 0;
+                facing = (int)facingDirection.DOWN;
                 if (Map.canMove((int)Position.X, (int)Position.Y + 1, this ))
                 {
                     Position = Position + new Vector2(0, 1);
@@ -74,7 +74,7 @@ namespace Caverns.Char
             }
             else if (InputHandler.KeyPressed(Keys.Up))
             {
-                facing = 3;
+                facing = (int)facingDirection.UP;
                 if (Map.canMove((int)Position.X, (int)Position.Y - 1, this ))
                 {
                     Position = Position + new Vector2(0, -1);
@@ -82,7 +82,7 @@ namespace Caverns.Char
             }
             else if (InputHandler.KeyPressed(Keys.Left))
             {
-                facing = 1;
+                facing = (int)facingDirection.LEFT;
                 if (Map.canMove((int)Position.X - 1, (int)Position.Y, this ))
                 {
                     Position = Position + new Vector2(-1, 0);
