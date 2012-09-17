@@ -127,7 +127,7 @@ namespace Caverns.Char
         {
             //timeItt = (int)Math.Floor(1 / (float)(time.ElapsedGameTime.Milliseconds * 4));
             timer += time.ElapsedGameTime;
-            TimeSpan eightSecond = new TimeSpan(1000000);
+            TimeSpan eightSecond = new TimeSpan(1250000);
             if (timer > eightSecond)
             {
                 timer -= eightSecond;
@@ -142,7 +142,7 @@ namespace Caverns.Char
                     stepsToRun--;
                 }
             }
-            lastTime = time.TotalGameTime.Seconds;
+            //lastTime = time.TotalGameTime.Seconds;
         }
 
         public override Rectangle getBoundingRect()
