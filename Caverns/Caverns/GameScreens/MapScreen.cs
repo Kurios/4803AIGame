@@ -42,7 +42,7 @@ namespace Caverns.GameScreens
             Texture2D linkPort = gameref.Content.Load<Texture2D>("characters/portait/Link (2)");
             Texture2D linkFalling = gameref.Content.Load<Texture2D>("characters/LinkFalling");
             Texture2D catLady = gameref.Content.Load<Texture2D>("characters/catLady");
-            map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("ForestMap01"));
+            map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("CaveMap01"));
             camera.setMap(map);
             //Woman woman = new Woman(charTex, map,gameref);
             //woman.Position = new Vector2(10, 10);

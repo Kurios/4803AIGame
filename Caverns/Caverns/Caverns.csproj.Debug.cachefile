@@ -6,6 +6,12 @@ Content\backgrounds\cloudText.xnb
 Content\backgrounds\Lensflare.xnb
 Content\backgrounds\Top.xnb
 Content\font\title.xnb
+Content\characters\Ash.xnb
+Content\characters\portait\ash-ketchum.xnb
+Content\characters\Link.xnb
+Content\characters\LinkFalling.xnb
+Content\characters\portait\Link (2).xnb
+Content\font\dialog.xnb
 SubMaps\CaveSubMaps\CaveTileSet
 SubMaps\ForestSubMaps\ForestTileSet
 SubMaps\ForestSubMaps\ForestTileSubMap01
