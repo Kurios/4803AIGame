@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using KuriosityXLib.TileMap;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using KuriosityXLib.Dialogs;
+using Microsoft.Xna.Framework;
 
 namespace Caverns.Char
 {
-    //She is 64x90. 4 frames, 4 directions.
-    class Woman : DialogCharacter
+    class Kid1: DialogCharacter
     {
         int timeItt = 0;
 
@@ -25,18 +23,20 @@ namespace Caverns.Char
         Random r = new Random();
         Game1 gameref;
 
+        bool runAway;
 
-        public Woman(Texture2D sprite, Map map,Game1 game)
+
+        public Kid1(Texture2D sprite, Map map,Game1 game)
             : base(sprite, map)
         {
-            this.PhysicalContact += EeekSomeoneTouchedMe;
+            this.PhysicalContact += FoundMe;
             this.gameref = game;
             DialogState state = new DialogState(0,"Eeek! you touched me!");
             state.addResponse("ok...");
             this.Dialog.addState(state);
         }
 
-        private void EeekSomeoneTouchedMe(Object sender, EventArgs e)
+        private void FoundMe(Object sender, EventArgs e)
         {
             gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
         }
@@ -45,6 +45,7 @@ namespace Caverns.Char
         {
             //timeItt = (int)Math.Floor(1 / (float)(time.ElapsedGameTime.Milliseconds * 4));
 
+            
             if (lastTime != time.TotalGameTime.Seconds)
             {
                 timeItt++;

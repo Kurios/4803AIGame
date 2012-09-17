@@ -19,7 +19,7 @@ namespace Caverns.Char
     /// <summary>
     /// This is the player character, a child of the Character class.
     /// </summary>
-    class PlayerChar : Character
+    class PlayerChar : DialogCharacter
     {
 
         public enum PlayerState
@@ -60,40 +60,41 @@ namespace Caverns.Char
 
             if (timeItt > 3) timeItt = 0;
 
-            
 
+            Vector2 proposedMove = new Vector2();
             if (InputHandler.KeyPressed(Keys.Down))
             {
                 facing = (int)facingDirection.DOWN;
-                if (Map.canMove((int)Position.X, (int)Position.Y + 1, this ))
-                {
-                    Position = Position + new Vector2(0, 1);
-                }
+                proposedMove = Position + new Vector2(0, 1);
             }
             else if (InputHandler.KeyPressed(Keys.Up))
             {
                 facing = (int)facingDirection.UP;
-                if (Map.canMove((int)Position.X, (int)Position.Y - 1, this ))
-                {
-                    Position = Position + new Vector2(0, -1);
-                }
+                proposedMove = Position + new Vector2(0, -1);
             }
             else if (InputHandler.KeyPressed(Keys.Left))
             {
                 facing = (int)facingDirection.LEFT;
-                if (Map.canMove((int)Position.X - 1, (int)Position.Y, this ))
-                {
-                    Position = Position + new Vector2(-1, 0);
-                }
+                proposedMove = Position + new Vector2(-1, 0);
             }
             else if (InputHandler.KeyPressed(Keys.Right))
             {
                 facing = 2;
-                if (Map.canMove((int)Position.X + 1, (int)Position.Y, this ))
-                {
-                    Position = Position + new Vector2(1, 0);
-                }
+                proposedMove = Position + new Vector2(1, 0);
             }
+
+            
+                if (Map.canMove((int)proposedMove.X, (int)proposedMove.Y, this))
+                {
+                    Position = proposedMove;
+                }
+                Character[] chars = Map.checkForCharacter((int)proposedMove.X, (int)proposedMove.Y,this);
+                foreach(Character c in chars){
+                    //EventArgs e = new EventArgs();
+                    c.OnPhysicalContact(this);
+                }
+
+         
 
         }
 
@@ -113,9 +114,9 @@ namespace Caverns.Char
         /// <param name="offset"></param>
         public override void draw(SpriteBatch spriteBatch,Point offset)
         {
-            //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 32, 32), Color.White);
+            spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 32, 32), Color.White);
 
-            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (32+16), (int)(Position.Y - offset.Y) * 32 - 32, 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.BlueViolet);
+            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (16+32), (int)(Position.Y - offset.Y) * 32 - 32, 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.BlueViolet);
         }
     }
 }

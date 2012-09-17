@@ -138,7 +138,7 @@ namespace KuriosityXLib.TileMap
             {
                 foreach (Character entity in characterList)
                 {
-                    if(character.Passable)
+                    if(!character.Passable)
                         if(character != entity)
                             ret = ret && !entity.getBoundingRect().Intersects(new Rectangle(x, y, bounds.Width/32, bounds.Height/32)) && !entity.getBoundingRect().Contains(new Rectangle(x, y, bounds.Width/32, bounds.Height/32));
                 }
@@ -156,13 +156,19 @@ namespace KuriosityXLib.TileMap
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns>Null if none, the char in the square if one</returns>
-        public Character[] checkForCharacter(int x, int y)
+        public Character[] checkForCharacter(int x, int y,Character character)
         {
             List<Character> ret = new List<Character>();
-            foreach (Character c in characterList)
+            Rectangle bounds = character.getBoundingRect();
+            foreach (Character entity in characterList)
             {
-                if (c.Position.Equals(new Vector2(x, y)))
-                    ret.Add(c);
+                 if(character != entity)
+                 {
+                   if(entity.getBoundingRect().Intersects(new Rectangle(x, y, bounds.Width/32, bounds.Height/32)) || entity.getBoundingRect().Contains(new Rectangle(x, y, bounds.Width/32, bounds.Height/32)))
+                   {
+                       ret.Add(entity);
+                   }
+                 }
             }
             return ret.ToArray();
         }

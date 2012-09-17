@@ -18,6 +18,15 @@ namespace KuriosityXLib.TileMap
             get { return passable; }
             set { passable = value; }
         }
+
+        public event EventHandler PhysicalContact;
+
+        public virtual void OnPhysicalContact(Object o) 
+        {   
+               if (PhysicalContact != null)
+                 PhysicalContact(o, EventArgs.Empty);
+        }
+
         //ENUMERATION
         public enum facingDirection
         {

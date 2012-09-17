@@ -48,6 +48,7 @@ namespace Caverns
             get{return mapScreen;}
         }
 
+        public DialogScreen DialogScreen { get; set; }
         #endregion
 
         public readonly Rectangle ScreenRect;
@@ -72,6 +73,7 @@ namespace Caverns
             titleScreen = new TitleScreen(this, gameStateManager);
             gameStateManager.ChangeState(titleScreen);
             gameStateManager.PushState(etaScreen);
+            DialogScreen = new DialogScreen(this, gameStateManager);
         }
 
         /// <summary>

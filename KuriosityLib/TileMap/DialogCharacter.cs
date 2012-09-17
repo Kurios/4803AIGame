@@ -17,6 +17,19 @@ namespace KuriosityXLib.TileMap
         }
         Texture2D DialogFace;
 
+        int lastDialogEventNum = 0;
+        int dialogExitState = 0;
+
+        public event EventHandler DialogEvent;
+
+        public virtual void OnDialog(int num)
+        {
+            if (DialogEvent != null)
+                lastDialogEventNum = num;
+                DialogEvent(this, EventArgs.Empty);
+        }
+
+
         public DialogCharacter(Texture2D sprite, Map map) : base(sprite, map) { }
 
 

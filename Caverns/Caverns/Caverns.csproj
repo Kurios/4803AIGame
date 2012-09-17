@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Char\Kid1.cs" />
     <Compile Include="Char\NonPlayableChar.cs" />
     <Compile Include="Char\NPCChild.cs" />
     <Compile Include="Char\PlayerChar.cs" />
