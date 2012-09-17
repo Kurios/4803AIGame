@@ -15,10 +15,10 @@ namespace KuriosityXLib.TileMap
         {
             get { return dialog; }
         }
-        Texture2D DialogFace;
+        public Texture2D Portrait;
 
-        int lastDialogEventNum = 0;
-        int dialogExitState = 0;
+        public int lastDialogEventNum = 0;
+        public int dialogExitState = 0;
 
         public event EventHandler DialogEvent;
 

@@ -36,8 +36,8 @@ namespace Caverns.GameScreens
         protected override void LoadContent()
         {
             base.LoadContent();
-            controls = new ControlManager(gameref.Content.Load<SpriteFont>("font/title"));
-            font = gameref.Content.Load<SpriteFont>("font/title");
+            controls = new ControlManager(gameref.Content.Load<SpriteFont>("font/dialog"));
+            font = gameref.Content.Load<SpriteFont>("font/dialog");
         }
         public void CallDialog(DialogCharacter tarChar, DialogCharacter recievingChar, int initalDialogState = 0)
         {
@@ -58,7 +58,7 @@ namespace Caverns.GameScreens
             DialogLabel.SpriteFont = font;
             if(!controls.Contains(DialogLabel))
                 controls.Add(DialogLabel);
-            Vector2 pos = new Vector2(200,200);
+            Vector2 pos = new Vector2(300,300);
             foreach (Response res in curState.responses)
             {
                 LinkLabel response = new LinkLabel();
@@ -67,7 +67,7 @@ namespace Caverns.GameScreens
                 response.Position = pos;
                 response.Selected += dialog_selected;
                 response.SpriteFont = font;
-                pos.Y += 16;
+                pos.Y += 32;
                 controls.Add(response);
                 
             }
@@ -76,8 +76,10 @@ namespace Caverns.GameScreens
 
         private void dialog_selected(Object sender, EventArgs e)
         {
+            Char1.lastDialogEventNum = ((int)((LinkLabel)sender).Value);
             if (((int)((LinkLabel)sender).Value) < 0)
             {
+                Char1.dialogExitState = ((int)((LinkLabel)sender).Value);
                 GameStateManager.PopState();
             }
             else
@@ -102,7 +104,13 @@ namespace Caverns.GameScreens
         {
             gameref.SpriteBatch.Begin();
             base.Draw(gameTime);
+            if (Char1.Portrait != null)
+            {
+                gameref.SpriteBatch.Draw(Char1.Portrait, new Vector2(10, 175), null, Color.White, 0, new Vector2(0, 0), 300 / Char1.Portrait.Bounds.Width,SpriteEffects.None, 0);
+            }
             controls.Draw(gameref.SpriteBatch);
+
+            
 
             gameref.SpriteBatch.End();
         }

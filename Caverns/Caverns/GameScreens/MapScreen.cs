@@ -36,14 +36,28 @@ namespace Caverns.GameScreens
             base.LoadContent();
             spriteMap = gameref.Content.Load<Texture2D>("tilemap/woodsLandForest");
             //map.setSpriteMap(spriteMap);
-            Texture2D charTex = gameref.Content.Load<Texture2D>("characters/catLady");
-            map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("CaveMap01"));
+            Texture2D ash = gameref.Content.Load<Texture2D>("characters/Ash");
+            Texture2D ashPort = gameref.Content.Load<Texture2D>("characters/portait/ash-ketchum");
+            Texture2D link = gameref.Content.Load<Texture2D>("characters/Link");
+            Texture2D linkPort = gameref.Content.Load<Texture2D>("characters/portait/Link (2)");
+            Texture2D linkFalling = gameref.Content.Load<Texture2D>("characters/LinkFalling");
+            Texture2D catLady = gameref.Content.Load<Texture2D>("characters/catLady");
+            map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("ForestMap01"));
             camera.setMap(map);
-            Woman woman = new Woman(charTex, map,gameref);
-            woman.Position = new Vector2(10, 10);
-            map.characterList.Add(woman);
-            pc = new PlayerChar(charTex, map, Game);
-            pc.Position = new Vector2(20, 20);
+            //Woman woman = new Woman(charTex, map,gameref);
+            //woman.Position = new Vector2(10, 10);
+            
+            Kid1 kid1 = new Kid1(ash, map, gameref);
+            kid1.Portrait = ashPort;
+            map.characterList.Add(kid1);
+
+            Kid2 kid2 = new Kid2(link, map, gameref);
+            kid2.Portrait = linkPort;
+            kid2.Falling = linkFalling;
+            map.characterList.Add(kid2);
+
+            pc = new PlayerChar(catLady, map, Game);
+            pc.Position = new Vector2(14, 10);
             map.characterList.Add(pc);
             camera.SetFocus(pc);
 
