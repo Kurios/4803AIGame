@@ -46,6 +46,10 @@ namespace Caverns.GameScreens
             Texture2D nekoPort = gameref.Content.Load<Texture2D>("characters/portait/two");
             map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("ForestMap01"));
             Map caveMap = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("CaveMap01"));
+
+            Texture2D keyText = gameref.Content.Load<Texture2D>("characters/Item Key01");
+            Texture2D girlText = gameref.Content.Load<Texture2D>("characters/Parsee");
+            Texture2D girlPort = gameref.Content.Load<Texture2D>("characters/portait/animeGirl1");
             camera.setMap(caveMap);
             //Woman woman = new Woman(charTex, map,gameref);
             //woman.Position = new Vector2(10, 10);
@@ -66,8 +70,25 @@ namespace Caverns.GameScreens
             CaveIn caveIn = new CaveIn(link, map, gameref, caveMap);
             map.characterList.Add(caveIn);
 
+            Waterfall waterfall = new Waterfall(spriteMap, caveMap, gameref);
+            waterfall.Position = new Vector2(32 + 15, 32);
+            caveMap.characterList.Add(waterfall);
+
+            Key key1 = new Key(keyText,caveMap,gameref);
+            key1.Position = new Vector2(11, 11 + 32);
+            caveMap.characterList.Add(key1);
+
+            Key key2 = new Key(keyText, caveMap, gameref);
+            key2.Position = new Vector2(22 + 32, 19 + 64);
+            caveMap.characterList.Add(key2);
+
+            Girl girl = new Girl(girlText, caveMap, gameref);
+            girl.Portrait = girlPort;
+            girl.Position = new Vector2(8 + 32, 15);
+            caveMap.characterList.Add(girl);
+
             pc = new PlayerChar(catLady, caveMap, Game);
-            pc.Position = new Vector2(20, 20);
+            pc.Position = new Vector2(20, 20+64);
             map.characterList.Add(pc);
             caveMap.characterList.Add(pc);
             camera.SetFocus(pc);

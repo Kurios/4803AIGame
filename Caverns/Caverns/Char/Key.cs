@@ -41,6 +41,8 @@ namespace Caverns.Char
         {
             ((PlayerChar)sender).keyCount++;
             this.found = true;
+            this.Passable = true;
+            this.PhysicalContact -= FoundMe;
 
         }
 
@@ -64,7 +66,7 @@ namespace Caverns.Char
         public override void draw(SpriteBatch spriteBatch, Point offset)
         {
             //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y-offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32,32,32,32), Color.Black);
-
+            if(!found)
             spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 +5, (int)(Position.Y - offset.Y) * 32 , 15, 32), new Rectangle(0, 0, 15, 32), Color.White);
 
         }
