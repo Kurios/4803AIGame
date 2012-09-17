@@ -34,6 +34,8 @@ namespace Caverns.Char
         //2 RIGHT
         //3 UP
         int facing = 0;
+
+        TimeSpan timer = new TimeSpan();
         
         /// <summary>
         /// Player Character constructor.  It calls the base class' constructor.
@@ -56,43 +58,53 @@ namespace Caverns.Char
         public override void update(GameTime time)
         {
             timeItt = (int)Math.Floor(1 / (float)(time.ElapsedGameTime.Milliseconds * 4));
-            timeItt++;
-
-            if (timeItt > 3) timeItt = 0;
-
-
-            Vector2 proposedMove = new Vector2();
-            if (InputHandler.KeyPressed(Keys.Down))
-            {
-                facing = (int)facingDirection.DOWN;
-                proposedMove = Position + new Vector2(0, 1);
-            }
-            else if (InputHandler.KeyPressed(Keys.Up))
-            {
-                facing = (int)facingDirection.UP;
-                proposedMove = Position + new Vector2(0, -1);
-            }
-            else if (InputHandler.KeyPressed(Keys.Left))
-            {
-                facing = (int)facingDirection.LEFT;
-                proposedMove = Position + new Vector2(-1, 0);
-            }
-            else if (InputHandler.KeyPressed(Keys.Right))
-            {
-                facing = 2;
-                proposedMove = Position + new Vector2(1, 0);
-            }
+            
 
             
+
+            timer += time.ElapsedGameTime;
+            TimeSpan eightSecond = new TimeSpan(1250000);
+            if (timer > eightSecond)
+            {
+                timer -= eightSecond;
+
+
+                Vector2 proposedMove = new Vector2();
+                if (InputHandler.KeyDown(Keys.Down))
+                {
+                    facing = (int)facingDirection.DOWN;
+                    proposedMove = Position + new Vector2(0, 1);
+                }
+                else if (InputHandler.KeyDown(Keys.Up))
+                {
+                    facing = (int)facingDirection.UP;
+                    proposedMove = Position + new Vector2(0, -1);
+                }
+                else if (InputHandler.KeyDown(Keys.Left))
+                {
+                    facing = (int)facingDirection.LEFT;
+                    proposedMove = Position + new Vector2(-1, 0);
+                }
+                else if (InputHandler.KeyDown(Keys.Right))
+                {
+                    facing = 2;
+                    proposedMove = Position + new Vector2(1, 0);
+                }
+
+
                 if (Map.canMove((int)proposedMove.X, (int)proposedMove.Y, this))
                 {
                     Position = proposedMove;
+                    timeItt++;
+                    if (timeItt > 3) timeItt = 0;
                 }
-                Character[] chars = Map.checkForCharacter((int)proposedMove.X, (int)proposedMove.Y,this);
-                foreach(Character c in chars){
+                Character[] chars = Map.checkForCharacter((int)proposedMove.X, (int)proposedMove.Y, this);
+                foreach (Character c in chars)
+                {
                     //EventArgs e = new EventArgs();
                     c.OnPhysicalContact(this);
                 }
+            }
 
          
 
@@ -114,7 +126,7 @@ namespace Caverns.Char
         /// <param name="offset"></param>
         public override void draw(SpriteBatch spriteBatch,Point offset)
         {
-            spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 32, 32), Color.White);
+            //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 32, 32), Color.White);
 
             spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (16+32), (int)(Position.Y - offset.Y) * 32 - 32, 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.BlueViolet);
         }

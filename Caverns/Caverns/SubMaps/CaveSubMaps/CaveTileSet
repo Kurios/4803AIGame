@@ -1,0 +1,9 @@
+﻿t 21,54 null null true 1 caveTopBorder
+t 17,51 null null true 2 caveBotBorder
+t 18,52 null null true 3 caveLeftBorder
+t 16,52 null null true 4 caveRightBorder
+t 20,55 null null true 5 caveTopLeftBorder
+t 21,55 null null true 6 caveTopRightBorder
+t 22,52 null null true 7 caveBotLeftBorder
+t 23,52 null null true 8 caveBotRightBorder
+t 17,52 null null true 9 caveFloor

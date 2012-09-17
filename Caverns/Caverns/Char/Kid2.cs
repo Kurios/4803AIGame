@@ -40,7 +40,7 @@ namespace Caverns.Char
             state.addResponse("Allways the mute one.");
             state.addResponse("Noone expects the spanish dictionary!");
             this.Dialog.addState(state);
-            this.Position = new Vector2(30, 18);
+            this.Position = new Vector2(32+24, 16+64);
         }
 
         private void FoundMe(Object sender, EventArgs e)
