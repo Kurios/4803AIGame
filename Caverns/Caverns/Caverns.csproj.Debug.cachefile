@@ -6,7 +6,10 @@ Content\backgrounds\cloudText.xnb
 Content\backgrounds\Lensflare.xnb
 Content\backgrounds\Top.xnb
 Content\font\title.xnb
-ForestMap02
-ForestMap03
+SubMaps\ForestSubMaps\ForestTileSubMap01
+SubMaps\ForestSubMaps\ForestTileSubMap00
+SubMaps\ForestSubMaps\ForestTileSubMap12
+SubMaps\ForestSubMaps\ForestTileSubMap02
+SubMaps\ForestSubMaps\ForestTileSubMap10
 ForestMap01
 map
