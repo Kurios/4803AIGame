@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace Caverns.Char
 {
-    class CaveIn : DialogCharacter
+    class Waterfall : DialogCharacter
     {
         int timeItt = 0;
 
@@ -28,15 +28,14 @@ namespace Caverns.Char
 
         TimeSpan timer = new TimeSpan();
 
-        Map nextMap;
-        public CaveIn(Texture2D sprite, Map map, Game1 game, Map nextMap)
+        public Waterfall(Texture2D sprite, Map map, Game1 game)
             : base(sprite, map)
         {
             this.PhysicalContact += FoundMe;
             this.gameref = game;
             DialogState state = new DialogState(0, "You come across a cavern.\n\n        Dare you venture?");
-            state.addResponse("Hells Yah...",-1);
-            state.addResponse("It does look a little dark in there...\n    Maybe after a cup of tea.",-2);
+            state.addResponse("Hells Yah...", -1);
+            state.addResponse("It does look a little dark in there...\n    Maybe after a cup of tea.", -2);
             this.Dialog.addState(state);
             state = new DialogState(1, "Its way to scary to enter. \n    Plus, you gotta find more kids first.");
             state.addResponse("Oh.... Ill look then", -1);
@@ -51,30 +50,23 @@ namespace Caverns.Char
             state.addResponse("Why?", 2);
             state.addResponse("Fine!", -2);
             this.Dialog.addState(state);
-            this.Position = new Vector2(14, 10+32);
-
-            this.nextMap = nextMap;
+            this.Position = new Vector2(14, 10 + 32);
         }
 
         private void FoundMe(Object sender, EventArgs e)
         {
-            if (((PlayerChar)sender).peopleFound < 3)
+            if (((PlayerChar)sender).keyCount < 2)
             {
-                gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender,1);      
+                //gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender, 1);
             }
             else
             {
-                gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
+                //gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
                 if (this.dialogExitState == -1)
                 {
                     //Enter the cave
                     this.PhysicalContact -= FoundMe;
-                    Map.switchWith(nextMap);
-                    foreach (Character c in nextMap.characterList)
-                    {
-                        if (c is PlayerChar)
-                            c.Position = new Vector2(20, 20);
-                    }
+                   
                 }
                 else
                 {
@@ -97,28 +89,18 @@ namespace Caverns.Char
             }
             lastTime = time.TotalGameTime.Seconds;
 
-            if (this.dialogExitState == -1)
-            {
-                //Enter the cave
-                this.PhysicalContact -= FoundMe;
-                Map.switchWith(nextMap);
-                foreach (Character c in nextMap.characterList)
-                {
-                    if (c is PlayerChar)
-                        c.Position = new Vector2(20, 20+64);
-                }
-            }
+
         }
 
         public override Rectangle getBoundingRect()
         {
-            return new Rectangle((int)Position.X - 1, (int)Position.Y - 1, 1, 2);
+            return new Rectangle((int)Position.X - 1, (int)Position.Y - 1, 3, 3);
         }
         public override void draw(SpriteBatch spriteBatch, Point offset)
         {
             //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y-offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32,32,32,32), Color.Black);
 
-            //spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (32 + 16), (int)(Position.Y - offset.Y) * 32 - 32, 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.White);
+            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y - offset.Y) * 32, 96, 96), new Rectangle(32 * 16, 32 * 15, 96, 96), Color.White);
 
         }
     }

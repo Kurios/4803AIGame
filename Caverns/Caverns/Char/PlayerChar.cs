@@ -29,6 +29,9 @@ namespace Caverns.Char
         //A Player Character has a timer and able to tell which direction they're facing.
         int timeItt = 0;
 
+        public int keyCount = 0;
+        public int peopleFound = 0;
+
         //0 DOWN
         //1 LEFT
         //2 RIGHT
