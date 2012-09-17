@@ -49,8 +49,10 @@ namespace Caverns.GameScreens
 
         void SetUpDialog(int targetState)
         {
-            GameStateManager.PushState(this);
-            controls.Clear();
+            if(GameStateManager.CurrentState != this)
+                GameStateManager.PushState(this);
+
+            controls = new ControlManager(font);
             controls.selectedControl = 0;
             curState = Char1.Dialog.states[targetState];
             DialogLabel.Text = curState.stateText;
