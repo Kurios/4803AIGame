@@ -126,6 +126,9 @@
     <Compile Include="Game1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SubMaps\CaveSubMaps\CaveTileSubMap00">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="SubMaps\CaveSubMaps\CaveTileSubMap10">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
