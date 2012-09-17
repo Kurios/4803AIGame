@@ -19,7 +19,7 @@ namespace KuriosityXLib.Control
     {
         #region Fields and Properties
 
-        int selectedControl = 0;
+        public int selectedControl = 0;
 
         static SpriteFont spriteFont;
 

@@ -51,6 +51,7 @@ namespace Caverns.GameScreens
         {
             GameStateManager.PushState(this);
             controls.Clear();
+            controls.selectedControl = 0;
             curState = Char1.Dialog.states[targetState];
             DialogLabel.Text = curState.stateText;
             DialogLabel.TabStop = false;

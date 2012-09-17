@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace Caverns.Char
 {
-    class Kid1: DialogCharacter
+    class Kid3 : DialogCharacter
     {
         int timeItt = 0;
 
@@ -17,28 +17,28 @@ namespace Caverns.Char
         //1 LEFT
         //2 RIGHT
         //3 UP
-        int facing = 1;
+        int facing = 2;
 
         int lastTime = 0;
         Random r = new Random();
         Game1 gameref;
 
         bool runAway;
-        int stepsToRun = 60;
+        int stepsToRun = 120;
 
         TimeSpan timer = new TimeSpan();
 
-        public Kid1(Texture2D sprite, Map map,Game1 game)
+        public Kid3(Texture2D sprite, Map map, Game1 game)
             : base(sprite, map)
         {
             this.PhysicalContact += FoundMe;
             this.gameref = game;
-            DialogState state = new DialogState(0,"Awww. I thought you would never find me.\n\n   You wont get me next time though! I promise!");
+            DialogState state = new DialogState(0, "*purr*");
             state.addResponse("Ok...");
-            state.addResponse("To the Next One!");
-            state.addResponse("Tau Radience Fills the Galaxy!");
+            state.addResponse("Go Away Kitty...");
+            state.addResponse("Meow meow meow mix.. !");
             this.Dialog.addState(state);
-            this.Position = new Vector2(45, 17);
+            this.Position = new Vector2(7, 64+27);
         }
 
         private void FoundMe(Object sender, EventArgs e)
@@ -51,21 +51,22 @@ namespace Caverns.Char
         {
             //timeItt = (int)Math.Floor(1 / (float)(time.ElapsedGameTime.Milliseconds * 4));
             timer += time.ElapsedGameTime;
-            TimeSpan eightSecond = new TimeSpan(1250000);
-            if(timer > eightSecond){
-                timer -= eightSecond;
-              
-               
-            if(this.lastDialogEventNum < 0 && stepsToRun > 0)
+            TimeSpan eightSecond = new TimeSpan(800000);
+            if (timer > eightSecond)
             {
-                timeItt++;
-                if (timeItt > 3) timeItt = 0;
-                   Position = Position + new Vector2(0, -1);
-                   facing = 3;
-                    stepsToRun --;
+                timer -= eightSecond;
+
+
+                if (this.lastDialogEventNum < 0 && stepsToRun > 0)
+                {
+                    timeItt++;
+                    if (timeItt > 3) timeItt = 0;
+                    Position = Position + new Vector2(0, -1);
+                    facing = 3;
+                    stepsToRun--;
+                }
             }
-           }
-           lastTime = time.TotalGameTime.Seconds;
+            lastTime = time.TotalGameTime.Seconds;
         }
 
         public override Rectangle getBoundingRect()
@@ -76,8 +77,8 @@ namespace Caverns.Char
         {
             //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y-offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32,32,32,32), Color.Black);
 
-            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (32+16), (int)(Position.Y- offset.Y) * 32 - 32 , 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.White);
-            
+            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (32 + 16), (int)(Position.Y - offset.Y) * 32 - 32, 56, 80), new Rectangle(65 * timeItt, 96 * facing, 65, 96), Color.White);
+
         }
     }
 }

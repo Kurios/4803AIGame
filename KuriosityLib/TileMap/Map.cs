@@ -193,6 +193,13 @@ namespace KuriosityXLib.TileMap
             }
         }
 
+        public void switchWith(Map map)
+        {
+            this.subMaps = map.subMaps;
+            this.worldSize = map.worldSize;
+            this.characterList = map.characterList;
+        }
+
         internal void setSubSector(int i, int j, SubMap subMap)
         {
             subMaps[i, j] = subMap;
