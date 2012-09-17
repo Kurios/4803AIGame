@@ -31,6 +31,7 @@ namespace KuriosityXLib.TileMap
 
         public void setTile(int x, int y, int tileType, int subMap)
         {
+            while (subMap > head) AddSubMap();
             def[subMap][x, y] = tileType;
         }
 
