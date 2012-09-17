@@ -1,22 +1,25 @@
 Content\backgrounds\titleScreen.xnb
 Content\backgrounds\titleScreen2.xnb
-Content\tilemap\woodsLandForest.xnb
-Content\font\title.xnb
 Content\characters\catLady.xnb
+Content\tilemap\woodsLandForest.xnb
 Content\backgrounds\cloudText.xnb
 Content\backgrounds\Lensflare.xnb
 Content\backgrounds\Top.xnb
+Content\font\title.xnb
 Content\characters\Ash.xnb
-Content\font\dialog.xnb
 Content\characters\portait\ash-ketchum.xnb
 Content\characters\Link.xnb
 Content\characters\LinkFalling.xnb
 Content\characters\portait\Link (2).xnb
+Content\font\dialog.xnb
 Content\characters\portait\animeGirl1.xnb
 Content\characters\portait\two.xnb
 Content\characters\Rin.xnb
 Content\characters\Parsee.xnb
-Content\characters\Item Key01.xnb
+SubMaps\CaveSubMaps\CaveTileSubMap00
+SubMaps\CaveSubMaps\CaveTileSubMap10
+SubMaps\CaveSubMaps\CaveTileSubMap01
+SubMaps\CaveSubMaps\CaveTileSubMap11
 SubMaps\CaveSubMaps\CaveTileSubMap12
 SubMaps\CaveSubMaps\CaveFullTileSet
 SubMaps\CaveSubMaps\CaveTileSubMap02
