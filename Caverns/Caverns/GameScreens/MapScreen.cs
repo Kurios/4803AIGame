@@ -50,7 +50,7 @@ namespace Caverns.GameScreens
             Texture2D keyText = gameref.Content.Load<Texture2D>("characters/Item Key01");
             Texture2D girlText = gameref.Content.Load<Texture2D>("characters/Parsee");
             Texture2D girlPort = gameref.Content.Load<Texture2D>("characters/portait/animeGirl1");
-            camera.setMap(caveMap);
+            camera.setMap(map);
             //Woman woman = new Woman(charTex, map,gameref);
             //woman.Position = new Vector2(10, 10);
             
@@ -84,13 +84,13 @@ namespace Caverns.GameScreens
 
             Girl girl = new Girl(girlText, caveMap, gameref);
             girl.Portrait = girlPort;
-            girl.Position = new Vector2(8 + 32, 15);
+            girl.Position = new Vector2(32, 16);
             caveMap.characterList.Add(girl);
 
-            pc = new PlayerChar(catLady, caveMap, Game);
-            pc.Position = new Vector2(20, 20+64);
-            map.characterList.Add(pc);
+            pc = new PlayerChar(catLady, map, Game);
+            pc.Position = new Vector2(20, 20);
             caveMap.characterList.Add(pc);
+            map.characterList.Add(pc);
             camera.SetFocus(pc);
 
         }

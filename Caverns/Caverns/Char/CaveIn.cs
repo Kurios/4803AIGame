@@ -70,10 +70,11 @@ namespace Caverns.Char
                     //Enter the cave
                     this.PhysicalContact -= FoundMe;
                     Map.switchWith(nextMap);
-                    foreach (Character c in nextMap.characterList)
+                    foreach (Character c in Map.characterList)
                     {
                         if (c is PlayerChar)
-                            c.Position = new Vector2(20, 20);
+                            nextMap.characterList.Add(c);
+                            c.Position = new Vector2(20+64, 20);
                     }
                 }
                 else
