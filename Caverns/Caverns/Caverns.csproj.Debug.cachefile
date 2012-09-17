@@ -1,11 +1,17 @@
 Content\backgrounds\titleScreen.xnb
 Content\backgrounds\titleScreen2.xnb
-Content\characters\catLady.xnb
 Content\tilemap\woodsLandForest.xnb
+Content\font\title.xnb
+Content\characters\catLady.xnb
 Content\backgrounds\cloudText.xnb
 Content\backgrounds\Lensflare.xnb
 Content\backgrounds\Top.xnb
-Content\font\title.xnb
+Content\characters\Ash.xnb
+Content\font\dialog.xnb
+Content\characters\portait\ash-ketchum.xnb
+Content\characters\Link.xnb
+Content\characters\LinkFalling.xnb
+Content\characters\portait\Link (2).xnb
 ForestMap02
 ForestMap03
 ForestMap01
