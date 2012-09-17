@@ -33,10 +33,13 @@ namespace Caverns.Char
         {
             this.PhysicalContact += FoundMe;
             this.gameref = game;
-            DialogState state = new DialogState(0, "*purr*");
-            state.addResponse("Ok...");
-            state.addResponse("Go Away Kitty...");
-            state.addResponse("Meow meow meow mix.. !");
+            DialogState state = new DialogState(0, "Eeek! You found me!");
+            state.addResponse("Ok...",1);
+            state.addResponse("Go Away Kitty...",2);
+            state.addResponse("Meow meow meow mix.. !",2);
+            state.addResponse("I found who?", 3);
+            state.addResponse("Lets get out of here.", 4);
+            state.addResponse("Yes I did", 5);
             this.Dialog.addState(state);
             this.Position = new Vector2(7, 64 + 27);
         }

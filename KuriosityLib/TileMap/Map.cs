@@ -138,10 +138,12 @@ namespace KuriosityXLib.TileMap
             {
                 foreach (Character entity in characterList)
                 {
-                    if(!character.Passable)
-                        if(character != entity)
-                            ret = ret && !entity.getBoundingRect().Intersects(new Rectangle(x, y, bounds.Width/32, bounds.Height/32)) && !entity.getBoundingRect().Contains(new Rectangle(x, y, bounds.Width/32, bounds.Height/32));
-                }
+                    if (!character.Passable)
+                    {
+                        if (character != entity)
+                            ret = ret && !entity.getBoundingRect().Intersects(new Rectangle(x, y, bounds.Width / 32, bounds.Height / 32)) && !entity.getBoundingRect().Contains(new Rectangle(x, y, bounds.Width / 32, bounds.Height / 32));
+                    }
+                 }
             }
             else
             {

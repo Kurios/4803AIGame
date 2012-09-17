@@ -58,9 +58,14 @@ namespace Caverns.Char
             if (((PlayerChar)sender).keyCount < 2)
             {
                 //gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender, 1);
+                
             }
             else
             {
+                this.PhysicalContact -= FoundMe;
+                this.Passable = true;
+                this.Position = new Vector2(-100, -100);
+                //this.done = true;
                 //gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
                 if (this.dialogExitState == -1)
                 {
@@ -99,8 +104,8 @@ namespace Caverns.Char
         public override void draw(SpriteBatch spriteBatch, Point offset)
         {
             //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y-offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32,32,32,32), Color.Black);
-
-            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y - offset.Y) * 32, 96, 96), new Rectangle(32 * 16, 32 * 15, 96, 96), Color.White);
+            if(!Passable)
+                spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y - offset.Y) * 32, 96, 96), new Rectangle(32 * 16, 32 * 15, 96, 96), Color.White);
 
         }
     }

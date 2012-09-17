@@ -33,6 +33,7 @@ namespace Caverns.Char
             this.gameref = game;
             DialogState state = new DialogState(0,"Eeek! you touched me!");
             state.addResponse("ok...");
+            state.addResponse("That I did");
             this.Dialog.addState(state);
         }
 

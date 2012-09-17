@@ -108,12 +108,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Char\CaveIn.cs" />
+    <Compile Include="Char\Girl.cs" />
+    <Compile Include="Char\Key.cs" />
     <Compile Include="Char\Kid1.cs" />
     <Compile Include="Char\Kid2.cs" />
     <Compile Include="Char\Kid3.cs" />
     <Compile Include="Char\NonPlayableChar.cs" />
     <Compile Include="Char\NPCChild.cs" />
     <Compile Include="Char\PlayerChar.cs" />
+    <Compile Include="Char\Waterfall.cs" />
     <Compile Include="Char\Woman.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
     <Compile Include="GameScreens\DialogScreen.cs" />
