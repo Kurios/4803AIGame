@@ -124,10 +124,20 @@
     <Compile Include="Game1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ForestMap02">
+    <None Include="SubMaps\ForestSubMaps\ForestTileSubMap01">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ForestMap03">
+    <None Include="SubMaps\ForestSubMaps\ForestTileSubMap11" />
+    <None Include="SubMaps\ForestSubMaps\ForestTileSubMap00">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SubMaps\ForestSubMaps\ForestTileSubMap12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SubMaps\ForestSubMaps\ForestTileSubMap02">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SubMaps\ForestSubMaps\ForestTileSubMap10">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Game.ico" />
@@ -184,7 +194,9 @@
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SubMaps\CaveSubMaps\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--
