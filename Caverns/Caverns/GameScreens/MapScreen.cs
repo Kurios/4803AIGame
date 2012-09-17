@@ -37,7 +37,7 @@ namespace Caverns.GameScreens
             spriteMap = gameref.Content.Load<Texture2D>("tilemap/woodsLandForest");
             //map.setSpriteMap(spriteMap);
             Texture2D charTex = gameref.Content.Load<Texture2D>("characters/catLady");
-            map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("ForestMap01"));
+            map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("CaveMap01"));
             camera.setMap(map);
             Woman woman = new Woman(charTex, map,gameref);
             woman.Position = new Vector2(10, 10);

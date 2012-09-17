@@ -6,10 +6,13 @@ Content\backgrounds\cloudText.xnb
 Content\backgrounds\Lensflare.xnb
 Content\backgrounds\Top.xnb
 Content\font\title.xnb
+SubMaps\CaveSubMaps\CaveTileSet
+SubMaps\ForestSubMaps\ForestTileSet
 SubMaps\ForestSubMaps\ForestTileSubMap01
 SubMaps\ForestSubMaps\ForestTileSubMap00
 SubMaps\ForestSubMaps\ForestTileSubMap12
 SubMaps\ForestSubMaps\ForestTileSubMap02
 SubMaps\ForestSubMaps\ForestTileSubMap10
+CaveMap01
 ForestMap01
 map
