@@ -46,7 +46,7 @@ namespace Caverns.GameScreens
             Texture2D nekoPort = gameref.Content.Load<Texture2D>("characters/portait/two");
             map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("ForestMap01"));
             Map caveMap = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("CaveMap01"));
-            camera.setMap(map);
+            camera.setMap(caveMap);
             //Woman woman = new Woman(charTex, map,gameref);
             //woman.Position = new Vector2(10, 10);
             
@@ -66,7 +66,7 @@ namespace Caverns.GameScreens
             CaveIn caveIn = new CaveIn(link, map, gameref, caveMap);
             map.characterList.Add(caveIn);
 
-            pc = new PlayerChar(catLady, map, Game);
+            pc = new PlayerChar(catLady, caveMap, Game);
             pc.Position = new Vector2(20, 20);
             map.characterList.Add(pc);
             caveMap.characterList.Add(pc);

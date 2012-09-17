@@ -126,7 +126,15 @@
     <Compile Include="Game1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SubMaps\CaveSubMaps\CaveFullTileSet.txt" />
+    <None Include="SubMaps\CaveSubMaps\CaveTileSubMap12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SubMaps\CaveSubMaps\CaveFullTileSet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SubMaps\CaveSubMaps\CaveTileSubMap02">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="SubMaps\CaveSubMaps\CaveTileSet">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
