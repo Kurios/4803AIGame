@@ -123,8 +123,17 @@
     <Compile Include="Game1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ForestMap02">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ForestMap03">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
+    <None Include="ForestMap01">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
