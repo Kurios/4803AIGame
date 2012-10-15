@@ -50,7 +50,7 @@ namespace Caverns
 
         public DialogScreen DialogScreen { get; set; }
         #endregion
-
+        public TimedInfoScreen InfoScreen { get; set; }
         public readonly Rectangle ScreenRect;
 
         public Game1()
@@ -71,6 +71,12 @@ namespace Caverns
             EtaProductionsScreen etaScreen = new EtaProductionsScreen(this, gameStateManager);
             mapScreen = new MapScreen(this, gameStateManager);
             titleScreen = new TitleScreen(this, gameStateManager);
+            InfoScreen = new TimedInfoScreen(this, gameStateManager);
+            InfoScreen.addElement("", 1);
+            InfoScreen.addElement("3...", 1);
+            InfoScreen.addElement("3... 2...", 1);
+            InfoScreen.addElement("3... 2... 1...", 1);
+            InfoScreen.addElement("3... 2... 1... \n\n         Ready or not! Here I come!", 1);
             gameStateManager.ChangeState(titleScreen);
             gameStateManager.PushState(etaScreen);
             DialogScreen = new DialogScreen(this, gameStateManager);

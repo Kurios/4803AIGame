@@ -137,6 +137,7 @@ namespace Caverns.Char
                 {
                     timeItt++;
                     if (timeItt > 3) timeItt = 0;
+
                     Position = Position + new Vector2(-1, 0);
                     
                     stepsToRun--;

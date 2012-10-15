@@ -119,6 +119,7 @@
     <Compile Include="Char\Waterfall.cs" />
     <Compile Include="Char\Woman.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
+    <Compile Include="GameScreens\TimedInfoScreen.cs" />
     <Compile Include="GameScreens\DialogScreen.cs" />
     <Compile Include="GameScreens\EtaProductionsScreen.cs" />
     <Compile Include="GameScreens\MapScreen.cs" />
