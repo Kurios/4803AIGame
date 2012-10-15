@@ -48,15 +48,15 @@ namespace KuriosityXLib.TileMap
         }
         #endregion
 
-        public void Draw(SpriteBatch spriteBatch, Point pos, Point offset, float scale)
+        public void Draw(SpriteBatch spriteBatch, Point pos, Point offset, float scale, Color color)
         {
             //spriteBatch.Begin();
             //Console.WriteLine(baseText);
-            spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(baseText.Width * scale), (pos.Y-offset.Y) * (int)(baseText.Height * scale), (int)(baseText.Width * scale), (int)(baseText.Height * scale)), baseText, Color.White);
-            
-            if (!accentText.IsEmpty) spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(accentText.Width * scale), (pos.Y-offset.Y) * (int)(accentText.Height * scale), (int)(accentText.Width * scale), (int)(accentText.Height * scale)), accentText, Color.White);
-            
-            if (!topText.IsEmpty) spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(topText.Width * scale), (pos.Y-offset.Y) * (int)(topText.Height * scale), (int)(topText.Width * scale), (int)(topText.Height * scale)), topText, Color.White);
+            spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(baseText.Width * scale), (pos.Y - offset.Y) * (int)(baseText.Height * scale), (int)(baseText.Width * scale), (int)(baseText.Height * scale)), baseText, color);
+
+            if (!accentText.IsEmpty) spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(accentText.Width * scale), (pos.Y - offset.Y) * (int)(accentText.Height * scale), (int)(accentText.Width * scale), (int)(accentText.Height * scale)), accentText, color);
+
+            if (!topText.IsEmpty) spriteBatch.Draw(spriteResource, new Rectangle((pos.X - offset.X) * (int)(topText.Width * scale), (pos.Y - offset.Y) * (int)(topText.Height * scale), (int)(topText.Width * scale), (int)(topText.Height * scale)), topText, color);
             //spriteBatch.End();
         }
     }
