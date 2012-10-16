@@ -1,0 +1,7 @@
+﻿#These are the emotions that our agent should be able to have.
+Hatred
+Happyness
+Submission
+Extasy
+Fear
+Accomplishment

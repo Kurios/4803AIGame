@@ -41,9 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Language\Context.cs" />
+    <Compile Include="Language\Idea.cs" />
     <Compile Include="Language\Language.cs" />
     <Compile Include="Language\Word.cs" />
+    <Compile Include="NerualNet\Conditioning\Conditioning.cs" />
+    <Compile Include="NerualNet\emotionState\EmotionState.cs" />
     <Compile Include="NerualNet\emotionState\eSpace.cs" />
+    <Compile Include="NerualNet\Intellengence\Intellegence.cs" />
     <Compile Include="NerualNet\Listener.cs" />
     <Compile Include="NerualNet\NNetwork.cs" />
     <Compile Include="NerualNet\Node.cs" />
