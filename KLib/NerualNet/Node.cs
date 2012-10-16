@@ -7,13 +7,15 @@ namespace KLib.NerualNet
 {
     public class Node
     {
-        double value = 0;
-        double Value { get { return value;} }
+
+        public Node() { }
+        protected double value = 0;
+        public double Value { get { return value;} }
         LinkedList<LinkNode> children;
         string name;
 
         int tick = -1;
-        string Name { get { return name; } }
+        public string Name { get { return name; } }
 
         public Node(String name)
         {
@@ -22,7 +24,7 @@ namespace KLib.NerualNet
         }
 
         /** This is the most primitive type of node. It is the weight of its children, weighted by the assigned weight */
-        public double update(int tick)
+        public virtual double update(int tick)
         {
             if (tick != this.tick)
             {
