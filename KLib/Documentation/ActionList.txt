@@ -1,0 +1,6 @@
+﻿#These are the actions that our agent should be able to consider
+Flee
+Follow
+Walk
+Run
+Lead

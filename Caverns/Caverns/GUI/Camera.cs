@@ -25,6 +25,8 @@ namespace KuriosityXLib.TileMap
         Map map;
         Character focus;
 
+        public Color Color { get; set; }
+
         Rectangle position;
         public Rectangle ScreenDef { get; set; }
 
@@ -44,6 +46,7 @@ namespace KuriosityXLib.TileMap
 
             position = new Rectangle(0, 0, (game.ScreenRect.Width/32) + 1, (game.ScreenRect.Height / 32) + 1);
             ScreenDef = new Rectangle(0, 0, (game.ScreenRect.Width / 32) + 1, (game.ScreenRect.Height / 32) + 1);
+            Color = Color.White;
             
         }
 
@@ -97,7 +100,7 @@ namespace KuriosityXLib.TileMap
                 for (int y = Position.Y; y < position.Height+Position.Y; y++)
                 {
                     if(map.getTile(x,y) != null)
-                        map.getTile(x, y).Draw(game.SpriteBatch,new Point(x,y), position.Location, 1);
+                        map.getTile(x, y).Draw(game.SpriteBatch,new Point(x,y), position.Location, 1, Color);
                 }
             }
             foreach (Character character in map.characterList)

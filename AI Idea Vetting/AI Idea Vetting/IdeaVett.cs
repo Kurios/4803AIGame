@@ -9,77 +9,20 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using KuriosityXLib;
-using Caverns.GameScreens;
-
-///Kurios: The starting point.
-///Credit to where credit is due!
-///
-///http://xnagpa.net/xna4rpg.php
-///9/5/2012
-///Not Intended for resale or distrobution for profit. (At the moment). Consider this a MIT style licence.
-///
-namespace Caverns
+namespace AI_Idea_Vetting
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class IdeaVett : Microsoft.Xna.Framework.Game
     {
-        #region XNA Fields
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        GameStateManager gameStateManager;
 
-
-        public SpriteBatch SpriteBatch
-        {
-            get { return spriteBatch; }
-        }
-        #endregion
-
-        #region GameStates
-        
-        private TitleScreen titleScreen;
-        MapScreen mapScreen;
-
-        public MapScreen MapScreen
-        {
-            get{return mapScreen;}
-        }
-
-        public DialogScreen DialogScreen { get; set; }
-        #endregion
-        public TimedInfoScreen InfoScreen { get; set; }
-        public readonly Rectangle ScreenRect;
-
-        public Game1()
+        public IdeaVett()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1024;
-            graphics.PreferredBackBufferHeight = 768;
-
-            ScreenRect = new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-
             Content.RootDirectory = "Content";
-
-            Components.Add(new InputHandler(this));
-
-            gameStateManager = new GameStateManager(this);
-            Components.Add(gameStateManager);
-
-            EtaProductionsScreen etaScreen = new EtaProductionsScreen(this, gameStateManager);
-            mapScreen = new MapScreen(this, gameStateManager);
-            titleScreen = new TitleScreen(this, gameStateManager);
-            InfoScreen = new TimedInfoScreen(this, gameStateManager);
-            InfoScreen.addElement("", 1);
-            InfoScreen.addElement("3...", 1);
-            InfoScreen.addElement("3... 2...", 1);
-            InfoScreen.addElement("3... 2... 1...", 1);
-            InfoScreen.addElement("3... 2... 1... \n\n         Ready or not! Here I come!", 1);
-            gameStateManager.ChangeState(titleScreen);
-            gameStateManager.PushState(etaScreen);
-            DialogScreen = new DialogScreen(this, gameStateManager);
         }
 
         /// <summary>
@@ -124,7 +67,7 @@ namespace Caverns
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (InputHandler.KeyPressed(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
             // TODO: Add your update logic here
@@ -138,7 +81,7 @@ namespace Caverns
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.SlateGray);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
 

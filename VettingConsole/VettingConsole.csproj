@@ -2,18 +2,20 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{179F1022-BE4D-4B39-A728-395B4DD4DAD5}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{3D01B0B4-D6CC-43D0-B04E-2660F046CB3C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KLib</RootNamespace>
-    <AssemblyName>KLib</AssemblyName>
+    <RootNamespace>VettingConsole</RootNamespace>
+    <AssemblyName>VettingConsole</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,7 +24,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,30 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Language\Context.cs" />
-    <Compile Include="Language\Idea.cs" />
-    <Compile Include="Language\Language.cs" />
-    <Compile Include="Language\Word.cs" />
-    <Compile Include="NerualNet\Conditioning\Conditioning.cs" />
-    <Compile Include="NerualNet\emotionState\EmotionState.cs" />
-    <Compile Include="NerualNet\emotionState\eSpace.cs" />
-    <Compile Include="NerualNet\Intellengence\Intellegence.cs" />
-    <Compile Include="NerualNet\Listener.cs" />
-    <Compile Include="NerualNet\NNetwork.cs" />
-    <Compile Include="NerualNet\Node.cs" />
+    <Compile Include="Agent.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Lua\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="dll\lauxlib.h" />
-    <Content Include="dll\lua.h" />
-    <Content Include="dll\lua.hpp" />
-    <Content Include="dll\lua52.dll" />
-    <Content Include="dll\luaconf.h" />
-    <Content Include="dll\LuaInterface.dll" />
-    <Content Include="dll\lualib.h" />
+    <ProjectReference Include="..\KLib\KLib.csproj">
+      <Project>{179F1022-BE4D-4B39-A728-395B4DD4DAD5}</Project>
+      <Name>KLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
