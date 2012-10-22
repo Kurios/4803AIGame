@@ -64,6 +64,8 @@
     <Content Include="dll\luaconf.h" />
     <Content Include="dll\LuaInterface.dll" />
     <Content Include="dll\lualib.h" />
+    <Content Include="Documentation\ActionList.txt" />
+    <Content Include="Documentation\EmotionList.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

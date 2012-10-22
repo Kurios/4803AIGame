@@ -17,7 +17,7 @@ namespace KLib.NerualNet.emotionState
         public Double Joy = 0;
         public Double Disgust = 0;
         public Double Trust = 0;
-        public Double Anticiation = 0;
+        public Double Anticipation = 0;
         public Double Supprise = 0;
 
         /*
@@ -31,9 +31,126 @@ namespace KLib.NerualNet.emotionState
          *                          -Kurios
         */
 
+        public eSpace()
+        {
+        }
+
+        public eSpace(double Fear, double Anger, double Sadness, double Joy, double Disgust, double Trust, double Anticipation, double Supprise)
+        {
+            this.Fear = Fear;
+            this.Anger = Anger;
+            this.Sadness = Sadness;
+            this.Joy = Joy;
+            this.Disgust = Disgust;
+            this.Trust = Trust;
+            this.Anticipation = Anticipation;
+            this.Supprise = Supprise;
+        }
+
         public double Magnitude()
         {
-            return Fear * Anger * Sadness * Joy * Disgust * Trust * Anticiation * Supprise;
+            return Fear * Anger * Sadness * Joy * Disgust * Trust * Anticipation * Supprise;
+        }
+
+        internal eSpace Magnified()
+        {
+            eSpace ret = new eSpace();
+            double mag = Magnitude();
+            ret.Fear = Fear * mag;
+            ret.Anger = Anger * mag;
+            ret.Sadness = Sadness * mag;
+            ret.Joy = Joy * mag;
+            ret.Disgust = Disgust * mag;
+            ret.Trust = Trust * mag;
+            ret.Anticipation = Anticipation * mag;
+            ret.Supprise = Supprise * mag;
+            return ret;
+        }
+
+        internal eSpace Magnified(double secondary)
+        {
+            eSpace ret = new eSpace();
+            double mag = Magnitude();
+            ret.Fear = Fear * mag * secondary;
+            ret.Anger = Anger * mag * secondary;
+            ret.Sadness = Sadness * mag * secondary;
+            ret.Joy = Joy * mag * secondary;
+            ret.Disgust = Disgust * mag * secondary;
+            ret.Trust = Trust * mag * secondary;
+            ret.Anticipation = Anticipation * mag * secondary;
+            ret.Supprise = Supprise * mag * secondary;
+            return ret;
+        }
+
+        internal eSpace Multiply(double secondary)
+        {
+            eSpace ret = new eSpace();
+            ret.Fear = Fear * secondary;
+            ret.Anger = Anger * secondary;
+            ret.Sadness = Sadness * secondary;
+            ret.Joy = Joy * secondary;
+            ret.Disgust = Disgust * secondary;
+            ret.Trust = Trust * secondary;
+            ret.Anticipation = Anticipation * secondary;
+            ret.Supprise = Supprise * secondary;
+            return ret;
+        }
+
+        internal void iMultiply(double secondary)
+        {
+            Fear = Fear * secondary;
+            Anger = Anger * secondary;
+            Sadness = Sadness * secondary;
+            Joy = Joy * secondary;
+            Disgust = Disgust * secondary;
+            Trust = Trust * secondary;
+            Anticipation = Anticipation * secondary;
+            Supprise = Supprise * secondary;
+        }
+
+        internal eSpace Subtract(eSpace espace)
+        {
+            eSpace ret = new eSpace();
+            ret.Fear = Fear - espace.Fear;
+            ret.Anger = Anger - espace.Anger;
+            ret.Sadness = Sadness - espace.Sadness;
+            ret.Joy = Joy - espace.Joy;
+            ret.Disgust = Disgust - espace.Disgust;
+            ret.Trust = Trust - espace.Trust;
+            ret.Anticipation = Anticipation - espace.Anticipation;
+            ret.Supprise = Supprise - espace.Supprise;
+            return ret;
+        }
+
+        internal eSpace Add(eSpace espace)
+        {
+            eSpace ret = new eSpace();
+            ret.Fear = Fear + espace.Fear;
+            ret.Anger = Anger + espace.Anger;
+            ret.Sadness = Sadness + espace.Sadness;
+            ret.Joy = Joy + espace.Joy;
+            ret.Disgust = Disgust + espace.Disgust;
+            ret.Trust = Trust + espace.Trust;
+            ret.Anticipation = Anticipation + espace.Anticipation;
+            ret.Supprise = Supprise + espace.Supprise;
+            return ret;
+        }
+
+        internal void iAdd(eSpace espace)
+        {
+            Fear = Fear + espace.Fear;
+            Anger = Anger + espace.Anger;
+            Sadness = Sadness + espace.Sadness;
+            Joy = Joy + espace.Joy;
+            Disgust = Disgust + espace.Disgust;
+            Trust = Trust + espace.Trust;
+            Anticipation = Anticipation + espace.Anticipation;
+            Supprise = Supprise + espace.Supprise;
+        }
+
+        internal eSpace Copy()
+        {
+            throw new NotImplementedException();
         }
     }
 
