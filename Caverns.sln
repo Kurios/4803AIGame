@@ -11,9 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KLib", "KLib\KLib.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KAI Idea Vetting", "AI Idea Vetting\AI Idea Vetting\KAI Idea Vetting.csproj", "{6C95907A-33BB-4CF5-B45C-F68DC42C528C}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "KAI Idea VettingContent", "AI Idea Vetting\AI Idea VettingContent\KAI Idea VettingContent.contentproj", "{A153EE0A-F502-440D-ADB2-92A0A72A655F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KAI Idea VettingContent", "AI Idea Vetting\AI Idea VettingContent\KAI Idea VettingContent.contentproj", "{A153EE0A-F502-440D-ADB2-92A0A72A655F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VettingConsole", "VettingConsole\VettingConsole.csproj", "{3D01B0B4-D6CC-43D0-B04E-2660F046CB3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeMaker", "MazeMaker\Project1\MazeMaker.csproj", "{23A4DCE2-D962-4C77-80E2-DF5747317AF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +105,18 @@ Global
 		{3D01B0B4-D6CC-43D0-B04E-2660F046CB3C}.Release|Win32.ActiveCfg = Release|x86
 		{3D01B0B4-D6CC-43D0-B04E-2660F046CB3C}.Release|x86.ActiveCfg = Release|x86
 		{3D01B0B4-D6CC-43D0-B04E-2660F046CB3C}.Release|x86.Build.0 = Release|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Debug|Win32.ActiveCfg = Debug|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Debug|x86.ActiveCfg = Debug|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Debug|x86.Build.0 = Debug|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Release|Any CPU.ActiveCfg = Release|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Release|Mixed Platforms.Build.0 = Release|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Release|Win32.ActiveCfg = Release|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Release|x86.ActiveCfg = Release|x86
+		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
