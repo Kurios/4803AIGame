@@ -44,7 +44,7 @@ namespace MazeMaker
 
         public String toString()
         {
-            String returned = "Gridspace: (" + x + ", " + y + ")";
+            String returned = "Gridspace: (" + this.x + ", " + this.y + ")";
             return returned; 
         }
 

@@ -16,9 +16,9 @@ namespace MazeMaker
             xDimension = xDim;
             yDimension = yDim;
             mazeWalls = getWalls();
-            for (int y = 0; y < xDimension; y++)
+            for (int y = 0; y < yDimension; y++)
             {
-                for (int x = 0; x < yDimension; x++)
+                for (int x = 0; x < xDimension; x++)
                 {
                     Gridspace cell = new Gridspace(x, y);
                     list.Add(cell);
@@ -192,8 +192,10 @@ namespace MazeMaker
             //The actual Prim's algorithm
             while (theWalls.Count > 0)
             {
-                Wall wall = theWalls[0];
-
+                //Wall wall = theWalls[0];
+                Random r = new Random();
+                int index = r.Next(0, theWalls.Count);
+                Wall wall = theWalls[index];
                 Gridspace checkToAddA = wall.GridspaceA;
                 Gridspace checkToAddB = wall.GridspaceB;
 
