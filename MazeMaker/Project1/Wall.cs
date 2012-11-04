@@ -49,6 +49,18 @@ namespace MazeMaker
             }
             return false;
         }
+
+        public Gridspace getOppositeSpace(Gridspace gs)
+        {
+            if (GridspaceA.equals(gs))
+            {
+                return GridspaceB;
+            }
+            else
+            {
+                return GridspaceA;
+            }
+        }
         public String toString()
         {
             String returned = "WALL: [" + GridspaceA.toString() + ", " + GridspaceB.toString() + "]";

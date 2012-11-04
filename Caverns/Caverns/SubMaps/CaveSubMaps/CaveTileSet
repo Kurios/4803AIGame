@@ -7,3 +7,4 @@ t 21,55 null null true 6 caveTopRightBorder
 t 22,52 null null true 7 caveBotLeftBorder
 t 23,52 null null true 8 caveBotRightBorder
 t 17,52 null null true 9 caveFloor
+t 19,50 null null false 10 switchRock
