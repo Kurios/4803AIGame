@@ -7,6 +7,8 @@ using KuriosityXLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Caverns.Char;
+using KLib.NerualNet.emotionState;
+using Microsoft.Xna.Framework.Input;
 
 namespace Caverns.GameScreens
 {
@@ -18,6 +20,16 @@ namespace Caverns.GameScreens
         Camera camera;
         Texture2D spriteMap;
         PlayerChar pc;
+        Effect pxShader;
+        SpriteFont font;
+        Girl girl;
+
+        eSpace espace;
+
+        int selectedEmotion;
+
+        RenderTarget2D ShaderRenderTarget;
+        Texture2D ShaderTexture;
 
         #region Constructor
 
@@ -26,6 +38,7 @@ namespace Caverns.GameScreens
         {
             //map = new Map(game,new Vector2(32,32),100,100,spriteMap);
             camera = new Camera(game,map);
+            espace = new eSpace(.2,.2,.2,.2,.2,.2,.2,.2);
         }
 
         #endregion
@@ -47,10 +60,33 @@ namespace Caverns.GameScreens
             map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("ForestMap01"));
             Map caveMap = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("CaveMap01"));
 
+            font = gameref.Content.Load<SpriteFont>("font/system");
             Texture2D keyText = gameref.Content.Load<Texture2D>("characters/Item Key01");
             Texture2D girlText = gameref.Content.Load<Texture2D>("characters/Parsee");
             Texture2D girlPort = gameref.Content.Load<Texture2D>("characters/portait/animeGirl1");
+            //PixelShader shit
+            pxShader = gameref.Content.Load<Effect>("shaders/cavernShader");
             camera.setMap(map);
+
+            pxShader.Parameters["Viewport"].SetValue(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
+            /*
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0, gameref.GraphicsDevice.PresentationParameters.BackBufferWidth, gameref.GraphicsDevice.PresentationParameters.BackBufferHeight, 0, 0, 1);
+            Matrix halfPixelOffset = Matrix.CreateTranslation(-0.5f, -0.5f, 0);
+
+            pxShader.World = Matrix.Identity;
+            pxShader.View = Matrix.Identity;
+            pxShader.Projection = halfPixelOffset * projection;
+
+            pxShader.TextureEnabled = true;
+            pxShader.VertexColorEnabled = true;
+            */
+
+            ShaderRenderTarget = new RenderTarget2D(gameref.GraphicsDevice,
+                gameref.GraphicsDevice.PresentationParameters.BackBufferWidth,
+                gameref.GraphicsDevice.PresentationParameters.BackBufferHeight);
+
+            ShaderTexture = new Texture2D(gameref.GraphicsDevice, ShaderRenderTarget.Width, ShaderRenderTarget.Height, false,
+               ShaderRenderTarget.Format);
             //Woman woman = new Woman(charTex, map,gameref);
             //woman.Position = new Vector2(10, 10);
             
@@ -82,28 +118,125 @@ namespace Caverns.GameScreens
             key2.Position = new Vector2(22 + 32, 19 + 64);
             caveMap.characterList.Add(key2);
 
-            Girl girl = new Girl(girlText, caveMap, gameref);
-            girl.Portrait = girlPort;
-            girl.Position = new Vector2(32, 16);
-            caveMap.characterList.Add(girl);
+
 
             pc = new PlayerChar(catLady, map, Game);
             pc.Position = new Vector2(20, 20);
             caveMap.characterList.Add(pc);
             map.characterList.Add(pc);
             camera.SetFocus(pc);
+            //!!!
+            pc.Map = caveMap;
+            camera.setMap(caveMap);
+            //!!!
+
+            girl = new Girl(girlText, caveMap, gameref,pc);
+            girl.Portrait = girlPort;
+            girl.Position = new Vector2(32, 16);
+            caveMap.characterList.Add(girl);
 
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             map.update(gameTime);
+            if (InputHandler.KeyPressed(Keys.Add))
+            {
+                selectedEmotion++;
+                if (selectedEmotion > 7) selectedEmotion = 0;
+            }
+
+            if (InputHandler.KeyPressed(Keys.Subtract))
+            {
+                selectedEmotion--;
+                if(selectedEmotion < 0 ) selectedEmotion = 7;
+            }
+            if (InputHandler.KeyPressed(Keys.Divide))
+            {
+                switch (selectedEmotion)
+                {
+                    case 0: espace.Fear -= .1; break;
+                    case 1: espace.Anger -= .1; break;
+                    case 2: espace.Sadness -= .1; break;
+                    case 3: espace.Joy -= .1; break;
+                    case 4: espace.Disgust -= .1; break;
+                    case 5: espace.Trust -= .1; break;
+                    case 6: espace.Anticipation -= .1; break;
+                    case 7: espace.Supprise -= .1; break;
+                }
+            }
+            if (InputHandler.KeyPressed(Keys.Multiply))
+            {
+                switch (selectedEmotion)
+                {
+                    case 0: espace.Fear += .1; break;
+                    case 1: espace.Anger += .1; break;
+                    case 2: espace.Sadness += .1; break;
+                    case 3: espace.Joy += .1; break;
+                    case 4: espace.Disgust += .1; break;
+                    case 5: espace.Trust += .1; break;
+                    case 6: espace.Anticipation += .1; break;
+                    case 7: espace.Supprise += .1; break;
+                }
+            }
+            pxShader.Parameters["Fear"].SetValue((float)espace.Fear);
+            pxShader.Parameters["Anger"].SetValue((float)espace.Anger);
+            pxShader.Parameters["Sadness"].SetValue((float)espace.Sadness);
+            pxShader.Parameters["Joy"].SetValue((float)espace.Joy);
+            pxShader.Parameters["Disgust"].SetValue((float)espace.Disgust);
+            pxShader.Parameters["Supprise"].SetValue((float)espace.Supprise);
+            pxShader.Parameters["PlayerPos"].SetValue(new Vector2((int)(pc.Position.X - camera.Position.X) * 32 - (16), (int)(pc.Position.Y - camera.Position.Y) * 32));
+            pxShader.Parameters["SecondPos"].SetValue(new Vector2((int)(girl.Position.X - camera.Position.X) * 32 - (16), (int)(girl.Position.Y - camera.Position.Y) * 32));
         }
         public override void Draw(GameTime gameTime)
         {
-            gameref.SpriteBatch.Begin();
+            gameref.SpriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullCounterClockwise,pxShader);
             base.Draw(gameTime);
             camera.Draw(gameTime);
+           
+            gameref.SpriteBatch.End();
+            gameref.SpriteBatch.Begin();
+            {
+                if (selectedEmotion == 0)
+                    gameref.SpriteBatch.DrawString(font, "fear :" + (espace.Fear.ToString()), new Vector2(600, 600), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "fear :" + (espace.Fear.ToString()), new Vector2(600, 600), Color.Red);
+
+                if (selectedEmotion == 1)
+                    gameref.SpriteBatch.DrawString(font, "anger :" + (espace.Anger.ToString()), new Vector2(600, 610), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "anger :" + (espace.Anger.ToString()), new Vector2(600, 610), Color.Red);
+
+                if (selectedEmotion == 2)
+                    gameref.SpriteBatch.DrawString(font, "sadness :" + (espace.Sadness.ToString()), new Vector2(600, 620), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "sadness :" + (espace.Sadness.ToString()), new Vector2(600, 620), Color.Red);
+
+                if (selectedEmotion == 3) 
+                    gameref.SpriteBatch.DrawString(font, "joy :" + (espace.Joy.ToString()), new Vector2(600, 630), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "joy :" + (espace.Joy.ToString()), new Vector2(600, 630), Color.Red);
+
+                if (selectedEmotion == 4)
+                    gameref.SpriteBatch.DrawString(font, "disgust :" + (espace.Disgust.ToString()), new Vector2(600, 640), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "disgust :" + (espace.Disgust.ToString()), new Vector2(600, 640), Color.Red);
+
+                if (selectedEmotion == 5)
+                    gameref.SpriteBatch.DrawString(font, "trust :" + (espace.Trust.ToString()), new Vector2(600, 650), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "trust :" + (espace.Trust.ToString()), new Vector2(600, 650), Color.Red);
+
+                if (selectedEmotion == 6)
+                    gameref.SpriteBatch.DrawString(font, "anticipation :" + (espace.Anticipation.ToString()), new Vector2(600, 660), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "anticipation :" + (espace.Anticipation.ToString()), new Vector2(600, 660), Color.Red);
+
+                if (selectedEmotion == 7)
+                    gameref.SpriteBatch.DrawString(font, "supprise :" + (espace.Supprise.ToString()), new Vector2(600, 670), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "supprise :" + (espace.Supprise.ToString()), new Vector2(600, 670), Color.Red);
+            }
             gameref.SpriteBatch.End();
         }
         #endregion

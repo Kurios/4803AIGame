@@ -12,6 +12,10 @@ namespace KLib.NerualNet.emotionState
         eSpace SumRepresentation = new eSpace();
         double weights = 0;
 
+        public eSpace eSpace {
+         get {return LowRepresentation;}
+        }
+
         private Memory mem;
         //Hmmm... we need a unit of time or something to work with...
         public LowState(Memory m)

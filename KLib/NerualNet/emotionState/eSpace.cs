@@ -9,7 +9,7 @@ namespace KLib.NerualNet.emotionState
      * An emotionspace is a mapping of the emotional... octet?
      * Think of it as a fancy, 8-dimentional Vector, where we target the range -1 to 1 for each double.
      */
-    class eSpace
+    public class eSpace
     {
         public Double Fear = 0;
         public Double Anger = 0;

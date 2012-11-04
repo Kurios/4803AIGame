@@ -47,8 +47,12 @@
     <Compile Include="NerualNet\Conditioning\Conditioning.cs" />
     <Compile Include="NerualNet\emotionState\EmotionState.cs" />
     <Compile Include="NerualNet\emotionState\eSpace.cs" />
+    <Compile Include="NerualNet\emotionState\HighSpace.cs" />
+    <Compile Include="NerualNet\emotionState\LowState.cs" />
+    <Compile Include="NerualNet\emotionState\Visual.cs" />
     <Compile Include="NerualNet\Intellengence\Intellegence.cs" />
     <Compile Include="NerualNet\Listener.cs" />
+    <Compile Include="NerualNet\Memory.cs" />
     <Compile Include="NerualNet\NNetwork.cs" />
     <Compile Include="NerualNet\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

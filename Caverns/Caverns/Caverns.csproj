@@ -124,6 +124,7 @@
     <Compile Include="GameScreens\EtaProductionsScreen.cs" />
     <Compile Include="GameScreens\MapScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
+    <Compile Include="GlobalConstants.cs" />
     <Compile Include="GUI\Camera.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
