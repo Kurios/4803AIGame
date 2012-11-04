@@ -45,6 +45,7 @@
     <Compile Include="Language\Language.cs" />
     <Compile Include="Language\Word.cs" />
     <Compile Include="NerualNet\Conditioning\Conditioning.cs" />
+    <Compile Include="NerualNet\emotionState\Emotion.cs" />
     <Compile Include="NerualNet\emotionState\EmotionState.cs" />
     <Compile Include="NerualNet\emotionState\eSpace.cs" />
     <Compile Include="NerualNet\emotionState\HighSpace.cs" />

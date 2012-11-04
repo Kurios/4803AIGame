@@ -7,13 +7,13 @@ namespace KLib.NerualNet.emotionState
 {
     class LowState
     {
-        double OldMemoryWeight = 100;
+        double OldMemoryWeight = 200;
         eSpace LowRepresentation = new eSpace();
         eSpace SumRepresentation = new eSpace();
         double weights = 0;
 
         public eSpace eSpace {
-         get {return LowRepresentation;}
+         get {return mem.ESpace;}
         }
 
         private Memory mem;
@@ -30,20 +30,24 @@ namespace KLib.NerualNet.emotionState
             eSpace temp = space.Subtract(mem.ESpace);
             temp.iMultiply(weight);
             SumRepresentation.iAdd( temp );
-
-
             return null;
         }
         public void cycle()
         {
-            double memoryChangeFactor = .02;
-            weights = 0 + OldMemoryWeight;
+            //Console.WriteLine("memory cycle");
+            double memoryChangeFactor = .0002;
+            double weightsOther = weights;
+            weights = OldMemoryWeight + weights;
+
             double weightOldMem = OldMemoryWeight / weights;
-            double weightsOther = OldMemoryWeight - 1;
+            weightsOther = weightsOther / weights;
+
             SumRepresentation.iMultiply(weightsOther);
             LowRepresentation.iMultiply(weightOldMem);
-            LowRepresentation.Add(SumRepresentation);
+            LowRepresentation.iAdd(SumRepresentation);
+
             SumRepresentation = new eSpace();
+            weights = 0;
 
             mem.ESpace.iMultiply(1 - memoryChangeFactor);
             mem.ESpace.iAdd(LowRepresentation.Multiply(memoryChangeFactor));

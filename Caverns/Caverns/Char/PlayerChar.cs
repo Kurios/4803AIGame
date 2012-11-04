@@ -32,11 +32,17 @@ namespace Caverns.Char
         public int keyCount = 0;
         public int peopleFound = 0;
 
+        public double movementSpeed = 0;
+        public double TileFindingSpeed = 0;
+
+        public LinkedList<double> moves = new LinkedList<double>();
+        public LinkedList<double> newSquares = new LinkedList<double>();
+
         //0 DOWN
         //1 LEFT
         //2 RIGHT
         //3 UP
-        int facing = 0;
+        public int facing = 0;
 
         TimeSpan timer = new TimeSpan();
         
@@ -61,9 +67,10 @@ namespace Caverns.Char
         public override void update(GameTime time)
         {
             timeItt = (int)Math.Floor(1 / (float)(time.ElapsedGameTime.Milliseconds * 4));
+
+            double curTime = time.TotalGameTime.TotalSeconds;
             
 
-            
 
             timer += time.ElapsedGameTime;
             TimeSpan eightSecond = new TimeSpan(1250000);
@@ -100,7 +107,19 @@ namespace Caverns.Char
                     Position = proposedMove;
                     timeItt++;
                     if (timeItt > 3) timeItt = 0;
+                    moves.AddFirst(curTime);
                 }
+                LinkedList<double> toBeDeleted = new LinkedList<double>();
+                foreach(double m in moves)
+                {
+                    if(m < (curTime - 4)) toBeDeleted.AddFirst(m); 
+                }
+                foreach(double m in toBeDeleted)
+                {
+                    moves.Remove(m);
+                }
+                moveSpeed = moves.Count / 4;
+
                 Character[] chars = Map.checkForCharacter((int)proposedMove.X, (int)proposedMove.Y, this);
                 foreach (Character c in chars)
                 {
@@ -119,7 +138,7 @@ namespace Caverns.Char
         /// <returns></returns>
         public override Rectangle getBoundingRect()
         {
-            return new Rectangle((int)Position.X - 1, (int)Position.Y - 1, 1, 2);
+            return new Rectangle((int)Position.X, (int)Position.Y, 1, 2);
         }
 
         /// <summary>
@@ -129,9 +148,9 @@ namespace Caverns.Char
         /// <param name="offset"></param>
         public override void draw(SpriteBatch spriteBatch,Point offset)
         {
-            //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 32, 32), Color.White);
+            spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X -offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 10, 10), Color.White);
 
-            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (16+32), (int)(Position.Y - offset.Y) * 32 - 32, 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.BlueViolet);
+            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - 16, (int)(Position.Y - offset.Y) * 32 - 16, 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.White);
         }
     }
 }

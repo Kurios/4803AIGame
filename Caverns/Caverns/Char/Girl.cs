@@ -20,11 +20,13 @@ namespace Caverns.Char
         //3 UP
         int facing = 2;
 
+        int counter = 0;
+
         int lastTime = 0;
         Random r = new Random();
         Game1 gameref;
 
-        Character targetChar;
+        PlayerChar targetChar;
         //bool runAway;
         int stepsToRun = 120;
 
@@ -32,15 +34,47 @@ namespace Caverns.Char
 
         EmotionState emotionstate;
 
+        List<Vector2> targetSquares = new List<Vector2>();
+
+        public eSpace eSpace
+        {
+            get { return emotionstate.eSpace; }
+        }
+
         private Vector2 WhereIWantToWalkTo()
         {
             Vector2 ret = new Vector2(Position.X,Position.Y);
 
-            double targetAngle = Math.PI / 2 + Math.PI / 2 * emotionstate.eSpace.Anticipation; 
+            double targetAngle = Math.PI / 2 + Math.PI / 2 * emotionstate.eSpace.Anticipation;
+            double distance = 7 * emotionstate.eSpace.Trust + 1;
+
+            targetSquares = new List<Vector2>();
+            //compute targets
+            switch (targetChar.facing)
+            {
+                case 1:
+                    targetSquares.Add(new Vector2((float)(targetChar.Position.X - Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Sin(targetAngle) * distance + 1)));
+                    targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Sin(targetAngle) * distance + 1)));
+                    break;//Left
+                case 2:
+                    targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Sin(targetAngle) * distance + 1)));
+                    targetSquares.Add(new Vector2((float)(targetChar.Position.X - Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Sin(targetAngle) * distance + 1)));
+                    break;
+                case 0:
+                    targetSquares.Add(new Vector2((float)(targetChar.Position.X - Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Cos(targetAngle) * distance + 1)));
+                    targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y - Math.Cos(targetAngle) * distance + 1)));
+                    break;
+                case 3: 
+                    targetSquares.Add(new Vector2((float)(targetChar.Position.X - Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y - Math.Cos(targetAngle) * distance + 1)));
+                    targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Cos(targetAngle) * distance + 1)));
+                    break;
+            }
+            //check for reachable targets
+
             return new Vector2(0, 0);
         }
 
-        public Girl(Texture2D sprite, Map map, Game1 game, Character targetChar)
+        public Girl(Texture2D sprite, Map map, Game1 game, PlayerChar targetChar)
             : base(sprite, map)
         {
             this.PhysicalContact += FoundMe;
@@ -48,6 +82,8 @@ namespace Caverns.Char
             this.targetChar = targetChar;
 
             this.Position = new Vector2(7, 64 + 27);
+
+            this.emotionstate = new EmotionState();
 
             /*
             DialogState state = new DialogState(0, "Eeek! You found me!");
@@ -150,11 +186,20 @@ namespace Caverns.Char
             //timeItt = (int)Math.Floor(1 / (float)(time.ElapsedGameTime.Milliseconds * 4));
             timer += time.ElapsedGameTime;
             TimeSpan eightSecond = new TimeSpan(1250000);
+
+            WhereIWantToWalkTo();
+
+
+            emotionstate.addEmotion(Emotion.Disgust, 1);
+            emotionstate.addEmotion(Emotion.Apathy, 100);
+            emotionstate.addEmotion(Emotion.Joy, targetChar.moveSpeed * 3);
+            emotionstate.ponder();
+            
             if (timer > eightSecond)
             {
                 timer -= eightSecond;
-
-
+                counter++;
+                emotionstate.addEmotion(Emotion.Disgust, counter);
                 if (facing == 1)
                 {
                     timeItt++;
@@ -165,19 +210,30 @@ namespace Caverns.Char
                     stepsToRun--;
                 }
             }
+            
             //lastTime = time.TotalGameTime.Seconds;
         }
 
         public override Rectangle getBoundingRect()
         {
-            return new Rectangle((int)Position.X - 1, (int)Position.Y - 1, 1, 2);
+            return new Rectangle((int)Position.X, (int)Position.Y, 1, 2);
         }
         public override void draw(SpriteBatch spriteBatch, Point offset)
         {
-            //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y-offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32,32,32,32), Color.Black);
+            foreach (Vector2 v in targetSquares)
+            {
+                Console.WriteLine(v);
+                spriteBatch.Draw(Sprite, new Rectangle((((int)v.X) - offset.X) * 32, (((int)v.Y) - offset.Y) * 32, 32, 32), new Rectangle(32, 32, 10, 10), Color.Black);
+            }
+            spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 10, 10), Color.White);
 
-            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (32 + 16), (int)(Position.Y - offset.Y) * 32 - 32, 56, 80), new Rectangle(65 * timeItt, 96 * facing, 65, 96), Color.White);
+            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 , (int)(Position.Y - offset.Y) * 32 , 56, 80), new Rectangle(65 * timeItt, 96 * facing, 65, 96), Color.White);
 
+        }
+
+        internal void addEmotion(KLib.NerualNet.emotionState.eSpace espace, int p)
+        {
+            emotionstate.addEmotion(espace, p);
         }
     }
 }

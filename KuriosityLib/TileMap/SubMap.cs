@@ -25,6 +25,8 @@ namespace KuriosityXLib.TileMap
 
         public Tile[,] tiles {get;set;}
 
+        int tilesExplored = 0;
+
         public SubMap()
         {
             characterList = new List<Character>();
@@ -86,6 +88,22 @@ namespace KuriosityXLib.TileMap
             {
                 entity.update(time);
             }
+        }
+
+        public Boolean pcMove(int x, int y)
+        {
+            if (inBounds(x, y))
+            {
+                if (getTile(x, y).Explored)
+                    return false;
+                else
+                {
+                    getTile(x, y).Explored = true;
+                    tilesExplored++;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void setSpriteMap(Texture2D spriteMap)

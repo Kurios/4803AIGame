@@ -57,7 +57,9 @@ namespace Caverns.GameScreens
             Texture2D catLady = gameref.Content.Load<Texture2D>("characters/catLady");
             Texture2D neko = gameref.Content.Load<Texture2D>("characters/Rin");
             Texture2D nekoPort = gameref.Content.Load<Texture2D>("characters/portait/two");
+
             map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("ForestMap01"));
+            
             Map caveMap = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("CaveMap01"));
 
             font = gameref.Content.Load<SpriteFont>("font/system");
@@ -122,12 +124,14 @@ namespace Caverns.GameScreens
 
             pc = new PlayerChar(catLady, map, Game);
             pc.Position = new Vector2(20, 20);
+            
+            //map.characterList.Add(pc);
             caveMap.characterList.Add(pc);
-            map.characterList.Add(pc);
             camera.SetFocus(pc);
             //!!!
             pc.Map = caveMap;
             camera.setMap(caveMap);
+            map = caveMap;
             //!!!
 
             girl = new Girl(girlText, caveMap, gameref,pc);
@@ -140,6 +144,7 @@ namespace Caverns.GameScreens
         {
             base.Update(gameTime);
             map.update(gameTime);
+            espace = girl.eSpace;
             if (InputHandler.KeyPressed(Keys.Add))
             {
                 selectedEmotion++;
@@ -155,30 +160,33 @@ namespace Caverns.GameScreens
             {
                 switch (selectedEmotion)
                 {
-                    case 0: espace.Fear -= .1; break;
-                    case 1: espace.Anger -= .1; break;
-                    case 2: espace.Sadness -= .1; break;
-                    case 3: espace.Joy -= .1; break;
-                    case 4: espace.Disgust -= .1; break;
-                    case 5: espace.Trust -= .1; break;
-                    case 6: espace.Anticipation -= .1; break;
-                    case 7: espace.Supprise -= .1; break;
+                    case 0: espace.Fear -= 1; break;
+                    case 1: espace.Anger -= 1; break;
+                    case 2: espace.Sadness -= 1; break;
+                    case 3: espace.Joy -= 1; break;
+                    case 4: espace.Disgust -= 1; break;
+                    case 5: espace.Trust -= 1; break;
+                    case 6: espace.Anticipation -= 1; break;
+                    case 7: espace.Supprise -= 1; break;
                 }
+                girl.addEmotion(espace,100);
             }
             if (InputHandler.KeyPressed(Keys.Multiply))
             {
                 switch (selectedEmotion)
                 {
-                    case 0: espace.Fear += .1; break;
-                    case 1: espace.Anger += .1; break;
-                    case 2: espace.Sadness += .1; break;
-                    case 3: espace.Joy += .1; break;
-                    case 4: espace.Disgust += .1; break;
-                    case 5: espace.Trust += .1; break;
-                    case 6: espace.Anticipation += .1; break;
-                    case 7: espace.Supprise += .1; break;
+                    case 0: espace.Fear += 1; break;
+                    case 1: espace.Anger += 1; break;
+                    case 2: espace.Sadness += 1; break;
+                    case 3: espace.Joy += 1; break;
+                    case 4: espace.Disgust += 1; break;
+                    case 5: espace.Trust += 1; break;
+                    case 6: espace.Anticipation += 1; break;
+                    case 7: espace.Supprise += 1; break;
                 }
+                girl.addEmotion(espace,100);
             }
+
             pxShader.Parameters["Fear"].SetValue((float)espace.Fear);
             pxShader.Parameters["Anger"].SetValue((float)espace.Anger);
             pxShader.Parameters["Sadness"].SetValue((float)espace.Sadness);
@@ -190,7 +198,8 @@ namespace Caverns.GameScreens
         }
         public override void Draw(GameTime gameTime)
         {
-            gameref.SpriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullCounterClockwise,pxShader);
+            //gameref.SpriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullCounterClockwise,pxShader);
+            gameref.SpriteBatch.Begin();
             base.Draw(gameTime);
             camera.Draw(gameTime);
            

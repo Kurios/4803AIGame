@@ -109,7 +109,6 @@
     <Compile Include="TileMap\Loader.cs" />
     <Compile Include="TileMap\Map.cs" />
     <Compile Include="TileMap\MapFactory.cs" />
-    <Compile Include="TileMap\MazeLoader.cs" />
     <Compile Include="TileMap\SubMap.cs" />
     <Compile Include="TileMap\SubMapFactory.cs" />
     <Compile Include="TileMap\Tile.cs" />

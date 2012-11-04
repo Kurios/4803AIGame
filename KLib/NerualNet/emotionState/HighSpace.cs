@@ -12,6 +12,26 @@ namespace KLib.NerualNet.emotionState
          * 
          * Affection Anger Angst Anguish Annoyance Anxiety Apathy Arousal Awe Boredom Contempt Contentment Courage Curiosity Depression Desire Despair Disappointment Disgust Distrust Dread Ecstasy Embarrassment Envy Euphoria Excitement Fear Frustration Gratitude Grief Guilt Happiness Hatred Hope Horror Hostility Hurt Hysteria Indifference Interest Jealousy Joy Loathing Loneliness Love Lust Outrage Panic Passion Pity Pleasure Pride Rage Regret Remorse Sadness Satisfaction Shame Shock Shyness Sorrow Suffering Surprise Terror Trust Wonder Worry Zeal Zest
          */
+        internal LowState lowerState;
+
+        public HighSpace(LowState lowerState)
+        {
+            this.lowerState = lowerState;
+        }
+
+        public void addEmotion(Emotion emotion, double weight)
+        {
+            eSpace space = new eSpace() ;
+
+            switch(emotion){
+                case Emotion.Disgust: space.Disgust = 2; break;
+                case Emotion.Apathy: break;
+                case Emotion.Joy: space.Joy = 2; break;
+                default: throw new Exception(emotion.ToString() + " is not implemented. Please add it to KLib/NeuralNetwork/emotionState/HighSpace.addEmotion()");
+            }
+
+            lowerState.pass(space , weight);
+        }
 
         class HigherEmotions
         {

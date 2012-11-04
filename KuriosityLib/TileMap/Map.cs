@@ -20,6 +20,12 @@ namespace KuriosityXLib.TileMap
 
         public List<Character> characterList { get; set; }
 
+        public int tilesExplored = 0;
+
+        public int totalTiles
+        {
+            get { return  Width* Height; }
+        }
 
         SubMap[,] subMaps;
         Point worldSize;
@@ -205,6 +211,15 @@ namespace KuriosityXLib.TileMap
         internal void setSubSector(int i, int j, SubMap subMap)
         {
             subMaps[i, j] = subMap;
+        }
+
+        public Boolean pcMove(int x, int y)
+        {
+            if (inBounds(x, y))
+            {
+                return subMaps[x / 32, y / 32].pcMove(x, y);
+            }
+            return false;
         }
     }
 }

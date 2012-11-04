@@ -34,7 +34,7 @@ namespace KuriosityXLib.TileMap
         public Rectangle accentText {get;set;}
         public Rectangle topText { get; set; }
         public bool Passible { get; set; }
-
+        public bool Explored { get; set; }
 
         #endregion
 

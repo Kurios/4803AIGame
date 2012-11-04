@@ -17,10 +17,12 @@ namespace KLib.NerualNet.emotionState
 
         Memory memory = new Memory();
         LowState lowState;
+        HighSpace highSpace;
 
         public EmotionState()
         {
             lowState = new LowState(memory);
+            highSpace = new HighSpace(lowState);
         }
 
 
@@ -30,12 +32,20 @@ namespace KLib.NerualNet.emotionState
         }
         public void ponder()
         {
-            throw new NotImplementedException();
+            lowState.cycle();
         }
 
         public void enact()
         {
             throw new NotImplementedException();
+        }
+        public void addEmotion(Emotion emotion, int p)
+        {
+            highSpace.addEmotion(emotion, p);
+        }
+        public void addEmotion(emotionState.eSpace espace, int p)
+        {
+            lowState.pass(espace, p);
         }
     }
 }
