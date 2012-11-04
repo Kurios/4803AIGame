@@ -14,6 +14,20 @@ namespace KLib.NerualNet.emotionState
          * In fact, it defines it such that our conditioning can function, and all doesnt fire at the same time...
          * 
          */
+
+        Memory memory = new Memory();
+        LowState lowState;
+
+        public EmotionState()
+        {
+            lowState = new LowState(memory);
+        }
+
+
+        public eSpace eSpace
+        {
+            get { return lowState.eSpace; }
+        }
         public void ponder()
         {
             throw new NotImplementedException();

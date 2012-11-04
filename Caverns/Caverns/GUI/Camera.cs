@@ -30,7 +30,7 @@ namespace KuriosityXLib.TileMap
         Rectangle position;
         public Rectangle ScreenDef { get; set; }
 
-        Rectangle Position
+        public Rectangle Position
         {
             get { return position; }
             set { position = value; }

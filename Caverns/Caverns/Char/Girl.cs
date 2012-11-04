@@ -6,6 +6,7 @@ using KuriosityXLib.TileMap;
 using Microsoft.Xna.Framework.Graphics;
 using KuriosityXLib.Dialogs;
 using Microsoft.Xna.Framework;
+using KLib.NerualNet.emotionState;
 
 namespace Caverns.Char
 {
@@ -23,16 +24,32 @@ namespace Caverns.Char
         Random r = new Random();
         Game1 gameref;
 
+        Character targetChar;
         //bool runAway;
         int stepsToRun = 120;
 
         TimeSpan timer = new TimeSpan();
 
-        public Girl(Texture2D sprite, Map map, Game1 game)
+        EmotionState emotionstate;
+
+        private Vector2 WhereIWantToWalkTo()
+        {
+            Vector2 ret = new Vector2(Position.X,Position.Y);
+
+            double targetAngle = Math.PI / 2 + Math.PI / 2 * emotionstate.eSpace.Anticipation; 
+            return new Vector2(0, 0);
+        }
+
+        public Girl(Texture2D sprite, Map map, Game1 game, Character targetChar)
             : base(sprite, map)
         {
             this.PhysicalContact += FoundMe;
             this.gameref = game;
+            this.targetChar = targetChar;
+
+            this.Position = new Vector2(7, 64 + 27);
+
+            /*
             DialogState state = new DialogState(0, "Eeek! You found me!");
             state.addResponse("Ok...",1);
             state.addResponse("Go Away Kitty...",2);
@@ -111,16 +128,21 @@ namespace Caverns.Char
             state.addResponse("AlphaNumeric!", 8);
             state.addResponse("Lets go...", 2);
             this.Dialog.addState(state);
+             */
 
-            this.Position = new Vector2(7, 64 + 27);
+            emotionstate = new EmotionState();
+            
+
         }
 
         private void FoundMe(Object sender, EventArgs e)
         {
+            /*
             this.PhysicalContact -= FoundMe;
             facing = 1;
             gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
-            
+            */
+
         }
 
         public override void update(GameTime time)

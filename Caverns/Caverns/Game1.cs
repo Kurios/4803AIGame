@@ -79,6 +79,7 @@ namespace Caverns
             InfoScreen.addElement("3... 2... 1... \n\n         Ready or not! Here I come!", 1);
             gameStateManager.ChangeState(titleScreen);
             gameStateManager.PushState(etaScreen);
+            gameStateManager.PushState(mapScreen);
             DialogScreen = new DialogScreen(this, gameStateManager);
         }
 
@@ -103,7 +104,7 @@ namespace Caverns
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
             // TODO: use this.Content to load your game content here
         }
 
