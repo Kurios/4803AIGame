@@ -194,6 +194,10 @@
       <Project>{1CDF7EB2-A2B5-45AE-8813-76423750C544}</Project>
       <Name>KuriosityXLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\MazeMaker\Project1\MazeMaker.csproj">
+      <Project>{23A4DCE2-D962-4C77-80E2-DF5747317AF4}</Project>
+      <Name>MazeMaker</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CavernsContent\CavernsContent.contentproj">
       <Name>CavernsContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>

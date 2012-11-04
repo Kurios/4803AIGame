@@ -109,10 +109,17 @@
     <Compile Include="TileMap\Loader.cs" />
     <Compile Include="TileMap\Map.cs" />
     <Compile Include="TileMap\MapFactory.cs" />
+    <Compile Include="TileMap\MazeLoader.cs" />
     <Compile Include="TileMap\SubMap.cs" />
     <Compile Include="TileMap\SubMapFactory.cs" />
     <Compile Include="TileMap\Tile.cs" />
     <Compile Include="TileMap\TileFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MazeMaker\Project1\MazeMaker.csproj">
+      <Project>{23A4DCE2-D962-4C77-80E2-DF5747317AF4}</Project>
+      <Name>MazeMaker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
