@@ -27,6 +27,13 @@ namespace KLib.NerualNet.emotionState
                 case Emotion.Disgust: space.Disgust = 2; break;
                 case Emotion.Apathy: break;
                 case Emotion.Joy: space.Joy = 2; break;
+                case Emotion.Anticipation: space.Anticipation = 2; break;
+                case Emotion.Trust: space.Trust = 2; break;
+                case Emotion.Surprise: space.Supprise = 2; break;
+                case Emotion.Fear: space.Fear = 2; break;
+                case Emotion.Anger: space.Anger = 2; break;
+                case Emotion.Sadness: space.Sadness = 2; break;
+
                 default: throw new Exception(emotion.ToString() + " is not implemented. Please add it to KLib/NeuralNetwork/emotionState/HighSpace.addEmotion()");
             }
 

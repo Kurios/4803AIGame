@@ -35,7 +35,7 @@ namespace KLib.NerualNet.emotionState
         public void cycle()
         {
             //Console.WriteLine("memory cycle");
-            double memoryChangeFactor = .0002;
+            double memoryChangeFactor = .000002;
             double weightsOther = weights;
             weights = OldMemoryWeight + weights;
 

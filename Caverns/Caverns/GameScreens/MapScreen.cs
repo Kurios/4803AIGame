@@ -198,8 +198,8 @@ namespace Caverns.GameScreens
         }
         public override void Draw(GameTime gameTime)
         {
-            //gameref.SpriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullCounterClockwise,pxShader);
-            gameref.SpriteBatch.Begin();
+            gameref.SpriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullCounterClockwise,pxShader);
+            //gameref.SpriteBatch.Begin();
             base.Draw(gameTime);
             camera.Draw(gameTime);
            

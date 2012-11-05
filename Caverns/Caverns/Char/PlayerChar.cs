@@ -35,6 +35,8 @@ namespace Caverns.Char
         public double movementSpeed = 0;
         public double TileFindingSpeed = 0;
 
+        public int tilesFound = 0;
+
         public LinkedList<double> moves = new LinkedList<double>();
         public LinkedList<double> newSquares = new LinkedList<double>();
 
@@ -108,6 +110,11 @@ namespace Caverns.Char
                     timeItt++;
                     if (timeItt > 3) timeItt = 0;
                     moves.AddFirst(curTime);
+                    if (Map.pcMove((int)proposedMove.X, (int)proposedMove.Y))
+                    {
+                        tilesFound++;
+                        newSquares.AddFirst(curTime);
+                    }
                 }
                 LinkedList<double> toBeDeleted = new LinkedList<double>();
                 foreach(double m in moves)
@@ -119,6 +126,17 @@ namespace Caverns.Char
                     moves.Remove(m);
                 }
                 moveSpeed = moves.Count / 4;
+
+                LinkedList<double> toBeDeletedTiles = new LinkedList<double>();
+                foreach (double m in newSquares )
+                {
+                    if (m < (curTime - 4)) toBeDeletedTiles.AddFirst(m);
+                }
+                foreach (double m in toBeDeletedTiles)
+                {
+                    newSquares.Remove(m);
+                }
+                TileFindingSpeed = newSquares.Count / 4;
 
                 Character[] chars = Map.checkForCharacter((int)proposedMove.X, (int)proposedMove.Y, this);
                 foreach (Character c in chars)

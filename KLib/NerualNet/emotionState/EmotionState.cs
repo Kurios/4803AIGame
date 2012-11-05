@@ -25,6 +25,10 @@ namespace KLib.NerualNet.emotionState
             highSpace = new HighSpace(lowState);
         }
 
+        public EmotionState(eSpace initSpace) : this()
+        {
+            memory.ESpace = initSpace;
+        }
 
         public eSpace eSpace
         {
