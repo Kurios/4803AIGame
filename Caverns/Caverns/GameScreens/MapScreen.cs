@@ -121,7 +121,7 @@ namespace Caverns.GameScreens
 
             Waterfall waterfall = new Waterfall(spriteMap, caveMap, gameref);
             waterfall.Position = new Vector2(32 + 15, 32);
-            caveMap.characterList.Add(waterfall);
+            //caveMap.characterList.Add(waterfall);
 
             Key key1 = new Key(keyText,caveMap,gameref);
             key1.Position = new Vector2(11, 11 + 32);

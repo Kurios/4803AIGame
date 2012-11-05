@@ -33,8 +33,8 @@ namespace KuriosityXLib.TileMap
             List<Wall> passes = m.mazePassages;
 
             //SUBMAP FACTORY:
-            SubMapFactory submaps = fillSubMaps(tiles, m, passes);
-
+            //SubMapFactory submaps = fillSubMaps(tiles, m, passes);
+            SubMapFactory submaps = fillSubMapsWithMaze(tiles, m, passes);
             //MAP FACTORY:
             MapFactory mapFact = new MapFactory(submaps, m.xDimension, m.yDimension);
 
@@ -131,6 +131,48 @@ namespace KuriosityXLib.TileMap
             return submaps;
         }
 
+        static SubMapFactory fillSubMapsWithMaze(TileFactory tileSet, Maze mint, List<Wall> passes)
+        {
+            SubMapFactory submaps = new SubMapFactory(tileSet);
+           
+
+            //Row submap
+            for (int y = 0; y < mint.yDimension; y++)
+            {
+                //Col submap
+                for (int x = 0; x < mint.xDimension; x++)
+                {
+                    Gridspace gs = new Gridspace(x, y);
+                    //This is the maze that must be generated within the submap.
+                    Maze subMaze = new Maze(8, 8);
+                    subMaze.generateMazePrim(0, 0);
+
+                    //Row of a submap
+                    for (int r = 0; r < 32; r++)
+                    {
+                        //Col of a submap
+                        for (int c = 0; c < 32; c++)
+                        {
+                            //What submaze tile are we looking at?
+                            int subX = getSubMazeX(c);
+                            int subY = getSubMazeY(r);
+                            Gridspace subGrid = new Gridspace(subX, subY);
+                            int tile = getTile(c, r, mint, gs, passes);
+                            submaps.setTile(c, r, tile, (y * mint.xDimension) + x);
+                            if (c > 0 && c < 31 && r > 0 && r < 31)   //If it is not a wall...
+                            {
+                                tile = getSubMazeTile(c, r, subMaze, subGrid, subMaze.getAdjPassages(subGrid));
+                                submaps.setTile(c, r, tile, (y * mint.xDimension) + x);
+                            }
+                        }
+
+                    }
+                    submaps.AddSubMap();
+                }
+            }
+            return submaps;
+        }
+
         static List<String> getOpenSpaces(Maze mint, Gridspace gspace, List<Wall> passableWalls)
         {
             List<String> passes = new List<String>();
@@ -178,21 +220,22 @@ namespace KuriosityXLib.TileMap
             List<String> passableWays = getOpenSpaces(mint, gspace, passableWalls);
 
             //TOP
-            if (r <=1 && (c > 0 || c <30))
+            if (r ==0 && (c > 0 || c <31))
             {
-                if (passableWays.Contains("UP")&&(c >= 14 && c <= 17))
+                if (passableWays.Contains("UP")&&(c > 11 && c <= 15))
                 {
                     return 4;
                 }
                 else
                 {
+
                     return 0;
                 }
             }
             //RIGHT
-            else if (c >= 30 && (r > 0 || r <30))
+            else if (c == 31 && (r > 0 || r <31))
             {
-                if (passableWays.Contains("RIGHT") && (r >= 14 && r <= 17))
+                if (passableWays.Contains("RIGHT") && (r > 11 && r <= 15))
                 {
                     return 4;
                 }
@@ -202,9 +245,9 @@ namespace KuriosityXLib.TileMap
                 }
             }
             //BOTTOM
-            else if (r >=30 && (c > 0 || c < 30))
+            else if (r ==31 && (c > 0 || c < 31))
             {
-                if (passableWays.Contains("DOWN") && (c >= 14 && c <= 17))
+                if (passableWays.Contains("DOWN") && (c > 11 && c <= 15))
                 {
                     return 4;
                 }
@@ -214,9 +257,9 @@ namespace KuriosityXLib.TileMap
                 }
             }
             //LEFT
-            else if (c <=1 && (r > 0 || r < 30))
+            else if (c ==0 && (r > 0 || r < 31))
             {
-                if (passableWays.Contains("LEFT") && (r >= 14 && r <= 17))
+                if (passableWays.Contains("LEFT") && (r >= 11 && r <= 15))
                 {
                     return 4;
                 }
@@ -228,8 +271,147 @@ namespace KuriosityXLib.TileMap
             else
             {
                 //return -1;  //This is going to crash the damn thing, but...
+                Random rand = new Random();
+                /*if (rand.Next(0, 10)<=1)
+                {
+                    return 5;
+                }*/
                 return 4;
             }
+        }
+
+        static int getSubMazeTile(int cc, int rr, Maze mint, Gridspace gspace, List<Wall> passableWalls)
+        {
+            List<String> passableWays = getOpenSpaces(mint, gspace, passableWalls);
+            //WALL-SPACE
+                int c = (cc + 1) % 4;
+                int r = (rr + 1) % 4;
+                //TOP
+                if (r == 1)
+                {
+                    if (passableWays.Contains("UP"))
+                    {
+                        return 4;
+                    }
+                    else
+                    {
+
+                        return 5;
+                    }
+                }
+                //RIGHT
+                else if (c == 0)
+                {
+                    if (passableWays.Contains("RIGHT"))
+                    {
+                        return 4;
+                    }
+                    else
+                    {
+                        return 5;
+                    }
+                }
+                //BOTTOM
+                else if (r == 0)
+                {
+                    if (passableWays.Contains("DOWN"))
+                    {
+                        return 4;
+                    }
+                    else
+                    {
+                        return 5;
+                    }
+                }
+                //LEFT
+                else if (c == 1)
+                {
+                    if (passableWays.Contains("LEFT"))
+                    {
+                        return 4;
+                    }
+                    else
+                    {
+                        return 5;
+                    }
+                }
+                else
+                {
+                    //return -1;  //This is going to crash the damn thing, but...
+                    Random rand = new Random();
+                    /*if (rand.Next(0, 10)<=1)
+                    {
+                        return 5;
+                    }*/
+                    return 4;
+                }
+
+        }
+
+        static int getSubMazeX(int r)
+        {
+            if (r >= 0 && r <= 3)
+            {
+                return 0;
+            }
+            else if (r > 3 && r <= 7)
+            {
+                return 1;
+            }
+            else if (r > 7 && r <= 11)
+            {
+                return 2;
+            }
+            else if (r > 11 && r <= 15)
+            {
+                return 3;
+            }
+            else if (r > 15 && r <= 19)
+            {
+                return 4;
+            }
+            else if (r > 19 && r <=23)
+            {
+                return 5;
+            }
+            else if (r > 23 && r <= 27)
+            {
+                return 6;
+            }
+            return 7;
+        }
+
+        static int getSubMazeY(int r)
+        {
+            if (r >= 0 && r <= 3)
+            {
+                return 0;
+            }
+            else if (r > 3 && r <= 7)
+            {
+                return 1;
+            }
+            else if (r > 7 && r <= 11)
+            {
+                return 2;
+            }
+            else if (r > 11 && r <= 15)
+            {
+                return 3;
+            }
+            else if (r > 15 && r <= 19)
+            {
+                return 4;
+            }
+            else if (r > 19 && r <= 23)
+            {
+                return 5;
+            }
+            else if (r > 23 && r <= 27)
+            {
+                return 6;
+            }
+            return 7;
         }
     }
 
