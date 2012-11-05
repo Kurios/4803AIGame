@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Char\CaveIn.cs" />
+    <Compile Include="Char\Ghost.cs" />
     <Compile Include="Char\Girl.cs" />
     <Compile Include="Char\Key.cs" />
     <Compile Include="Char\Kid1.cs" />
