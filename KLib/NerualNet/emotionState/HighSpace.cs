@@ -25,7 +25,7 @@ namespace KLib.NerualNet.emotionState
 
             switch(emotion){
                 case Emotion.Disgust: space.Disgust = 2; break;
-                case Emotion.Apathy: break;
+                case Emotion.Apathy: space.Anticipation = -1; break;
                 case Emotion.Joy: space.Joy = 2; break;
                 case Emotion.Anticipation: space.Anticipation = 2; break;
                 case Emotion.Trust: space.Trust = 2; break;
@@ -33,6 +33,10 @@ namespace KLib.NerualNet.emotionState
                 case Emotion.Fear: space.Fear = 2; break;
                 case Emotion.Anger: space.Anger = 2; break;
                 case Emotion.Sadness: space.Sadness = 2; break;
+                case Emotion.Rage: space.Anger = 1; space.Disgust = 1; space.Joy = -1; break;
+                case Emotion.Hope: space.Trust = 1; space.Joy = 1; space.Anticipation = 1; space.Fear = -1; break;
+                case Emotion.Panic: space.Trust = -1; space.Anticipation = -1; space.Disgust = 1; break;
+                case Emotion.Pride: space.Trust = 1; space.Joy = 1; space.Sadness = -1; break;
 
                 default: throw new Exception(emotion.ToString() + " is not implemented. Please add it to KLib/NeuralNetwork/emotionState/HighSpace.addEmotion()");
             }

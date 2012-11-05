@@ -25,6 +25,8 @@ namespace Caverns.GameScreens
         SpriteFont font;
         Girl girl;
 
+        int playerhit = 0;
+
         eSpace espace;
 
         int selectedEmotion;
@@ -73,6 +75,8 @@ namespace Caverns.GameScreens
             Texture2D keyText = gameref.Content.Load<Texture2D>("characters/Item Key01");
             Texture2D girlText = gameref.Content.Load<Texture2D>("characters/Parsee");
             Texture2D girlPort = gameref.Content.Load<Texture2D>("characters/portait/animeGirl1");
+            Texture2D ghostSprite = gameref.Content.Load<Texture2D>("characters/FF6GhostSprites");
+
             //PixelShader shit
             pxShader = gameref.Content.Load<Effect>("shaders/cavernShader");
             camera.setMap(map);
@@ -127,11 +131,14 @@ namespace Caverns.GameScreens
             key2.Position = new Vector2(22 + 32, 19 + 64);
             caveMap.characterList.Add(key2);
 
-
-
             pc = new PlayerChar(catLady, map, Game);
             pc.Position = new Vector2(20, 20);
-            
+
+            Ghost g = new Ghost(ghostSprite, caveMap, gameref, pc);
+            g.Position = new Vector2(40, 40);
+            caveMap.characterList.Add(g);
+            caveMap.enemyList.Add(g);
+
             //map.characterList.Add(pc);
             caveMap.characterList.Add(pc);
             camera.SetFocus(pc);
@@ -143,7 +150,7 @@ namespace Caverns.GameScreens
 
             girl = new Girl(girlText, caveMap, gameref,pc);
             girl.Portrait = girlPort;
-            girl.Position = new Vector2(32, 16);
+            girl.Position = new Vector2(22, 16);
             caveMap.characterList.Add(girl);
 
         }
@@ -202,6 +209,7 @@ namespace Caverns.GameScreens
             pxShader.Parameters["Supprise"].SetValue((float)espace.Supprise);
             pxShader.Parameters["PlayerPos"].SetValue(new Vector2((int)(pc.Position.X - camera.Position.X) * 32 - (16), (int)(pc.Position.Y - camera.Position.Y) * 32));
             pxShader.Parameters["SecondPos"].SetValue(new Vector2((int)(girl.Position.X - camera.Position.X) * 32 - (16), (int)(girl.Position.Y - camera.Position.Y) * 32));
+            pxShader.Parameters["PlayerHit"].SetValue(playerhit);
         }
         public override void Draw(GameTime gameTime)
         {
@@ -209,7 +217,7 @@ namespace Caverns.GameScreens
             //gameref.SpriteBatch.Begin();
             base.Draw(gameTime);
             camera.Draw(gameTime);
-           
+            if (playerhit > 0) playerhit--;
             gameref.SpriteBatch.End();
             gameref.SpriteBatch.Begin();
             {
@@ -258,6 +266,12 @@ namespace Caverns.GameScreens
         #endregion
 
         #endregion
+
+        internal void playerHit()
+        {
+            girl.addEmotion(new eSpace(1, 0, 0, 0, 0, 0, 0, 0), 100);
+            playerhit += 15;
+        }
     }
 }
 

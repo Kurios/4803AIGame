@@ -46,6 +46,8 @@ namespace Caverns.Char
         //3 UP
         public int facing = 0;
 
+        private Game1 gameref;
+
         TimeSpan timer = new TimeSpan();
         
         /// <summary>
@@ -56,6 +58,13 @@ namespace Caverns.Char
         public PlayerChar(Texture2D sprite, Map map, Game game)
             : base(sprite, map)
         {
+            PhysicalContact += hitMe;
+            this.gameref = (Game1)game;
+        }
+
+        private void hitMe(Object sender, EventArgs e)
+        {
+            gameref.MapScreen.playerHit();
         }
 
         /// <summary>

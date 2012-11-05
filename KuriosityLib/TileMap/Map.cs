@@ -17,6 +17,7 @@ namespace KuriosityXLib.TileMap
     /// </summary>
     public class Map
     {
+        public List<Character> enemyList { get; set; }
 
         public List<Character> characterList { get; set; }
 
@@ -45,6 +46,7 @@ namespace KuriosityXLib.TileMap
         public Map(Game game, Vector2 scale, int x, int y, Texture2D spriteMap)
         {
             characterList = new List<Character>();
+            enemyList = new List<Character>();
             subMaps = new SubMap[x/32+1, y/32+1];
             for (int i = 0; i < x/32+1; i++)
             {
@@ -103,6 +105,7 @@ namespace KuriosityXLib.TileMap
         /// <param name="y">tiles y</param>
         public Map(int x, int y,Texture2D spriteMap)
         {
+            enemyList = new List<Character>();
             characterList = new List<Character>();
             subMaps = new SubMap[x / 32 + 1, y / 32 + 1];
             for (int i = 0; i < x / 32 + 1; i++)
@@ -220,6 +223,64 @@ namespace KuriosityXLib.TileMap
                 return subMaps[x / 32, y / 32].pcMove(x, y);
             }
             return false;
+        }
+
+        public Boolean canSee(float x0, float y0, float x, float y)
+        {
+            return canSee((int)x0, (int)y0, (int)x, (int)y);
+        }
+
+        //We are soo going to fake a portal engine here... Woot!!!!
+        public Boolean canSee(int x0, int y0, int x, int y)
+        {
+            //Are we in a visible spot?
+            if(!getTile(x0,y0).Passible) return false;
+            //First we define a line from point1 to point2
+            
+            //Check for fringe cases ( ie, vertical lines and horizontal lines. )
+            //Horrizontal Line
+            if (x0 == x)
+            {
+                //Are we in the same spot?
+                if (y0 == y)
+                {
+                    //Sucess, we are!
+                    return true;
+                }
+                //Up or Down?
+                else if (y0 < y)
+                {
+                    return canSee(x0, y0 + 1, x, y);
+                }
+                else
+                    return canSee(x0, y0 - 1, x, y);
+            }
+            //Vertical Line
+            else if (y0 == y)
+            {
+                if (x0 < x)
+                    return canSee(x0 + 1, y0, x, y);
+                else
+                    return canSee(x0 - 1, y0, x, y);
+            }
+            else
+            {
+                if ((x0 - x) * (x0 - x) > (y0 - y) * (y0 - y)) //The distance between Xs is bigger then the distance between Ys
+                {
+                    if (x0 < x)
+                        return canSee(x0 + 1, y0, x, y);
+                    else
+                        return canSee(x0 - 1, y0, x, y);
+                }
+                else
+                {
+                    if (y0 < y)
+                        return canSee(x0, y0 + 1, x, y);
+                    else
+                        return canSee(x0, y0 - 1, x, y);
+                }
+            }
+
         }
     }
 }

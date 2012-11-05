@@ -20,7 +20,11 @@ namespace Caverns.Char
         //3 UP
         int facing = 2;
 
+        bool alive = true;
+
         int counter = 0;
+
+        int hp = 3;
 
         int lastTime = 0;
         Random r = new Random();
@@ -40,6 +44,11 @@ namespace Caverns.Char
 
         List<Vector2> targetSquares = new List<Vector2>();
 
+        public float LastPlayerDistance = 0;
+        public float DistanceToPlayer = 0;
+
+        public Boolean flee = false;
+
         public eSpace eSpace
         {
             get { return emotionstate.eSpace; }
@@ -50,7 +59,7 @@ namespace Caverns.Char
             //Vector2 ret = new Vector2(Position.X,Position.Y);
 
             double targetAngle = Math.PI / 2 + Math.PI / 2 * emotionstate.eSpace.Anticipation;
-            double distance = 9 - 7 * emotionstate.eSpace.Trust;
+            double distance = 0 + 7 * emotionstate.eSpace.Fear;
 
             targetSquares = new List<Vector2>();
             //compute targets
@@ -83,7 +92,7 @@ namespace Caverns.Char
             double case3 = double.PositiveInfinity;
             double case4 = double.PositiveInfinity;
             //case0 - No Movement
-            if (Map.canMove((int)Position.X, (int)Position.Y, this))
+            //if (Map.canMove((int)Position.X, (int)Position.Y, this))
             {
                 foreach (Vector2 element in targetSquares)
                 {
@@ -91,7 +100,7 @@ namespace Caverns.Char
                 }
             }
             //case1 - Move Down (y+)
-            if (Map.canMove((int)Position.X, (int)Position.Y + 1, this))
+            //if (Map.canMove((int)Position.X, (int)Position.Y + 1, this))
             {
                 foreach (Vector2 element in targetSquares)
                 {
@@ -99,7 +108,7 @@ namespace Caverns.Char
                 }
             }
             //case2 - Move Left (x-)
-            if (Map.canMove((int)Position.X - 1, (int)Position.Y, this))
+            //if (Map.canMove((int)Position.X - 1, (int)Position.Y, this))
             {
                 foreach (Vector2 element in targetSquares)
                 {
@@ -107,7 +116,7 @@ namespace Caverns.Char
                 }
             }
             //case3 - Move Right (x+)
-            if (Map.canMove((int)Position.X + 1, (int)Position.Y, this))
+            //if (Map.canMove((int)Position.X + 1, (int)Position.Y, this))
             {
                 foreach (Vector2 element in targetSquares)
                 {
@@ -115,7 +124,7 @@ namespace Caverns.Char
                 }
             }
             //case4 - Move Up (y-)
-            if (Map.canMove((int)Position.X, (int)Position.Y - 1, this))
+            //if (Map.canMove((int)Position.X, (int)Position.Y - 1, this))
             {
                 foreach (Vector2 element in targetSquares)
                 {
@@ -135,17 +144,23 @@ namespace Caverns.Char
                 return 4;
         }
 
+        private void hitMe(Object sender, EventArgs e)
+        {
+            emotionstate.addEmotion(Emotion.Fear, 100000);
+        }
 
         public Ghost(Texture2D sprite, Map map, Game1 game, PlayerChar targetChar)
             : base(sprite, map)
         {
-            this.PhysicalContact += FoundMe;
             this.gameref = game;
             this.targetChar = targetChar;
 
             this.Position = new Vector2(7, 64 + 27);
 
             this.emotionstate = new EmotionState(new eSpace(-.2, -.2, .4, .3, -.1, .3, 0, 0));
+            this.emotionstate.setStability(.002);
+
+            PhysicalContact += hitMe;
 
 
 
@@ -247,92 +262,102 @@ namespace Caverns.Char
 
         public override void update(GameTime time)
         {
-            double curTime = time.TotalGameTime.TotalSeconds;
-            //timeItt = (int)Math.Floor(1 / (float)(time.ElapsedGameTime.Milliseconds * 4));
-            timer += time.ElapsedGameTime;
-            TimeSpan eightSecond = new TimeSpan(1250000);
-
-
-
-
-            emotionstate.addEmotion(Emotion.Disgust, 1);
-            emotionstate.addEmotion(Emotion.Apathy, 100);
-            emotionstate.addEmotion(Emotion.Anticipation, (int)Math.Round(targetChar.TileFindingSpeed * 2));
-            emotionstate.addEmotion(Emotion.Trust, (int)Math.Round((double)(targetChar.tilesFound * 10) / (double)Map.totalTiles));
-            emotionstate.addEmotion(Emotion.Joy, targetChar.moveSpeed * 3);
-            emotionstate.ponder();
-
-            if (timer > eightSecond)
+            if (alive)
             {
-                timer -= eightSecond;
-                counter++;
-                //emotionstate.addEmotion(Emotion.Disgust, counter);
-                //if (facing == 1)
-                //{
-                //    timeItt++;
-                //   if (timeItt > 3) timeItt = 0;
+                if (emotionstate.eSpace.Fear > .2) flee = true;
+                else flee = false;
 
-                //    Position = Position + new Vector2(-1, 0);
-                /*
-                moves.AddFirst(curTime);
-                if (Map.pcMove((int)proposedMove.X, (int)proposedMove.Y))
-                {
-                    tilesFound++;
-                    newSquares.AddFirst(curTime);
-                }
-                 * */
-                //     stepsToRun--;
-                // }
-                int moveType = WhereIWantToWalkTo();
-                Vector2 proposedMove = new Vector2();
-                if (moveType == 4)
-                {
-                    facing = (int)facingDirection.DOWN;
-                    proposedMove = Position + new Vector2(0, 1);
-                }
-                else if (moveType == 1)
-                {
-                    facing = (int)facingDirection.UP;
-                    proposedMove = Position + new Vector2(0, -1);
-                }
-                else if (moveType == 3)
-                {
-                    facing = (int)facingDirection.LEFT;
-                    proposedMove = Position + new Vector2(-1, 0);
-                }
-                else if (moveType == 2)
-                {
-                    facing = 2;
-                    proposedMove = Position + new Vector2(1, 0);
-                }
+                LastPlayerDistance = DistanceToPlayer;
+                DistanceToPlayer = Vector2.Distance(Position, targetChar.Position);
+                double curTime = time.TotalGameTime.TotalSeconds;
+                //timeItt = (int)Math.Floor(1 / (float)(time.ElapsedGameTime.Milliseconds * 4));
+                timer += time.ElapsedGameTime;
+                TimeSpan eightSecond = new TimeSpan(3000000);
 
 
-                if (Map.canMove((int)proposedMove.X, (int)proposedMove.Y, this))
+
+
+                emotionstate.addEmotion(Emotion.Disgust, 1);
+                emotionstate.addEmotion(Emotion.Apathy, 100);
+                emotionstate.addEmotion(Emotion.Rage, 10);
+                emotionstate.addEmotion(Emotion.Anticipation, (int)Math.Round(targetChar.TileFindingSpeed * 2));
+                emotionstate.addEmotion(Emotion.Trust, (int)Math.Round((double)(targetChar.tilesFound * 10) / (double)Map.totalTiles));
+                emotionstate.addEmotion(Emotion.Joy, targetChar.moveSpeed * 3);
+                emotionstate.ponder();
+
+                if (timer > eightSecond)
                 {
-                    Position = proposedMove;
-                    timeItt++;
-                    if (timeItt > 3) timeItt = 0;
+                    timer -= eightSecond;
+                    counter++;
+                    //emotionstate.addEmotion(Emotion.Disgust, counter);
+                    //if (facing == 1)
+                    //{
+                    //    timeItt++;
+                    //   if (timeItt > 3) timeItt = 0;
+
+                    //    Position = Position + new Vector2(-1, 0);
+                    /*
+                    moves.AddFirst(curTime);
                     if (Map.pcMove((int)proposedMove.X, (int)proposedMove.Y))
                     {
                         tilesFound++;
                         newSquares.AddFirst(curTime);
                     }
+                     * */
+                    //     stepsToRun--;
+                    // }
+                    int moveType = WhereIWantToWalkTo();
+                    Vector2 proposedMove = new Vector2();
+                    if (moveType == 4)
+                    {
+                        //facing = (int)facingDirection.DOWN;
+                        proposedMove = Position + new Vector2(0, 1);
+                    }
+                    else if (moveType == 1)
+                    {
+                        //facing = (int)facingDirection.UP;
+                        proposedMove = Position + new Vector2(0, -1);
+                    }
+                    else if (moveType == 3)
+                    {
+                        facing = (int)facingDirection.LEFT;
+                        proposedMove = Position + new Vector2(-1, 0);
+                    }
+                    else if (moveType == 2)
+                    {
+                        facing = (int)facingDirection.RIGHT;
+                        proposedMove = Position + new Vector2(1, 0);
+                    }
+
+                    if (flee) proposedMove = Vector2.Negate(proposedMove);
+
+                    //if (Map.canMove((int)proposedMove.X, (int)proposedMove.Y, this))
+                    {
+                        Position = proposedMove;
+                        timeItt++;
+                        if (timeItt > 3) timeItt = 0;
+                        //if (Map.pcMove((int)proposedMove.X, (int)proposedMove.Y))
+                        //{
+                        //    tilesFound++;
+                        //    newSquares.AddFirst(curTime);
+                        //}
+                    }
                 }
-            }
 
-            LinkedList<double> toBeDeletedTiles = new LinkedList<double>();
-            foreach (double m in newSquares)
-            {
-                if (m < (curTime - 4)) toBeDeletedTiles.AddFirst(m);
-            }
-            foreach (double m in toBeDeletedTiles)
-            {
-                newSquares.Remove(m);
-            }
-            TileFindingSpeed = newSquares.Count / 4;
+                LinkedList<double> toBeDeletedTiles = new LinkedList<double>();
+                foreach (double m in newSquares)
+                {
+                    if (m < (curTime - 4)) toBeDeletedTiles.AddFirst(m);
+                }
+                foreach (double m in toBeDeletedTiles)
+                {
+                    newSquares.Remove(m);
+                }
+                TileFindingSpeed = newSquares.Count / 4;
 
 
-            //lastTime = time.TotalGameTime.Seconds;
+                //lastTime = time.TotalGameTime.Seconds;
+            }
         }
 
 
@@ -342,14 +367,16 @@ namespace Caverns.Char
         }
         public override void draw(SpriteBatch spriteBatch, Point offset)
         {
-            foreach (Vector2 v in targetSquares)
-            {
-                //Console.WriteLine(v);
-                spriteBatch.Draw(Sprite, new Rectangle((((int)v.X) - offset.X) * 32, (((int)v.Y) - offset.Y) * 32, 32, 32), new Rectangle(32, 32, 10, 10), Color.Black);
-            }
-            spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 10, 10), Color.White);
-
-            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y - offset.Y) * 32, 56, 80), new Rectangle(65 * timeItt, 96 * facing, 65, 96), Color.White);
+            //foreach (Vector2 v in targetSquares)
+            //{
+            //    //Console.WriteLine(v);
+            //    spriteBatch.Draw(Sprite, new Rectangle((((int)v.X) - offset.X) * 32, (((int)v.Y) - offset.Y) * 32, 32, 32), new Rectangle(32, 32, 10, 10), Color.Black);
+            //}
+            //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 10, 10), Color.White);
+            if(flee)
+                spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y - offset.Y) * 32, 56, 80), new Rectangle(30 * timeItt, 50 * 0, 30, 50), Color.Red);
+            else
+                spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y - offset.Y) * 32, 56, 80), new Rectangle(30 * timeItt, 50 * 0, 30, 50), Color.White);
 
         }
 

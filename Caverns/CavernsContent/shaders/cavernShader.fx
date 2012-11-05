@@ -10,6 +10,7 @@ uniform extern float Disgust;
 uniform extern float Supprise;    
 uniform extern float2 PlayerPos;
 uniform extern float2 SecondPos;
+uniform extern int PlayerHit;
 
 uniform extern float2 SecondaryPos;
 
@@ -64,7 +65,8 @@ float4 PixelShaderFunction(float2 coords: TEXCOORD0, in float2 vPos: VPOS) : COL
 	//Alpha seems broke for now...
 	//color.r = sin(vPos.x);
 	//color.b = cos(vPos.y);
-	//color.g = tan(vPos.x/vPos.y);
+	if(PlayerHit > 0)
+		color.g = tan(vPos.x/(vPos.y+PlayerHit)) + color.g * 3/(PlayerHit+1);
 
 	}
 	return color;

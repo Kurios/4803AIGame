@@ -14,6 +14,7 @@ namespace Caverns.Char
     {
         int timeItt = 0;
 
+
         //0 DOWN
         //1 LEFT
         //2 RIGHT
@@ -29,6 +30,8 @@ namespace Caverns.Char
         int tilesFound = 0;
         public double TileFindingSpeed = 0;
         public LinkedList<double> newSquares = new LinkedList<double>();
+
+        bool canSeeGhost = false;
 
         PlayerChar targetChar;
         //bool runAway;
@@ -146,7 +149,7 @@ namespace Caverns.Char
             this.Position = new Vector2(7, 64 + 27);
 
             this.emotionstate = new EmotionState(new eSpace(-.2,-.2,.4,.3,-.1,.3,0,0));
-           
+            addEmotion(new eSpace(-.2, -.2, .4, .3, -.1, .3, 0, 0), 100);
 
 
             /*
@@ -245,13 +248,48 @@ namespace Caverns.Char
 
         }
 
+        private bool canSeeEnemies()
+        {
+            foreach (Character e in Map.enemyList)
+            {
+                if (Vector2.Distance(Position, e.Position) < 13)
+                {
+                    if(Map.canSee(Position.X,Position.Y,e.Position.X,e.Position.Y))
+                    {
+                        emotionstate.addEmotion(Emotion.Surprise, 100);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public override void update(GameTime time)
         {
             double curTime = time.TotalGameTime.TotalSeconds;
             //timeItt = (int)Math.Floor(1 / (float)(time.ElapsedGameTime.Milliseconds * 4));
             timer += time.ElapsedGameTime;
-            TimeSpan eightSecond = new TimeSpan(1250000);
+            TimeSpan eightSecond = new TimeSpan(1000000);
 
+            foreach (Ghost c in Map.enemyList)
+            {
+                if (canSeeEnemies())
+                    if (c.flee)
+                    {
+                        emotionstate.addEmotion(Emotion.Hope, 10);
+                        if (c.DistanceToPlayer > c.LastPlayerDistance)
+                            emotionstate.addEmotion(Emotion.Joy, 10);
+                        else
+                            emotionstate.addEmotion(Emotion.Rage, 10);
+                    }
+                    else
+                    {
+                        emotionstate.addEmotion(Emotion.Panic, 4);
+                        if (c.DistanceToPlayer > c.LastPlayerDistance)
+                            emotionstate.addEmotion(Emotion.Anger, 50);
+                        else
+                            emotionstate.addEmotion(Emotion.Pride, 4);
+                    }
+            }
             
 
 
