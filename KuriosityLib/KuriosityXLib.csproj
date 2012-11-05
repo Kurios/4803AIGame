@@ -92,11 +92,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Control\Agent.cs" />
-    <Compile Include="Control\Control.cs" />
-    <Compile Include="Control\ControlManager.cs" />
-    <Compile Include="Control\Label.cs" />
-    <Compile Include="Control\LinkLabel.cs" />
+    <Compile Include="Dialogs\Control\Agent.cs" />
+    <Compile Include="Dialogs\Control\Control.cs" />
+    <Compile Include="Dialogs\Control\ControlManager.cs" />
+    <Compile Include="Dialogs\Control\Label.cs" />
+    <Compile Include="Dialogs\Control\LinkLabel.cs" />
     <Compile Include="Dialogs\Dialog.cs" />
     <Compile Include="Dialogs\DialogState.cs" />
     <Compile Include="Dialogs\Response.cs" />

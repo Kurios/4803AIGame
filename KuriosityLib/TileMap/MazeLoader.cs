@@ -186,6 +186,7 @@ namespace KuriosityXLib.TileMap
                 }
                 else
                 {
+
                     return 0;
                 }
             }
@@ -228,6 +229,11 @@ namespace KuriosityXLib.TileMap
             else
             {
                 //return -1;  //This is going to crash the damn thing, but...
+                Random rand = new Random();
+                if (rand.Next(0, 10)<=1)
+                {
+                    return 5;
+                }
                 return 4;
             }
         }
