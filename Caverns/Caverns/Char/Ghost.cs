@@ -10,7 +10,7 @@ using KLib.NerualNet.emotionState;
 
 namespace Caverns.Char
 {
-    class Girl : DialogCharacter
+    class Ghost : DialogCharacter
     {
         int timeItt = 0;
 
@@ -136,7 +136,7 @@ namespace Caverns.Char
         }
 
 
-        public Girl(Texture2D sprite, Map map, Game1 game, PlayerChar targetChar)
+        public Ghost(Texture2D sprite, Map map, Game1 game, PlayerChar targetChar)
             : base(sprite, map)
         {
             this.PhysicalContact += FoundMe;

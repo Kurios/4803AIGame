@@ -30,6 +30,14 @@ namespace KLib.NerualNet.emotionState
             memory.ESpace = initSpace;
         }
 
+        /***
+         * Stability... a normal amount is really really small... think like .000002 small
+         */
+        public void setStability(double stability)
+        {
+            lowState.setStability(stability);
+        }
+
         public eSpace eSpace
         {
             get { return lowState.eSpace; }

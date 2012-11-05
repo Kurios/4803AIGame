@@ -11,6 +11,7 @@ namespace KLib.NerualNet.emotionState
         eSpace LowRepresentation = new eSpace();
         eSpace SumRepresentation = new eSpace();
         double weights = 0;
+        double memoryChangeFactor = .000002;
 
         public eSpace eSpace {
          get {return mem.ESpace;}
@@ -35,7 +36,6 @@ namespace KLib.NerualNet.emotionState
         public void cycle()
         {
             //Console.WriteLine("memory cycle");
-            double memoryChangeFactor = .000002;
             double weightsOther = weights;
             weights = OldMemoryWeight + weights;
 
@@ -56,6 +56,11 @@ namespace KLib.NerualNet.emotionState
         public object send(eSpace space, double weight)
         {
             return null;
+        }
+
+        internal void setStability(double stability)
+        {
+            memoryChangeFactor = stability;
         }
     }
 }
