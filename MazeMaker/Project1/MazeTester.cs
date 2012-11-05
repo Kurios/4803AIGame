@@ -12,7 +12,7 @@ namespace MazeMaker
             Console.WriteLine("YO!");
 
 
-            Maze m = new Maze(2, 3);
+            Maze m = new Maze(2, 2);
             m.generateMazePrim(0, 0);
             //Console.WriteLine(m.mazeWalls.Count);
             m.print();

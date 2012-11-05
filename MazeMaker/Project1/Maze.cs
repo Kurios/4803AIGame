@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Diagnostics;
 namespace MazeMaker
 {
     public class Maze
@@ -171,6 +171,20 @@ namespace MazeMaker
             return adjWalls;
         }
 
+        public List<Wall> getAdjPassages(Gridspace gs)
+        {
+            List<Wall> adjPassages = new List<Wall>();
+
+            foreach (Wall w in mazePassages)
+            {
+                if (w.GridspaceA.equals(gs) || w.GridspaceB.equals(gs))
+                {
+                    adjPassages.Add(w);
+                }
+            }
+            return adjPassages;
+        }
+
         public void generateMazePrim(int startPointX, int startPointY)
         {
             Gridspace startpoint = new Gridspace();
@@ -273,7 +287,8 @@ namespace MazeMaker
 
         public void print()
         {
-            Console.WriteLine("MAZE: ");
+            Debug.WriteLine("MAZE: ");
+            //Console.WriteLine("MAZE: ");
             foreach (Gridspace g in list)
             {
                 Console.WriteLine(g.toString());
