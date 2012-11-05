@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using KuriosityXLib.Dialogs;
 using Microsoft.Xna.Framework;
 using KLib.NerualNet.emotionState;
+using KuriosityXLib;
 
 namespace Caverns.Char
 {
@@ -20,7 +21,10 @@ namespace Caverns.Char
         //3 UP
         int facing = 2;
 
-        bool alive = true;
+        bool alive = false;
+
+        int hit;
+        Effect shader;
 
         int counter = 0;
 
@@ -34,7 +38,7 @@ namespace Caverns.Char
         public double TileFindingSpeed = 0;
         public LinkedList<double> newSquares = new LinkedList<double>();
 
-        PlayerChar targetChar;
+        Girl targetChar;
         //bool runAway;
         int stepsToRun = 120;
 
@@ -59,29 +63,57 @@ namespace Caverns.Char
             //Vector2 ret = new Vector2(Position.X,Position.Y);
 
             double targetAngle = Math.PI / 2 + Math.PI / 2 * emotionstate.eSpace.Anticipation;
-            double distance = 0 + 7 * emotionstate.eSpace.Fear;
+            double distance = 0 + 9 * emotionstate.eSpace.Fear;
 
             targetSquares = new List<Vector2>();
             //compute targets
-            switch (targetChar.facing)
+            if (flee)
             {
-                case 1:
-                    targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Sin(targetAngle) * distance + 1)));
-                    targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y - Math.Sin(targetAngle) * distance + 1)));
-                    break;//Left
-                case 2:
-                    targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y - Math.Sin(targetAngle) * distance + 1)));
-                    targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Sin(targetAngle) * distance + 1)));
-                    break;
-                case 0:
-                    targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y - Math.Cos(targetAngle) * distance + 1)));
-                    targetSquares.Add(new Vector2((float)(targetChar.Position.X - Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y - Math.Cos(targetAngle) * distance + 1)));
-                    break;
-                case 3:
-                    targetSquares.Add(new Vector2((float)(targetChar.Position.X - Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Cos(targetAngle) * distance + 1)));
-                    targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Cos(targetAngle) * distance + 1)));
-                    break;
+                PlayerChar target = gameref.MapScreen.pc;
+                switch (target.facing)
+                {
+                    case 1:
+                        targetSquares.Add(new Vector2((float)(target.Position.X + Math.Cos(targetAngle) * distance), (float)(target.Position.Y + Math.Sin(targetAngle) * distance + 1)));
+                        targetSquares.Add(new Vector2((float)(target.Position.X + Math.Cos(targetAngle) * distance), (float)(target.Position.Y - Math.Sin(targetAngle) * distance + 1)));
+                        break;//Left
+                    case 2:
+                        targetSquares.Add(new Vector2((float)(target.Position.X + Math.Cos(targetAngle) * distance), (float)(target.Position.Y - Math.Sin(targetAngle) * distance + 1)));
+                        targetSquares.Add(new Vector2((float)(target.Position.X + Math.Cos(targetAngle) * distance), (float)(target.Position.Y + Math.Sin(targetAngle) * distance + 1)));
+                        break;
+                    case 0:
+                        targetSquares.Add(new Vector2((float)(target.Position.X + Math.Sin(targetAngle) * distance), (float)(target.Position.Y - Math.Cos(targetAngle) * distance + 1)));
+                        targetSquares.Add(new Vector2((float)(target.Position.X - Math.Sin(targetAngle) * distance), (float)(target.Position.Y - Math.Cos(targetAngle) * distance + 1)));
+                        break;
+                    case 3:
+                        targetSquares.Add(new Vector2((float)(target.Position.X - Math.Sin(targetAngle) * distance), (float)(target.Position.Y + Math.Cos(targetAngle) * distance + 1)));
+                        targetSquares.Add(new Vector2((float)(target.Position.X + Math.Sin(targetAngle) * distance), (float)(target.Position.Y + Math.Cos(targetAngle) * distance + 1)));
+                        break;
+                }
             }
+            else
+            {
+                switch (targetChar.facing)
+                {
+                    case 1:
+                        targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Sin(targetAngle) * distance + 1)));
+                        targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y - Math.Sin(targetAngle) * distance + 1)));
+                        break;//Left
+                    case 2:
+                        targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y - Math.Sin(targetAngle) * distance + 1)));
+                        targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Cos(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Sin(targetAngle) * distance + 1)));
+                        break;
+                    case 0:
+                        targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y - Math.Cos(targetAngle) * distance + 1)));
+                        targetSquares.Add(new Vector2((float)(targetChar.Position.X - Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y - Math.Cos(targetAngle) * distance + 1)));
+                        break;
+                    case 3:
+                        targetSquares.Add(new Vector2((float)(targetChar.Position.X - Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Cos(targetAngle) * distance + 1)));
+                        targetSquares.Add(new Vector2((float)(targetChar.Position.X + Math.Sin(targetAngle) * distance), (float)(targetChar.Position.Y + Math.Cos(targetAngle) * distance + 1)));
+                        break;
+                }
+            }
+
+
             //check for reachable targets
 
             //Vector2 result = new Vector2();
@@ -146,10 +178,11 @@ namespace Caverns.Char
 
         private void hitMe(Object sender, EventArgs e)
         {
-            emotionstate.addEmotion(Emotion.Fear, 100000);
+            emotionstate.addEmotion(Emotion.Fear, 10000);
+            hit += 30;
         }
 
-        public Ghost(Texture2D sprite, Map map, Game1 game, PlayerChar targetChar)
+        public Ghost(Texture2D sprite, Map map, Game1 game, Girl targetChar)
             : base(sprite, map)
         {
             this.gameref = game;
@@ -158,11 +191,12 @@ namespace Caverns.Char
             this.Position = new Vector2(7, 64 + 27);
 
             this.emotionstate = new EmotionState(new eSpace(-.2, -.2, .4, .3, -.1, .3, 0, 0));
-            this.emotionstate.setStability(.002);
+            this.emotionstate.setStability(.02);
 
             PhysicalContact += hitMe;
 
 
+            shader = gameref.Content.Load<Effect>("shaders/cavernShader"); 
 
             /*
             DialogState state = new DialogState(0, "Eeek! You found me!");
@@ -262,6 +296,9 @@ namespace Caverns.Char
 
         public override void update(GameTime time)
         {
+            //The G key turns on/off the ghost.
+            if (InputHandler.KeyPressed(Microsoft.Xna.Framework.Input.Keys.G)) alive = !alive;
+
             if (alive)
             {
                 if (emotionstate.eSpace.Fear > .2) flee = true;
@@ -279,7 +316,7 @@ namespace Caverns.Char
 
                 emotionstate.addEmotion(Emotion.Disgust, 1);
                 emotionstate.addEmotion(Emotion.Apathy, 100);
-                emotionstate.addEmotion(Emotion.Rage, 10);
+                emotionstate.addEmotion(Emotion.Rage, 100);
                 emotionstate.addEmotion(Emotion.Anticipation, (int)Math.Round(targetChar.TileFindingSpeed * 2));
                 emotionstate.addEmotion(Emotion.Trust, (int)Math.Round((double)(targetChar.tilesFound * 10) / (double)Map.totalTiles));
                 emotionstate.addEmotion(Emotion.Joy, targetChar.moveSpeed * 3);
@@ -355,6 +392,8 @@ namespace Caverns.Char
                 }
                 TileFindingSpeed = newSquares.Count / 4;
 
+                
+                if(hit > 0)hit--;
 
                 //lastTime = time.TotalGameTime.Seconds;
             }
@@ -373,10 +412,19 @@ namespace Caverns.Char
             //    spriteBatch.Draw(Sprite, new Rectangle((((int)v.X) - offset.X) * 32, (((int)v.Y) - offset.Y) * 32, 32, 32), new Rectangle(32, 32, 10, 10), Color.Black);
             //}
             //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 10, 10), Color.White);
-            if(flee)
-                spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y - offset.Y) * 32, 56, 80), new Rectangle(30 * timeItt, 50 * 0, 30, 50), Color.Red);
-            else
-                spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y - offset.Y) * 32, 56, 80), new Rectangle(30 * timeItt, 50 * 0, 30, 50), Color.White);
+            spriteBatch.End();
+            shader.Parameters["Joy"].SetValue((float)eSpace.Joy);
+            shader.Parameters["Sadness"].SetValue((float)eSpace.Sadness);
+            shader.Parameters["Fear"].SetValue((float)eSpace.Fear);
+            shader.Parameters["Anger"].SetValue((float)eSpace.Anger);
+            shader.Parameters["PlayerHit"].SetValue(hit);
+            gameref.SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, shader);
+            
+            if(alive)
+                if(flee)
+                    spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y - offset.Y) * 32, 56, 80), new Rectangle(30 * timeItt, 50 * 0, 30, 50), Color.Red);
+                else
+                    spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32, (int)(Position.Y - offset.Y) * 32, 56, 80), new Rectangle(30 * timeItt, 50 * 0, 30, 50), Color.White);
 
         }
 

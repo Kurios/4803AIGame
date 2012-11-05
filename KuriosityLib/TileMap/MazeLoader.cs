@@ -33,8 +33,8 @@ namespace KuriosityXLib.TileMap
             List<Wall> passes = m.mazePassages;
 
             //SUBMAP FACTORY:
-            //SubMapFactory submaps = fillSubMaps(tiles, m, passes);
-            SubMapFactory submaps = fillSubMapsWithMaze(tiles, m, passes);
+            SubMapFactory submaps = fillSubMaps(tiles, m, passes);
+            //SubMapFactory submaps = fillSubMapsWithMaze(tiles, m, passes);
             //MAP FACTORY:
             MapFactory mapFact = new MapFactory(submaps, m.xDimension, m.yDimension);
 

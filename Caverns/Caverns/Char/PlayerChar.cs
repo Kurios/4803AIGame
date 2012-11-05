@@ -19,7 +19,7 @@ namespace Caverns.Char
     /// <summary>
     /// This is the player character, a child of the Character class.
     /// </summary>
-    class PlayerChar : DialogCharacter
+    public class PlayerChar : DialogCharacter
     {
 
         public enum PlayerState
@@ -175,8 +175,9 @@ namespace Caverns.Char
         /// <param name="offset"></param>
         public override void draw(SpriteBatch spriteBatch,Point offset)
         {
-            spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X -offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 10, 10), Color.White);
-
+            //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X -offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 10, 10), Color.White);
+            spriteBatch.End();
+            spriteBatch.Begin();
             spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - 16, (int)(Position.Y - offset.Y) * 32 - 16, 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.White);
         }
     }

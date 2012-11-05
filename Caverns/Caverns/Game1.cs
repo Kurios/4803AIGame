@@ -58,6 +58,13 @@ namespace Caverns
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
+            //graphics.ToggleFullScreen();
+            //graphics.GraphicsDevice.
+            graphics.SynchronizeWithVerticalRetrace = false;
+            this.IsFixedTimeStep = false;
+            //this.TargetElapsedTime = this.TargetElapsedTime.TotalSeconds 2;
+            graphics.ApplyChanges();
+
 
             ScreenRect = new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
@@ -127,6 +134,8 @@ namespace Caverns
             // Allows the game to exit
             if (InputHandler.KeyPressed(Keys.Escape))
                 this.Exit();
+            if (InputHandler.KeyPressed(Keys.RightAlt) && InputHandler.KeyPressed(Keys.Enter))
+                graphics.ToggleFullScreen();
 
             // TODO: Add your update logic here
 

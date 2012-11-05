@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using KuriosityXLib.Dialogs;
 using Microsoft.Xna.Framework;
 using KLib.NerualNet.emotionState;
+using KuriosityXLib;
 
 namespace Caverns.Char
 {
@@ -19,7 +20,7 @@ namespace Caverns.Char
         //1 LEFT
         //2 RIGHT
         //3 UP
-        int facing = 2;
+        public int facing = 2;
 
         int counter = 0;
 
@@ -27,9 +28,12 @@ namespace Caverns.Char
         Random r = new Random();
         Game1 gameref;
 
-        int tilesFound = 0;
+        public int tilesFound = 0;
         public double TileFindingSpeed = 0;
         public LinkedList<double> newSquares = new LinkedList<double>();
+
+        Effect shader;
+        int hit;
 
         bool canSeeGhost = false;
 
@@ -147,9 +151,17 @@ namespace Caverns.Char
             this.targetChar = targetChar;
 
             this.Position = new Vector2(7, 64 + 27);
-
+            
             this.emotionstate = new EmotionState(new eSpace(-.2,-.2,.4,.3,-.1,.3,0,0));
-            addEmotion(new eSpace(-.2, -.2, .4, .3, -.1, .3, 0, 0), 100);
+            eSpace.Fear = -.2;
+            eSpace.Anger = -.2;
+            eSpace.Sadness = .4;
+            eSpace.Joy = .3;
+            eSpace.Disgust = -.1;
+            eSpace.Trust = .3;
+            addEmotion(eSpace, 100);
+
+            shader = gameref.Content.Load<Effect>("shaders/cavernShader"); 
 
 
             /*
@@ -265,6 +277,16 @@ namespace Caverns.Char
         }
         public override void update(GameTime time)
         {
+
+            if(InputHandler.KeyPressed(Microsoft.Xna.Framework.Input.Keys.I) )
+            {
+                eSpace.Fear = -.2;
+                eSpace.Anger = -.2;
+                eSpace.Sadness = .4;
+                eSpace.Joy = .3;
+                eSpace.Disgust = -.1;
+                eSpace.Trust = .3;
+            }
             double curTime = time.TotalGameTime.TotalSeconds;
             //timeItt = (int)Math.Floor(1 / (float)(time.ElapsedGameTime.Milliseconds * 4));
             timer += time.ElapsedGameTime;
@@ -296,7 +318,7 @@ namespace Caverns.Char
             emotionstate.addEmotion(Emotion.Disgust, 1);
             emotionstate.addEmotion(Emotion.Apathy, 100);
             emotionstate.addEmotion(Emotion.Anticipation, (int) Math.Round(targetChar.TileFindingSpeed * 2));
-            emotionstate.addEmotion(Emotion.Trust,(int)Math.Round((double)(targetChar.tilesFound*10)/(double)Map.totalTiles));
+            emotionstate.addEmotion(Emotion.Trust,(int)Math.Round((double)(targetChar.tilesFound*100)/(double)Map.totalTiles));
             emotionstate.addEmotion(Emotion.Joy, targetChar.moveSpeed * 3);
             emotionstate.ponder();
             
@@ -371,6 +393,9 @@ namespace Caverns.Char
 
             
             //lastTime = time.TotalGameTime.Seconds;
+            shader.Parameters["Fear"].SetValue((float)eSpace.Fear);
+            shader.Parameters["Anger"].SetValue((float)eSpace.Anger);
+            shader.Parameters["PlayerHit"].SetValue(hit);
         }
 
 
@@ -380,13 +405,14 @@ namespace Caverns.Char
         }
         public override void draw(SpriteBatch spriteBatch, Point offset)
         {
-            foreach (Vector2 v in targetSquares)
-            {
+            //foreach (Vector2 v in targetSquares)
+            //{
                 //Console.WriteLine(v);
-                spriteBatch.Draw(Sprite, new Rectangle((((int)v.X) - offset.X) * 32, (((int)v.Y) - offset.Y) * 32, 32, 32), new Rectangle(32, 32, 10, 10), Color.Black);
-            }
-            spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 10, 10), Color.White);
-
+            //    spriteBatch.Draw(Sprite, new Rectangle((((int)v.X) - offset.X) * 32, (((int)v.Y) - offset.Y) * 32, 32, 32), new Rectangle(32, 32, 10, 10), Color.Black);
+            //}
+            //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y - offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32, 32, 10, 10), Color.White);
+            spriteBatch.End();
+            gameref.SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, shader);
             spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 , (int)(Position.Y - offset.Y) * 32 , 56, 80), new Rectangle(65 * timeItt, 96 * facing, 65, 96), Color.White);
 
         }

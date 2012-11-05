@@ -20,10 +20,14 @@ namespace Caverns.GameScreens
         Map map;
         Camera camera;
         Texture2D spriteMap;
-        PlayerChar pc;
+        public PlayerChar pc;
         Effect pxShader;
+        public Effect charShader;
         SpriteFont font;
         Girl girl;
+        RenderTarget2D buffer;
+        Ghost ghost;
+        Texture2D white;
 
         int playerhit = 0;
 
@@ -61,6 +65,7 @@ namespace Caverns.GameScreens
             Texture2D neko = gameref.Content.Load<Texture2D>("characters/Rin");
             Texture2D nekoPort = gameref.Content.Load<Texture2D>("characters/portait/two");
 
+            white = gameref.Content.Load<Texture2D>("backgrounds/white");
             map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("ForestMap01"));
             
             //MAZE STUFF ADDED HERE.
@@ -78,7 +83,9 @@ namespace Caverns.GameScreens
             Texture2D ghostSprite = gameref.Content.Load<Texture2D>("characters/FF6GhostSprites");
 
             //PixelShader shit
+            buffer = new RenderTarget2D(gameref.GraphicsDevice, gameref.GraphicsDevice.DisplayMode.Width, gameref.GraphicsDevice.DisplayMode.Height);
             pxShader = gameref.Content.Load<Effect>("shaders/cavernShader");
+            charShader = gameref.Content.Load<Effect>("shaders/charShader");
             camera.setMap(map);
 
             pxShader.Parameters["Viewport"].SetValue(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
@@ -119,25 +126,22 @@ namespace Caverns.GameScreens
             CaveIn caveIn = new CaveIn(link, map, gameref, caveMap);
             map.characterList.Add(caveIn);
 
-            Waterfall waterfall = new Waterfall(spriteMap, caveMap, gameref);
-            waterfall.Position = new Vector2(32 + 15, 32);
+            //Waterfall waterfall = new Waterfall(spriteMap, caveMap, gameref);
+            //waterfall.Position = new Vector2(32 + 15, 32);
             //caveMap.characterList.Add(waterfall);
 
-            Key key1 = new Key(keyText,caveMap,gameref);
-            key1.Position = new Vector2(11, 11 + 32);
-            caveMap.characterList.Add(key1);
+            //Key key1 = new Key(keyText,caveMap,gameref);
+            //key1.Position = new Vector2(11, 11 + 32);
+            //caveMap.characterList.Add(key1);
 
-            Key key2 = new Key(keyText, caveMap, gameref);
-            key2.Position = new Vector2(22 + 32, 19 + 64);
-            caveMap.characterList.Add(key2);
+            //Key key2 = new Key(keyText, caveMap, gameref);
+            //key2.Position = new Vector2(22 + 32, 19 + 64);
+            //caveMap.characterList.Add(key2);
 
             pc = new PlayerChar(catLady, map, Game);
             pc.Position = new Vector2(20, 20);
 
-            Ghost g = new Ghost(ghostSprite, caveMap, gameref, pc);
-            g.Position = new Vector2(40, 40);
-            caveMap.characterList.Add(g);
-            caveMap.enemyList.Add(g);
+            
 
             //map.characterList.Add(pc);
             caveMap.characterList.Add(pc);
@@ -151,7 +155,13 @@ namespace Caverns.GameScreens
             girl = new Girl(girlText, caveMap, gameref,pc);
             girl.Portrait = girlPort;
             girl.Position = new Vector2(22, 16);
+            while(!map.canMove((int)girl.Position.X,(int)girl.Position.Y,girl)) girl.Position = Vector2.Subtract(girl.Position,Vector2.UnitY);
             caveMap.characterList.Add(girl);
+
+            ghost = new Ghost(ghostSprite, caveMap, gameref, girl);
+            ghost.Position = new Vector2(40, 40);
+            caveMap.characterList.Add(ghost);
+            caveMap.enemyList.Add(ghost);
 
         }
         public override void Update(GameTime gameTime)
@@ -213,14 +223,19 @@ namespace Caverns.GameScreens
         }
         public override void Draw(GameTime gameTime)
         {
+            //RenderTarget2D buffer = new RenderTarget2D(gameref.GraphicsDevice, gameref.GraphicsDevice.DisplayMode.Width, gameref.GraphicsDevice.DisplayMode.Height);
+            //buffer.GraphicsDevice.SetRenderTarget(buffer);
             gameref.SpriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullCounterClockwise,pxShader);
             //gameref.SpriteBatch.Begin();
             base.Draw(gameTime);
             camera.Draw(gameTime);
             if (playerhit > 0) playerhit--;
             gameref.SpriteBatch.End();
+            //buffer.GraphicsDevice.SetRenderTarget(null);
             gameref.SpriteBatch.Begin();
+            gameref.SpriteBatch.Draw((Texture2D)buffer, buffer.Bounds, Color.White);
             {
+                gameref.SpriteBatch.Draw(white, new Rectangle(590, 590, 400, 150), Color.Black);
                 if (selectedEmotion == 0)
                     gameref.SpriteBatch.DrawString(font, "fear :" + (espace.Fear.ToString()), new Vector2(600, 600), Color.Goldenrod);
                 else
@@ -260,6 +275,52 @@ namespace Caverns.GameScreens
                     gameref.SpriteBatch.DrawString(font, "supprise :" + (espace.Supprise.ToString()), new Vector2(600, 670), Color.Goldenrod);
                 else
                     gameref.SpriteBatch.DrawString(font, "supprise :" + (espace.Supprise.ToString()), new Vector2(600, 670), Color.Red);
+
+
+                gameref.SpriteBatch.Draw(white, new Rectangle(90, 590, 400, 150), Color.Black);
+                if (selectedEmotion == 0)
+                    gameref.SpriteBatch.DrawString(font, "fear :" + (ghost.eSpace.Fear.ToString()), new Vector2(100, 600), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "fear :" + (ghost.eSpace.Fear.ToString()), new Vector2(100, 600), Color.Red);
+
+                if (selectedEmotion == 1)
+                    gameref.SpriteBatch.DrawString(font, "anger :" + (ghost.eSpace.Anger.ToString()), new Vector2(100, 610), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "anger :" + (ghost.eSpace.Anger.ToString()), new Vector2(100, 610), Color.Red);
+
+                if (selectedEmotion == 2)
+                    gameref.SpriteBatch.DrawString(font, "sadness :" + (ghost.eSpace.Sadness.ToString()), new Vector2(100, 620), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "sadness :" + (ghost.eSpace.Sadness.ToString()), new Vector2(100, 620), Color.Red);
+
+                if (selectedEmotion == 3)
+                    gameref.SpriteBatch.DrawString(font, "joy :" + (ghost.eSpace.Joy.ToString()), new Vector2(100, 630), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "joy :" + (ghost.eSpace.Joy.ToString()), new Vector2(100, 630), Color.Red);
+
+                if (selectedEmotion == 4)
+                    gameref.SpriteBatch.DrawString(font, "disgust :" + (ghost.eSpace.Disgust.ToString()), new Vector2(100, 640), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "disgust :" + (ghost.eSpace.Disgust.ToString()), new Vector2(100, 640), Color.Red);
+
+                if (selectedEmotion == 5)
+                    gameref.SpriteBatch.DrawString(font, "trust :" + (ghost.eSpace.Trust.ToString()), new Vector2(100, 650), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "trust :" + (ghost.eSpace.Trust.ToString()), new Vector2(100, 650), Color.Red);
+
+                if (selectedEmotion == 6)
+                    gameref.SpriteBatch.DrawString(font, "anticipation :" + (ghost.eSpace.Anticipation.ToString()), new Vector2(100, 660), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "anticipation :" + (ghost.eSpace.Anticipation.ToString()), new Vector2(100, 660), Color.Red);
+
+                if (selectedEmotion == 7)
+                    gameref.SpriteBatch.DrawString(font, "supprise :" + (ghost.eSpace.Supprise.ToString()), new Vector2(100, 670), Color.Goldenrod);
+                else
+                    gameref.SpriteBatch.DrawString(font, "supprise :" + (ghost.eSpace.Supprise.ToString()), new Vector2(100, 670), Color.Red);
+
+
+
+                gameref.SpriteBatch.DrawString(font, "Framerate: " + (1 / gameTime.ElapsedGameTime.TotalSeconds).ToString(), new Vector2(600, 690), Color.Red);
             }
             gameref.SpriteBatch.End();
         }

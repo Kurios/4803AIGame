@@ -4,12 +4,6 @@ sampler s0;
 
 uniform extern float Fear;
 uniform extern float Anger;
-uniform extern float Sadness;
-uniform extern float Joy;
-uniform extern float Disgust;
-uniform extern float Supprise;    
-uniform extern float2 PlayerPos;
-uniform extern float2 SecondPos;
 uniform extern int PlayerHit;
 
 uniform extern float2 SecondaryPos;
@@ -36,21 +30,6 @@ float4 PixelShaderFunction(float2 coords: TEXCOORD0, in float2 vPos: VPOS) : COL
 	float4 color = tex2D(s0, coords);  
 	if(color.a != 0){
 
-		//Distance based Monocroming for Supprise
-		//First, we get the distance
-		dist = distance(vPos,PlayerPos);
-		dist = dist /(300 + 200 * Supprise);
-		dist0 = distance(vPos,SecondPos);
-		dist0 = dist0 /(50 + 800 * Supprise);
-		color.rgb =  color.rgb - ( .3 - color.rgb ) * dist * dist0;
-		//color.g =  color.g - ( .3 - color.g ) * dist * dist0;
-		//color.b =  color.b - ( .3 - color.b ) * dist * dist0;
-
-		//Fear,Disgust,Joy Mappings  
-		color.b = color.b * Sadness;
-		color.r = color.r * Disgust;
-		color.g = color.g * Joy;
-	
 		//Fear Monochroming
 		//First, we get the distance
 		dist = distance(color.rgb,float3(0,0,0));
@@ -65,9 +44,11 @@ float4 PixelShaderFunction(float2 coords: TEXCOORD0, in float2 vPos: VPOS) : COL
 		//color.r = sin(vPos.x);
 		//color.b = cos(vPos.y);
 		if(PlayerHit > 0)
-			color.r = color.r * PlayerHit;
+			color.r = 1;
+		color.r = 1;
 
 	}
+	//color.rgb = 1;
 	return color;
 }
 technique

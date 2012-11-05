@@ -136,7 +136,7 @@ namespace KLib.NerualNet.emotionState
             return ret;
         }
 
-        internal void iAdd(eSpace espace)
+        public void iAdd(eSpace espace)
         {
             Fear = Fear + espace.Fear;
             Anger = Anger + espace.Anger;
