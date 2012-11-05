@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Caverns.Char;
 using KLib.NerualNet.emotionState;
 using Microsoft.Xna.Framework.Input;
+using MazeMaker;
 
 namespace Caverns.GameScreens
 {
@@ -60,7 +61,13 @@ namespace Caverns.GameScreens
 
             map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("ForestMap01"));
             
-            Map caveMap = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("CaveMap01"));
+            //MAZE STUFF ADDED HERE.
+            Maze maze = new Maze(2, 3); //Dimensions: #cols, #rows
+            maze.generateMazePrim(0, 0);    //Generates Prim's Maze.  (Starting col, Starting row).
+           Map caveMap = MazeLoader.createMap(gameref, spriteMap, maze);    //Create the map
+            //MAZE STUFF DONE.
+
+            //Map caveMap = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("CaveMap01"));
 
             font = gameref.Content.Load<SpriteFont>("font/system");
             Texture2D keyText = gameref.Content.Load<Texture2D>("characters/Item Key01");

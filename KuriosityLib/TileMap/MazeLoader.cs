@@ -9,10 +9,10 @@ using System.Text.RegularExpressions;
 
 namespace KuriosityXLib.TileMap
 {
-    class MazeLoader
+    public class MazeLoader
     {
         //public static Map createMap(Game game, Texture2D spriteMap, Maze m, String[] tileData)
-        public static Map createMap(Game game, Texture2D spriteMap, Maze m, String[] tileData)
+        public static Map createMap(Game game, Texture2D spriteMap, Maze m)
         {
             //EACH MAP: 64x64
             //int mazeYDimension = m.yDimension;
@@ -27,7 +27,7 @@ namespace KuriosityXLib.TileMap
 
 
             //HAS THE MAZE ALREADY BEEN GENERATED?  IF NOT, USE:
-            //m.generateMazePrim(0,0);   //Generate the maze.
+           // m.generateMazePrim(0,0);   //Generate the maze.
 
             //GRAB THE PASSAGES
             List<Wall> passes = m.mazePassages;
@@ -70,22 +70,22 @@ namespace KuriosityXLib.TileMap
 
             //TOP WALL
             tiles.SetBaseSprite(new Rectangle(21 * 32, 54 * 32, 32, 32));
-            tiles.SetPassible(true);
+            tiles.SetPassible(false);
             tiles.AddTile();
             
             //RIGHT WALL
             tiles.SetBaseSprite(new Rectangle(16 * 32, 52 * 32, 32, 32));
-            tiles.SetPassible(true);
+            tiles.SetPassible(false);
             tiles.AddTile();
             
             //BOT WALL
             tiles.SetBaseSprite(new Rectangle(17 * 32, 51 * 32, 32, 32));
-            tiles.SetPassible(true);
+            tiles.SetPassible(false);
             tiles.AddTile();
 
             //LEFT WALL
             tiles.SetBaseSprite(new Rectangle(18 * 32, 52 * 32, 32, 32));
-            tiles.SetPassible(true);
+            tiles.SetPassible(false);
             tiles.AddTile();
 
             //FLOOR
@@ -123,6 +123,7 @@ namespace KuriosityXLib.TileMap
                             submaps.setTile(c, r, tile, (y*mint.xDimension)+x);
 
                         }
+
                     }
                     submaps.AddSubMap();
                 }
@@ -134,7 +135,7 @@ namespace KuriosityXLib.TileMap
         {
             List<String> passes = new List<String>();
             
-            List<Wall> adjacents = mint.getAdjWalls(gspace);
+            List<Wall> adjacents = mint.getAdjPassages(gspace);
             int xDiff = 0;
             int yDiff = 0;
 
@@ -177,7 +178,7 @@ namespace KuriosityXLib.TileMap
             List<String> passableWays = getOpenSpaces(mint, gspace, passableWalls);
 
             //TOP
-            if (r == 0 && (c > 0 || c <31))
+            if (r <=1 && (c > 0 || c <30))
             {
                 if (passableWays.Contains("UP")&&(c >= 14 && c <= 17))
                 {
@@ -189,7 +190,7 @@ namespace KuriosityXLib.TileMap
                 }
             }
             //RIGHT
-            else if (c == 31 && (r > 0 || r <31))
+            else if (c >= 30 && (r > 0 || r <30))
             {
                 if (passableWays.Contains("RIGHT") && (r >= 14 && r <= 17))
                 {
@@ -201,7 +202,7 @@ namespace KuriosityXLib.TileMap
                 }
             }
             //BOTTOM
-            else if (r == 31 && (c > 0 || c < 31))
+            else if (r >=30 && (c > 0 || c < 30))
             {
                 if (passableWays.Contains("DOWN") && (c >= 14 && c <= 17))
                 {
@@ -213,7 +214,7 @@ namespace KuriosityXLib.TileMap
                 }
             }
             //LEFT
-            else if (c == 0 && (r > 0 || r < 31))
+            else if (c <=1 && (r > 0 || r < 30))
             {
                 if (passableWays.Contains("LEFT") && (r >= 14 && r <= 17))
                 {
