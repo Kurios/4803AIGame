@@ -1,21 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace KLib.NerualNet
 {
+    public class LinkNode
+    {
+        public Node Node;
+        public double Value;
+
+        public LinkNode(Node node, double value)
+        {
+            this.Node = node;
+            this.Value = value;
+        }
+    }
+
     public class Node
     {
-
-        public Node() { }
         protected double value = 0;
-        public double Value { get { return value;} }
-        LinkedList<LinkNode> children;
-        string name;
 
-        int tick = -1;
-        public string Name { get { return name; } }
+        private LinkedList<LinkNode> children;
+
+        private string name;
+
+        private int tick = -1;
+
+        public Node()
+        {
+        }
 
         public Node(String name)
         {
@@ -23,7 +35,12 @@ namespace KLib.NerualNet
             children = new LinkedList<LinkNode>();
         }
 
+        public string Name { get { return name; } }
+
+        public double Value { get { return value; } }
+
         /** This is the most primitive type of node. It is the weight of its children, weighted by the assigned weight */
+
         public virtual double update(int tick)
         {
             if (tick != this.tick)
@@ -47,15 +64,4 @@ namespace KLib.NerualNet
     }
 
     /* Wrapper for the Node/Value pairs */
-    public class LinkNode
-    {
-        public Node Node;
-        public double Value;
-
-        public LinkNode(Node node, double value)
-        {
-            this.Node = node;
-            this.Value = value;
-        }
-    }
 }

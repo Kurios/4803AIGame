@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 
 using System.Diagnostics;
 
@@ -11,6 +8,7 @@ namespace KuriosityXLib.Dialogs
     public class DialogState
     {
         #region Constructors
+
         /// <summary>
         /// Basic constructor for DialogState.
         /// </summary>
@@ -56,23 +54,25 @@ namespace KuriosityXLib.Dialogs
             responses = possibleResponses;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Fields
+
+        public Response currentResponse { get; set; }
+
+        public List<Response> responses { get; set; }
+
         /// <summary>
         /// Getter and Setter for the stateID.  This ID is used to tell which state we are at.
         /// </summary>
         public int stateID { get; set; }
 
         /// <summary>
-        /// Getter and Setter for 
+        /// Getter and Setter for
         /// </summary>
         public String stateText { get; set; }
 
-        public List<Response> responses { get; set; }
-
-        public Response currentResponse { get; set; }
-        #endregion
+        #endregion Fields
 
         /// <summary>
         /// Go to a specific response
@@ -95,6 +95,7 @@ namespace KuriosityXLib.Dialogs
         }
 
         #region Adding Responses
+
         /// <summary>
         /// Adds a response with the specified text.  By default, it will lead to a 'quit' state.
         /// </summary>
@@ -104,6 +105,7 @@ namespace KuriosityXLib.Dialogs
             Response r = new Response(respText);
             responses.Add(r);
         }
+
         /// <summary>
         /// Adds a response with the specified text and direction to the next state.
         /// </summary>
@@ -115,9 +117,10 @@ namespace KuriosityXLib.Dialogs
             responses.Add(r);
         }
 
-        #endregion
+        #endregion Adding Responses
 
         #region Print Debug
+
         /// <summary>
         /// Prints out the DialogState.
         /// </summary>
@@ -131,6 +134,7 @@ namespace KuriosityXLib.Dialogs
             }
             Debug.WriteLine("");
         }
-        #endregion
+
+        #endregion Print Debug
     }
 }

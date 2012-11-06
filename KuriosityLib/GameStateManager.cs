@@ -1,44 +1,34 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-
 
 namespace KuriosityXLib
 {
-    
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
     public class GameStateManager : Microsoft.Xna.Framework.GameComponent
     {
-
-    #region Event
+        #region Event
 
         public event EventHandler OnStageChange;
 
-        #endregion
+        #endregion Event
 
         #region Fields and Properties
 
-        Stack<GameState> gamestates = new Stack<GameState>();
-
-        const int startDrawOrder = 5000;
-        const int drawOrderInc = 100;
-        int drawOrder;
+        private const int drawOrderInc = 100;
+        private const int startDrawOrder = 5000;
+        private int drawOrder;
+        private Stack<GameState> gamestates = new Stack<GameState>();
 
         public GameState CurrentState
         {
-            get{return gamestates.Peek();}
+            get { return gamestates.Peek(); }
         }
 
-        #endregion
+        #endregion Fields and Properties
+
         #region Constructor
 
         public GameStateManager(Game game)
@@ -46,8 +36,9 @@ namespace KuriosityXLib
         {
             drawOrder = startDrawOrder;
         }
-        
-        #endregion
+
+        #endregion Constructor
+
         #region XNA Methods
 
         /// <summary>
@@ -67,42 +58,10 @@ namespace KuriosityXLib
         {
             base.Update(gameTime);
         }
-        #endregion
+
+        #endregion XNA Methods
+
         #region Methods
-
-        public void PopState()
-        {
-            if (gamestates.Count > 0)
-            {
-                RemoveState();
-                drawOrder -= drawOrderInc;
-
-                if (OnStageChange != null)
-                {
-                    OnStageChange(this, null);
-                }
-            }
-        }
-
-        public void RemoveState()
-        {
-            GameState State = gamestates.Peek();
-            OnStageChange -= State.StateChange;
-            Game.Components.Remove(State);
-            gamestates.Pop();
-        }
-
-        public void PushState(GameState newState)
-        {
-            drawOrder += drawOrderInc;
-            newState.DrawOrder = drawOrder;
-            AddState(newState);
-
-            if (OnStageChange != null)
-            {
-                OnStageChange(this, null);
-            }
-        }
 
         public void AddState(GameState newState)
         {
@@ -126,6 +85,40 @@ namespace KuriosityXLib
             }
         }
 
-        #endregion
+        public void PopState()
+        {
+            if (gamestates.Count > 0)
+            {
+                RemoveState();
+                drawOrder -= drawOrderInc;
+
+                if (OnStageChange != null)
+                {
+                    OnStageChange(this, null);
+                }
+            }
+        }
+
+        public void PushState(GameState newState)
+        {
+            drawOrder += drawOrderInc;
+            newState.DrawOrder = drawOrder;
+            AddState(newState);
+
+            if (OnStageChange != null)
+            {
+                OnStageChange(this, null);
+            }
+        }
+
+        public void RemoveState()
+        {
+            GameState State = gamestates.Peek();
+            OnStageChange -= State.StateChange;
+            Game.Components.Remove(State);
+            gamestates.Pop();
+        }
+
+        #endregion Methods
     }
 }

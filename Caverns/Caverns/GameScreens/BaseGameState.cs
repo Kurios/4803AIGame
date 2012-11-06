@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using KuriosityXLib;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using KuriosityXLib.Control;
+﻿using KuriosityXLib;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace Caverns.GameScreens
 {
@@ -16,15 +9,12 @@ namespace Caverns.GameScreens
         #region Fields
 
         protected Game1 gameref;
-        
 
-        #endregion
-        
+        #endregion Fields
+
         #region Properties
 
-        
-
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -34,26 +24,27 @@ namespace Caverns.GameScreens
             gameref = game;
         }
 
-        #endregion
-        #region XNA Method Region
-        
-        protected override void LoadContent()
-        {
-            ContentManager Content = Game.Content;
-            
+        #endregion Constructor
 
-            base.LoadContent();
-        }
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
+        #region XNA Method Region
+
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
         }
-        #endregion
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
 
+        protected override void LoadContent()
+        {
+            ContentManager Content = Game.Content;
+
+            base.LoadContent();
+        }
+
+        #endregion XNA Method Region
     }
 }

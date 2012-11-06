@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using System.Diagnostics;
 
@@ -10,6 +7,7 @@ namespace KuriosityXLib.Dialogs
     public class Response
     {
         #region Constructors
+
         /// <summary>
         /// A response consists of a text stated by an NPC and an integer representing which state
         /// to go to.
@@ -55,14 +53,19 @@ namespace KuriosityXLib.Dialogs
             responseText = textForResponse;
             nextStateID = toNextState;
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Fields
-        public String responseText { get; set; }
+
         public int nextStateID { get; set; }
-        #endregion
+
+        public String responseText { get; set; }
+
+        #endregion Fields
 
         #region Printing and Debugging
+
         /// <summary>
         /// Prints the response.  A DEBUG FUNCTION.
         /// </summary>
@@ -72,6 +75,7 @@ namespace KuriosityXLib.Dialogs
             Debug.WriteLine("Response Text: " + this.responseText);
             Debug.WriteLine("directs to state ID" + this.nextStateID);
         }
-        #endregion
+
+        #endregion Printing and Debugging
     }
 }

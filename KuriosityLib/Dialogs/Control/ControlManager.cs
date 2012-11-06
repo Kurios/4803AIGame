@@ -1,14 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-
 
 namespace KuriosityXLib.Control
 {
@@ -21,14 +14,15 @@ namespace KuriosityXLib.Control
 
         public int selectedControl = 0;
 
-        static SpriteFont spriteFont;
+        private static SpriteFont spriteFont;
 
         public static SpriteFont SpriteFont
         {
             get { return spriteFont; }
         }
 
-        #endregion
+        #endregion Fields and Properties
+
         #region Constructors
 
         public ControlManager(SpriteFont font)
@@ -49,23 +43,9 @@ namespace KuriosityXLib.Control
             spriteFont = font;
         }
 
-        #endregion
+        #endregion Constructors
+
         #region Methods
-
-        public void Update(GameTime time)
-        {
-            if (Count == 0) return;
-            foreach (Control c in this)
-            {
-                if (c.Enabled) c.Update(time);
-                if (c.HasFocus) c.HandleInput();
-            }
-
-            if (InputHandler.KeyPressed(Keys.Up))
-                PreviousControl();
-            else if (InputHandler.KeyPressed(Keys.Down))
-                NextControl();
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -109,6 +89,22 @@ namespace KuriosityXLib.Control
             } while (currentControl != selectedControl);
             this[selectedControl].HasFocus = true;
         }
-        #endregion
+
+        public void Update(GameTime time)
+        {
+            if (Count == 0) return;
+            foreach (Control c in this)
+            {
+                if (c.Enabled) c.Update(time);
+                if (c.HasFocus) c.HandleInput();
+            }
+
+            if (InputHandler.KeyPressed(Keys.Up))
+                PreviousControl();
+            else if (InputHandler.KeyPressed(Keys.Down))
+                NextControl();
+        }
+
+        #endregion Methods
     }
 }

@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MazeMaker
 {
     public class Wall
     {
         //Wall has two Gridspaces
-       // List<Gridspace> adjCells;
+        // List<Gridspace> adjCells;
         public Wall(Gridspace A)
         {
             GridspaceA = A;
         }
+
         public Wall(Gridspace A, Gridspace B)
         {
             GridspaceA = A;
@@ -24,6 +22,7 @@ namespace MazeMaker
             get;
             set;
         }
+
         public Gridspace GridspaceB
         {
             get;
@@ -61,6 +60,7 @@ namespace MazeMaker
                 return GridspaceA;
             }
         }
+
         public String toString()
         {
             String returned = "WALL: [" + GridspaceA.toString() + ", " + GridspaceB.toString() + "]";

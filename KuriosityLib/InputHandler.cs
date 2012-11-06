@@ -1,14 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-
 
 namespace KuriosityXLib
 {
@@ -19,10 +10,10 @@ namespace KuriosityXLib
     {
         #region Globals
 
-        static KeyboardState keyboardState;
-        static KeyboardState lastKeyboardState;
+        private static KeyboardState keyboardState;
+        private static KeyboardState lastKeyboardState;
 
-        #endregion
+        #endregion Globals
 
         #region Properties
 
@@ -36,7 +27,7 @@ namespace KuriosityXLib
             get { return lastKeyboardState; }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -46,13 +37,13 @@ namespace KuriosityXLib
             keyboardState = Keyboard.GetState();
         }
 
-        #endregion
+        #endregion Constructor
 
         #region XNA Methods
 
         /// <summary>
         /// </summary>
-        /// 
+        ///
         public override void Initialize()
         {
             base.Initialize();
@@ -70,7 +61,7 @@ namespace KuriosityXLib
             base.Update(gameTime);
         }
 
-        #endregion
+        #endregion XNA Methods
 
         #region General Methods
 
@@ -79,13 +70,13 @@ namespace KuriosityXLib
             lastKeyboardState = keyboardState;
         }
 
-        #endregion
-        
+        #endregion General Methods
+
         #region Keyboard
 
-        public static bool KeyReleased(Keys key)
+        public static bool KeyDown(Keys key)
         {
-            return keyboardState.IsKeyUp(key) && lastKeyboardState.IsKeyDown(key);
+            return (keyboardState.IsKeyDown(key));
         }
 
         public static bool KeyPressed(Keys key)
@@ -93,11 +84,11 @@ namespace KuriosityXLib
             return keyboardState.IsKeyDown(key) && lastKeyboardState.IsKeyUp(key);
         }
 
-        public static bool KeyDown(Keys key)
+        public static bool KeyReleased(Keys key)
         {
-            return (keyboardState.IsKeyDown(key));
+            return keyboardState.IsKeyUp(key) && lastKeyboardState.IsKeyDown(key);
         }
 
-        #endregion
+        #endregion Keyboard
     }
 }

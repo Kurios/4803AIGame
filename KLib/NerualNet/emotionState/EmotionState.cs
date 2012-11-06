@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace KLib.NerualNet.emotionState
 {
     public class EmotionState
     {
         /*
-         * 
+         *
          * Emotion doesnt define action, emotion tempers our worldview, so we can define action itself.
-         * 
+         *
          * In fact, it defines it such that our conditioning can function, and all doesnt fire at the same time...
-         * 
+         *
          */
 
-        Memory memory = new Memory();
-        LowState lowState;
-        HighSpace highSpace;
+        private HighSpace highSpace;
+        private LowState lowState;
+        private Memory memory = new Memory();
 
         public EmotionState()
         {
@@ -25,7 +22,8 @@ namespace KLib.NerualNet.emotionState
             highSpace = new HighSpace(lowState);
         }
 
-        public EmotionState(eSpace initSpace) : this()
+        public EmotionState(eSpace initSpace)
+            : this()
         {
             memory.ESpace = initSpace;
         }
@@ -33,31 +31,35 @@ namespace KLib.NerualNet.emotionState
         /***
          * Stability... a normal amount is really really small... think like .000002 small
          */
-        public void setStability(double stability)
-        {
-            lowState.setStability(stability);
-        }
 
         public eSpace eSpace
         {
             get { return lowState.eSpace; }
         }
-        public void ponder()
+
+        public void addEmotion(Emotion emotion, int p)
         {
-            lowState.cycle();
+            highSpace.addEmotion(emotion, p);
+        }
+
+        public void addEmotion(emotionState.eSpace espace, int p)
+        {
+            lowState.pass(espace, p);
         }
 
         public void enact()
         {
             throw new NotImplementedException();
         }
-        public void addEmotion(Emotion emotion, int p)
+
+        public void ponder()
         {
-            highSpace.addEmotion(emotion, p);
+            lowState.cycle();
         }
-        public void addEmotion(emotionState.eSpace espace, int p)
+
+        public void setStability(double stability)
         {
-            lowState.pass(espace, p);
+            lowState.setStability(stability);
         }
     }
 }

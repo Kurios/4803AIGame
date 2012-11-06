@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace KLib.NerualNet.emotionState
 {
-    class HighSpace
+    internal class HighSpace
     {
         /*
-         * 
-         * 
+         *
+         *
          * Affection Anger Angst Anguish Annoyance Anxiety Apathy Arousal Awe Boredom Contempt Contentment Courage Curiosity Depression Desire Despair Disappointment Disgust Distrust Dread Ecstasy Embarrassment Envy Euphoria Excitement Fear Frustration Gratitude Grief Guilt Happiness Hatred Hope Horror Hostility Hurt Hysteria Indifference Interest Jealousy Joy Loathing Loneliness Love Lust Outrage Panic Passion Pity Pleasure Pride Rage Regret Remorse Sadness Satisfaction Shame Shock Shyness Sorrow Suffering Surprise Terror Trust Wonder Worry Zeal Zest
          */
         internal LowState lowerState;
@@ -21,9 +18,10 @@ namespace KLib.NerualNet.emotionState
 
         public void addEmotion(Emotion emotion, double weight)
         {
-            eSpace space = new eSpace() ;
+            eSpace space = new eSpace();
 
-            switch(emotion){
+            switch (emotion)
+            {
                 case Emotion.Disgust: space.Disgust = 2; break;
                 case Emotion.Apathy: space.Anticipation = -1; break;
                 case Emotion.Joy: space.Joy = 2; break;
@@ -41,94 +39,96 @@ namespace KLib.NerualNet.emotionState
                 default: throw new Exception(emotion.ToString() + " is not implemented. Please add it to KLib/NeuralNetwork/emotionState/HighSpace.addEmotion()");
             }
 
-            lowerState.pass(space , weight);
+            lowerState.pass(space, weight);
         }
 
-        class HigherEmotions
+        private class HigherEmotions
         {
-            bool Affection;
-            eSpace AffectionSpace = new eSpace(0,0,0,1,0,.5,0,0);
-            bool Anger;
-            eSpace AngerSpace = new eSpace(0, 1, 0, 0, 0, 0, 0, 0);
-            bool Angst;
-            eSpace AngstSpace = new eSpace(.5, .5, .5, 0, .5, 0, 0, 0);
-            bool Anguish;
-            eSpace AnguishSpace = new eSpace(0, 0, 1, 0, .5, 0, .2, 0);
-            bool Annoyance;
-            eSpace AnnoyanceSpace = new eSpace(0, 0, 0, 0, .7, 0, .5, 0);
-            bool Anxiety;
-            eSpace AnexietySpace = new eSpace(.5, 0, 0, 0, 0, 0, .5, 0);
-            bool Apathy;
-            eSpace ApathySpace = new eSpace(0, 0, 0, 0, 0, 0, 0, 0);
-            bool Arousal;
-            eSpace ArousalSpace = new eSpace(0, 0, 0, 0, -1, 0, .25, 0);
-            bool Awe;
-            eSpace AweSpace = new eSpace(.75, 0, 0, 0, 0, 0, .75, 0);
-            bool Boredom;
-            eSpace BoredomSpace = new eSpace(0, 0, 0, 0, 0, 0, -1, -1);
-            bool Contempt;
-            eSpace ContemptSpace = new eSpace(0, 0, 0, -.25, .75, 0, 0, 0);
-            bool Contentment;
-            eSpace ContentmentSpace = new eSpace(-.25,-.25,-.5,.5,0,0,0,0);
-            bool Courage;
-            eSpace CourageSpace = new eSpace(-.25,0,0,0,0,0,1,0);
-            bool Curiosity;
+            private bool Affection;
+            private eSpace AffectionSpace = new eSpace(0, 0, 0, 1, 0, .5, 0, 0);
+            private eSpace AnexietySpace = new eSpace(.5, 0, 0, 0, 0, 0, .5, 0);
+            private bool Anger;
+            private eSpace AngerSpace = new eSpace(0, 1, 0, 0, 0, 0, 0, 0);
+            private bool Angst;
+            private eSpace AngstSpace = new eSpace(.5, .5, .5, 0, .5, 0, 0, 0);
+            private bool Anguish;
+            private eSpace AnguishSpace = new eSpace(0, 0, 1, 0, .5, 0, .2, 0);
+            private bool Annoyance;
+            private eSpace AnnoyanceSpace = new eSpace(0, 0, 0, 0, .7, 0, .5, 0);
+            private bool Anxiety;
+            private bool Apathy;
+            private eSpace ApathySpace = new eSpace(0, 0, 0, 0, 0, 0, 0, 0);
+            private bool Arousal;
+            private eSpace ArousalSpace = new eSpace(0, 0, 0, 0, -1, 0, .25, 0);
+            private bool Awe;
+            private eSpace AweSpace = new eSpace(.75, 0, 0, 0, 0, 0, .75, 0);
+            private bool Boredom;
+            private eSpace BoredomSpace = new eSpace(0, 0, 0, 0, 0, 0, -1, -1);
+            private bool Contempt;
+            private eSpace ContemptSpace = new eSpace(0, 0, 0, -.25, .75, 0, 0, 0);
+            private bool Contentment;
+            private eSpace ContentmentSpace = new eSpace(-.25, -.25, -.5, .5, 0, 0, 0, 0);
+            private bool Courage;
+            private eSpace CourageSpace = new eSpace(-.25, 0, 0, 0, 0, 0, 1, 0);
+            private bool Curiosity;
+
             //eSpace Curiosity = new eSpace(
-            bool Depression;
-            bool Desire;
-            bool Despair;
-            bool Disappointment;
-            bool Disgust;
-            bool Distrust;
-            bool Dread;
-            bool Ecstasy;
-            bool Embarrassment;
-            bool Envy;
-            bool Euphoria;
-            bool Excitement;
-            bool Fear;
-            bool Frustration;
-            bool Gratitude;
-            bool Grief;
-            bool Guilt;
-            bool Happiness;
-            bool Hatred;
-            bool Hope;
-            bool Horror;
-            bool Hostility;
-            bool Hurt;
-            bool Hysteria;
-            bool Indifference;
-            bool Interest;
-            bool Jealousy;
-            bool Joy;
-            bool Loathing;
-            bool Loneliness;
-            bool Love;
-            bool Lust;
-            bool Outrage;
-            bool Panic;
-            bool Passion;
-            bool Pity;
-            bool Pleasure;
-            bool Pride;
-            bool Rage;
-            bool Regret;
-            bool Remorse;
-            bool Sadness;
-            bool Satisfaction;
-            bool Shame;
-            bool Shock;
-            bool Shyness;
-            bool Sorrow;
-            bool Suffering;
-            bool Surprise;
-            bool Terror;
-            bool Trust;
-            bool Wonder;
-            bool Worry;
-            bool Zeal;
-            bool Zest;
+            private bool Depression;
+
+            private bool Desire;
+            private bool Despair;
+            private bool Disappointment;
+            private bool Disgust;
+            private bool Distrust;
+            private bool Dread;
+            private bool Ecstasy;
+            private bool Embarrassment;
+            private bool Envy;
+            private bool Euphoria;
+            private bool Excitement;
+            private bool Fear;
+            private bool Frustration;
+            private bool Gratitude;
+            private bool Grief;
+            private bool Guilt;
+            private bool Happiness;
+            private bool Hatred;
+            private bool Hope;
+            private bool Horror;
+            private bool Hostility;
+            private bool Hurt;
+            private bool Hysteria;
+            private bool Indifference;
+            private bool Interest;
+            private bool Jealousy;
+            private bool Joy;
+            private bool Loathing;
+            private bool Loneliness;
+            private bool Love;
+            private bool Lust;
+            private bool Outrage;
+            private bool Panic;
+            private bool Passion;
+            private bool Pity;
+            private bool Pleasure;
+            private bool Pride;
+            private bool Rage;
+            private bool Regret;
+            private bool Remorse;
+            private bool Sadness;
+            private bool Satisfaction;
+            private bool Shame;
+            private bool Shock;
+            private bool Shyness;
+            private bool Sorrow;
+            private bool Suffering;
+            private bool Surprise;
+            private bool Terror;
+            private bool Trust;
+            private bool Wonder;
+            private bool Worry;
+            private bool Zeal;
+            private bool Zest;
         }
     }
 }

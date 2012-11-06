@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace KLib.NerualNet
+﻿namespace KLib.NerualNet
 {
-
     public class Listener : Node
     {
-        public Listener() : base() {}
-
-        public override double update(int tick)
+        public Listener()
+            : base()
         {
-            return Value;
         }
 
         public void set(double value)
         {
             this.value = value;
+        }
+
+        public override double update(int tick)
+        {
+            return Value;
         }
     }
 }

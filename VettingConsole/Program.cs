@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace VettingConsole
 {
-    class Program
+    internal class Program
     {
-
-        
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //Init Stuffs
             Agent bob = new Agent();
+
             //Start the program.
             Console.WriteLine("Hello World");
             while (true)

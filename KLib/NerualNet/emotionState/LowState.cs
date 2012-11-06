@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace KLib.NerualNet.emotionState
+﻿namespace KLib.NerualNet.emotionState
 {
-    class LowState
+    internal class LowState
     {
-        double OldMemoryWeight = 200;
-        eSpace LowRepresentation = new eSpace();
-        eSpace SumRepresentation = new eSpace();
-        double weights = 0;
-        double memoryChangeFactor = .000002;
-
-        public eSpace eSpace {
-         get {return mem.ESpace;}
-        }
-
+        private eSpace LowRepresentation = new eSpace();
         private Memory mem;
+        private double memoryChangeFactor = .000002;
+        private double OldMemoryWeight = 200;
+        private eSpace SumRepresentation = new eSpace();
+        private double weights = 0;
+
         //Hmmm... we need a unit of time or something to work with...
         public LowState(Memory m)
         {
@@ -25,14 +16,11 @@ namespace KLib.NerualNet.emotionState
             weights = OldMemoryWeight;
         }
 
-        public object pass(eSpace space, double weight)
+        public eSpace eSpace
         {
-            weights += weight;
-            eSpace temp = space.Subtract(mem.ESpace);
-            temp.iMultiply(weight);
-            SumRepresentation.iAdd( temp );
-            return null;
+            get { return mem.ESpace; }
         }
+
         public void cycle()
         {
             //Console.WriteLine("memory cycle");
@@ -51,8 +39,17 @@ namespace KLib.NerualNet.emotionState
 
             mem.ESpace.iMultiply(1 - memoryChangeFactor);
             mem.ESpace.iAdd(LowRepresentation.Multiply(memoryChangeFactor));
-
         }
+
+        public object pass(eSpace space, double weight)
+        {
+            weights += weight;
+            eSpace temp = space.Subtract(mem.ESpace);
+            temp.iMultiply(weight);
+            SumRepresentation.iAdd(temp);
+            return null;
+        }
+
         public object send(eSpace space, double weight)
         {
             return null;
