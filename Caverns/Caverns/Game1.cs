@@ -58,7 +58,7 @@ namespace Caverns
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            //graphics.ToggleFullScreen();
+            graphics.ToggleFullScreen();
             //graphics.GraphicsDevice.
             graphics.SynchronizeWithVerticalRetrace = false;
             this.IsFixedTimeStep = false;
