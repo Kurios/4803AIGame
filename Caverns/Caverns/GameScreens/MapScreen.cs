@@ -150,7 +150,7 @@ namespace Caverns.GameScreens
 
             girl = new Girl(girlText, caveMap, gameref,pc);
             girl.Portrait = girlPort;
-            girl.Position = new Vector2(22, 16);
+            girl.Position = new Vector2(1, 16);
             caveMap.characterList.Add(girl);
 
         }
