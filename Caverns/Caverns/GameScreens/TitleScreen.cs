@@ -89,8 +89,8 @@ namespace Caverns.GameScreens
         {
             if (sender == newLabel)
             {
-                GameStateManager.PushState(gameref.MapScreen);
-                GameStateManager.PushState(gameref.InfoScreen);
+                //GameStateManager.PushState(gameref.MapScreen);
+                //GameStateManager.PushState(gameref.InfoScreen);
             }
         }
 

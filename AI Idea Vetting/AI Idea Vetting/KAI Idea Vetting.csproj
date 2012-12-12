@@ -116,6 +116,10 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\KuriosityLib\KuriosityXLib.csproj">
+      <Project>{1CDF7EB2-A2B5-45AE-8813-76423750C544}</Project>
+      <Name>KuriosityXLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AI Idea VettingContent\KAI Idea VettingContent.contentproj">
       <Name>KAI Idea VettingContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>

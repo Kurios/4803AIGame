@@ -95,7 +95,7 @@ namespace Caverns.Char
 
         private void EeekSomeoneTouchedMe(Object sender, EventArgs e)
         {
-            gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
+            //gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
         }
     }
 }

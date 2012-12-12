@@ -22,6 +22,8 @@ Content\font\system.xnb
 Content\shaders\cavernShader.xnb
 Content\shaders\charShader.xnb
 Content\backgrounds\white.xnb
+Content\shaders\Basic3DShader.xnb
+Content\shaders\mapShader.xnb
 SubMaps\CaveSubMaps\CaveTileSubMap00
 SubMaps\CaveSubMaps\CaveTileSubMap10
 SubMaps\CaveSubMaps\CaveTileSubMap01

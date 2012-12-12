@@ -167,7 +167,7 @@ namespace Caverns.Char
 
         private void hitMe(Object sender, EventArgs e)
         {
-            gameref.MapScreen.playerHit();
+            //gameref.MapScreen.playerHit();
         }
     }
 }

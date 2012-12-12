@@ -225,11 +225,12 @@ namespace Caverns.Char
             double distance = 0 + 9 * emotionstate.eSpace.Fear;
 
             targetSquares = new List<Vector2>();
+            /*
 
             //compute targets
             if (flee)
             {
-                PlayerChar target = gameref.MapScreen.pc;
+                //PlayerChar target = gameref.MapScreen.pc;
                 switch (target.facing)
                 {
                     case 1:
@@ -276,6 +277,7 @@ namespace Caverns.Char
                         break;
                 }
             }
+            */
 
             //check for reachable targets
 

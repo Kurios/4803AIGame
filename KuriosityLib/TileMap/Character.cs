@@ -47,7 +47,7 @@ namespace KuriosityXLib.TileMap
 
         //THE NEXT TWO ARE 'MAYBES'
         /// <summary>
-        /// Getter/Setter for boolean that designates if the Character can move.
+        /// Getter/Setter for Boolean that designates if the Character can move.
         /// </summary>
         public Boolean canMove { get; set; }
 

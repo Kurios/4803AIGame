@@ -92,6 +92,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="3DHandler\Camera.cs" />
+    <Compile Include="3DHandler\KMesh.cs" />
+    <Compile Include="3DHandler\KModel.cs" />
+    <Compile Include="3DHandler\KSprite.cs" />
+    <Compile Include="3DHandler\MeshCollection.cs" />
+    <Compile Include="3DHandler\Object3D.cs" />
     <Compile Include="Dialogs\Control\Agent.cs" />
     <Compile Include="Dialogs\Control\Control.cs" />
     <Compile Include="Dialogs\Control\ControlManager.cs" />

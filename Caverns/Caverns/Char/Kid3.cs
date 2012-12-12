@@ -70,9 +70,9 @@ namespace Caverns.Char
 
         private void FoundMe(Object sender, EventArgs e)
         {
-            ((PlayerChar)sender).peopleFound++;
-            gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
-            this.PhysicalContact -= FoundMe;
+            //((PlayerChar)sender).peopleFound++;
+            // gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
+            //this.PhysicalContact -= FoundMe;
         }
     }
 }

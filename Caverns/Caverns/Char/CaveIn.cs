@@ -90,11 +90,11 @@ namespace Caverns.Char
         {
             if (((PlayerChar)sender).peopleFound < 3)
             {
-                gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender, 1);
+                //gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender, 1);
             }
             else
             {
-                gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
+                //gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
                 if (this.dialogExitState == -1)
                 {
                     //Enter the cave

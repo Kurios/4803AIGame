@@ -34,56 +34,36 @@ namespace Caverns
 
         #region GameStates
 
-        private MapScreen mapScreen;
-        private TitleScreen titleScreen;
-
-        public DialogScreen DialogScreen { get; set; }
-
-        public TimedInfoScreen InfoScreen { get; set; }
-
-        public MapScreen MapScreen
-        {
-            get { return mapScreen; }
-        }
-
         #endregion GameStates
 
         public Game1()
         {
+            //Initialize the Graphics Device
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.ToggleFullScreen();
 
-            //graphics.GraphicsDevice.
+            //graphics.ToggleFullScreen();
             graphics.SynchronizeWithVerticalRetrace = false;
-            this.IsFixedTimeStep = false;
-
-            //this.TargetElapsedTime = this.TargetElapsedTime.TotalSeconds 2;
+            graphics.PreferMultiSampling = true;
+            graphics.PreferredDepthStencilFormat = DepthFormat.Depth16;
             graphics.ApplyChanges();
+            GraphicsDevice.Reset();
 
+            //Initialize Screen Rectangle
             ScreenRect = new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
+            //Set Content Configs
             Content.RootDirectory = "Content";
 
-            Components.Add(new InputHandler(this));
-
+            //Configure Components
             gameStateManager = new GameStateManager(this);
+            Components.Add(new InputHandler(this));
             Components.Add(gameStateManager);
 
-            EtaProductionsScreen etaScreen = new EtaProductionsScreen(this, gameStateManager);
-            mapScreen = new MapScreen(this, gameStateManager);
-            titleScreen = new TitleScreen(this, gameStateManager);
-            InfoScreen = new TimedInfoScreen(this, gameStateManager);
-            InfoScreen.addElement("", 1);
-            InfoScreen.addElement("3...", 1);
-            InfoScreen.addElement("3... 2...", 1);
-            InfoScreen.addElement("3... 2... 1...", 1);
-            InfoScreen.addElement("3... 2... 1... \n\n         Ready or not! Here I come!", 1);
-            gameStateManager.ChangeState(titleScreen);
-            gameStateManager.PushState(etaScreen);
-            gameStateManager.PushState(mapScreen);
-            DialogScreen = new DialogScreen(this, gameStateManager);
+            //Gamestate and intital state selection
+            GameState startingState = new MapScreen(this, gameStateManager);
+            gameStateManager.AddState(startingState);
         }
 
         /// <summary>
@@ -92,9 +72,9 @@ namespace Caverns
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.SlateGray);
+            GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Plum, 1.0f, 0); // Yah... we do want to clear the display... And I suppose since this ~is~ the first Draw called... we might as well do things properly here...
 
-            // TODO: Add your drawing code here
+            //Now... we need to make sure we have a camera unit... Or do we? hmmm...
 
             base.Draw(gameTime);
         }
