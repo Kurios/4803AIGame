@@ -1,14 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-
 
 namespace KuriosityXLib.Control
 {
@@ -17,66 +9,35 @@ namespace KuriosityXLib.Control
     /// </summary>
     public abstract class Control
     {
-
         #region Fields
 
-        protected string name;
-        protected string text;
-        protected Vector2 size;
-        protected Vector2 position;
-        protected object value;
-        protected bool hasFocus;
-        protected bool enabled;
-        protected bool visible;
-        protected bool tabStop;
-        protected SpriteFont spriteFont;
         protected Color color;
+        protected bool enabled;
+        protected bool hasFocus;
+        protected string name;
+        protected Vector2 position;
+        protected Vector2 size;
+        protected SpriteFont spriteFont;
+        protected bool tabStop;
+        protected string text;
         protected string type;
+        protected object value;
+        protected bool visible;
 
-        #endregion
+        #endregion Fields
 
         #region Event
 
         public event EventHandler Selected;
 
-        #endregion
+        #endregion Event
 
         #region Property
 
-        public string Name
+        public Color Color
         {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public string Text
-        {
-            get { return text; }
-            set { text = value; }
-        }
-
-        public Vector2 Size
-        {
-            get { return size; }
-            set { size = value; }
-        }
-
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-
-        public object Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
-
-        public bool HasFocus
-        {
-            get { return hasFocus; }
-            set { hasFocus = value; }
+            get { return color; }
+            set { color = value; }
         }
 
         public bool Enabled
@@ -85,16 +46,28 @@ namespace KuriosityXLib.Control
             set { enabled = value; }
         }
 
-        public bool Visible
+        public bool HasFocus
         {
-            get { return visible; }
-            set { visible = value; }
+            get { return hasFocus; }
+            set { hasFocus = value; }
         }
 
-        public bool TabStop
+        public string Name
         {
-            get { return tabStop; }
-            set { tabStop = value; }
+            get { return name; }
+            set { name = value; }
+        }
+
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
+        public Vector2 Size
+        {
+            get { return size; }
+            set { size = value; }
         }
 
         public SpriteFont SpriteFont
@@ -103,10 +76,16 @@ namespace KuriosityXLib.Control
             set { spriteFont = value; }
         }
 
-        public Color Color
+        public bool TabStop
         {
-            get { return color; }
-            set { color = value; }
+            get { return tabStop; }
+            set { tabStop = value; }
+        }
+
+        public string Text
+        {
+            get { return text; }
+            set { text = value; }
         }
 
         public string Type
@@ -115,7 +94,19 @@ namespace KuriosityXLib.Control
             set { type = value; }
         }
 
-        #endregion
+        public object Value
+        {
+            get { return value; }
+            set { this.value = value; }
+        }
+
+        public bool Visible
+        {
+            get { return visible; }
+            set { visible = value; }
+        }
+
+        #endregion Property
 
         #region Constructor
 
@@ -125,18 +116,19 @@ namespace KuriosityXLib.Control
             enabled = true;
             visible = true;
             spriteFont = ControlManager.SpriteFont;
-
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Abstract Methods
 
-        public abstract void Update(GameTime gameTime);
         public abstract void Draw(SpriteBatch spriteBatch);
+
         public abstract void HandleInput();
 
-        #endregion
+        public abstract void Update(GameTime gameTime);
+
+        #endregion Abstract Methods
 
         #region Virtual Methods
 
@@ -148,8 +140,6 @@ namespace KuriosityXLib.Control
             }
         }
 
-        #endregion
-
-
+        #endregion Virtual Methods
     }
 }

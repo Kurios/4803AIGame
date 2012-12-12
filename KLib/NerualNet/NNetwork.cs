@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace KLib.NerualNet
 {
     public class NNetwork
     {
-
         public LinkedList<Node> Nodes = new LinkedList<Node>();
         public LinkedList<Node> Outputs = new LinkedList<Node>();
 
-        int lastTick = 0;
+        private int lastTick = 0;
 
         public NNetwork()
         {

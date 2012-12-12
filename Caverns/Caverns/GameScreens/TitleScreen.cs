@@ -1,31 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
 using KuriosityXLib;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework;
 using KuriosityXLib.Control;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Caverns.GameScreens
 {
-    class TitleScreen : BaseGameState
+    internal class TitleScreen : BaseGameState
     {
         #region Field
 
-        Texture2D backgroundImage;
-        LinkLabel newLabel;
-        LinkLabel continueLabel;
+        private Texture2D backgroundImage;
+        private LinkLabel continueLabel;
+        private ControlManager controlManager;
+        private LinkLabel newLabel;
 
-        ControlManager controlManager;
-
-        ControlManager ControlManager
+        private ControlManager ControlManager
         {
             get { return controlManager; }
         }
 
-        #endregion
+        #endregion Field
 
         #region Contstructor
 
@@ -34,12 +30,31 @@ namespace Caverns.GameScreens
         {
         }
 
-        #endregion
+        #endregion Contstructor
+
         #region XNA Methods
+
+        public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
+        {
+            gameref.SpriteBatch.Begin();
+
+            base.Draw(gameTime);
+
+            gameref.SpriteBatch.Draw(backgroundImage, gameref.ScreenRect, Color.White);
+
+            controlManager.Draw(gameref.SpriteBatch);
+
+            gameref.SpriteBatch.End();
+        }
+
+        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        {
+            ControlManager.Update(gameTime);
+            base.Update(gameTime);
+        }
 
         protected override void LoadContent()
         {
-
             ContentManager content = gameref.Content;
             backgroundImage = content.Load<Texture2D>("backgrounds/titleScreen2");
 
@@ -56,7 +71,7 @@ namespace Caverns.GameScreens
             newLabel.TabStop = true;
             newLabel.HasFocus = true;
             newLabel.Selected += new EventHandler(newLabel_Selected);
-         
+
             ControlManager.Add(newLabel);
 
             continueLabel = new LinkLabel();
@@ -68,10 +83,6 @@ namespace Caverns.GameScreens
             continueLabel.HasFocus = false;
 
             ControlManager.Add(continueLabel);
-
-
-            
-
         }
 
         private void newLabel_Selected(Object sender, EventArgs e)
@@ -83,26 +94,6 @@ namespace Caverns.GameScreens
             }
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            ControlManager.Update(gameTime);
-            base.Update(gameTime);
-        }
-
-        public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            gameref.SpriteBatch.Begin();
-
-            base.Draw(gameTime);
-
-            
-
-            gameref.SpriteBatch.Draw(backgroundImage, gameref.ScreenRect, Color.White);
-
-            controlManager.Draw(gameref.SpriteBatch);
-
-            gameref.SpriteBatch.End();
-        }
-        #endregion
+        #endregion XNA Methods
     }
 }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
+
 namespace MazeMaker
 {
     public class Maze
     {
-
         public Maze(int xDim, int yDim)
         {
             list = new List<Gridspace>();
@@ -32,13 +30,13 @@ namespace MazeMaker
             set;
         }
 
-        public List<Wall> mazeWalls
+        public List<Wall> mazePassages
         {
             get;
             set;
         }
 
-        public List<Wall> mazePassages
+        public List<Wall> mazeWalls
         {
             get;
             set;
@@ -56,6 +54,119 @@ namespace MazeMaker
             set;
         }
 
+        public bool contains(List<Wall> walls, Wall w)
+        {
+            foreach (Wall wall in walls)
+            {
+                if (wall.equals(w))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool contains(List<Gridspace> grids, Gridspace gs)
+        {
+            foreach (Gridspace grid in grids)
+            {
+                if (grid.equals(gs))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void generateMazePrim(int startPointX, int startPointY)
+        {
+            Gridspace startpoint = new Gridspace();
+            List<Wall> theWalls = new List<Wall>();
+            List<Gridspace> inMaze = new List<Gridspace>();
+            if (startPointX < xDimension && startPointY < yDimension)
+            {
+                startpoint = new Gridspace(startPointX, startPointY);
+            }
+
+            //Add start point
+            inMaze.Add(startpoint);
+
+            //Starting point's walls.
+            foreach (Wall wal in getAdjWalls(startpoint))
+            {
+                theWalls.Add(wal);
+            }
+
+            //The actual Prim's algorithm
+            while (theWalls.Count > 0)
+            {
+                //Wall wall = theWalls[0];
+                Random r = new Random();
+                int index = r.Next(0, theWalls.Count);
+                Wall wall = theWalls[index];
+                Gridspace checkToAddA = wall.GridspaceA;
+                Gridspace checkToAddB = wall.GridspaceB;
+
+                if (!contains(inMaze, checkToAddA))
+                {
+                    inMaze.Add(checkToAddA);
+                    mazePassages.Add(wall);
+                    foreach (Wall wal in getAdjWalls(checkToAddA))
+                    {
+                        theWalls.Add(wal);
+                    }
+                }
+                else if (!contains(inMaze, checkToAddB))
+                {
+                    inMaze.Add(checkToAddB);
+                    mazePassages.Add(wall);
+
+                    //thePassages.Add(wall);
+                    foreach (Wall wal in getAdjWalls(checkToAddB))
+                    {
+                        theWalls.Add(wal);
+                    }
+                }
+                theWalls.Remove(wall);
+            }
+
+            foreach (Wall mazePass in mazePassages)
+            {
+                if (contains(mazeWalls, mazePass))
+                {
+                    mazeWalls.Remove(mazePass);
+                }
+            }
+        }
+
+        public List<Wall> getAdjPassages(Gridspace gs)
+        {
+            List<Wall> adjPassages = new List<Wall>();
+
+            foreach (Wall w in mazePassages)
+            {
+                if (w.GridspaceA.equals(gs) || w.GridspaceB.equals(gs))
+                {
+                    adjPassages.Add(w);
+                }
+            }
+            return adjPassages;
+        }
+
+        public List<Wall> getAdjWalls(Gridspace gs)
+        {
+            List<Wall> adjWalls = new List<Wall>();
+
+            foreach (Wall w in mazeWalls)
+            {
+                if (w.GridspaceA.equals(gs) || w.GridspaceB.equals(gs))
+                {
+                    adjWalls.Add(w);
+                }
+            }
+            return adjWalls;
+        }
+
         public List<Wall> getWalls()
         {
             List<Wall> walls = new List<Wall>();
@@ -70,30 +181,35 @@ namespace MazeMaker
                     Gridspace rightCell = new Gridspace(x + 1, y);
                     Gridspace leftCell = new Gridspace(x - 1, y);
                     Gridspace topCell = new Gridspace(x, y - 1);
+
                     //Top-left
                     if ((x == 0) && (y == 0))
                     {
                         walls.Add(new Wall(cell, botCell));
                         walls.Add(new Wall(cell, rightCell));
                     }
+
                     //Bot-left
                     else if ((x == 0) && (y == yDimension))
                     {
                         walls.Add(new Wall(topCell, cell));
                         walls.Add(new Wall(cell, rightCell));
                     }
+
                     //Top-right
                     else if ((x == xDimension) && (y == 0))
                     {
                         walls.Add(new Wall(cell, botCell));
                         walls.Add(new Wall(leftCell, cell));
                     }
+
                     //Bot-right
                     else if ((x == xDimension) && (y == yDimension))
                     {
                         walls.Add(new Wall(topCell, cell));
                         walls.Add(new Wall(leftCell, cell));
                     }
+
                     //General case.
                     else
                     {
@@ -131,117 +247,6 @@ namespace MazeMaker
                 }
             }
             return walls;
-        }
-
-        public bool contains(List<Wall> walls, Wall w)
-        {
-            foreach (Wall wall in walls)
-            {
-                if (wall.equals(w))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public bool contains(List<Gridspace> grids, Gridspace gs)
-        {
-            foreach (Gridspace grid in grids)
-            {
-                if (grid.equals(gs))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public List<Wall> getAdjWalls(Gridspace gs)
-        {
-            List<Wall> adjWalls = new List<Wall>();
-
-            foreach (Wall w in mazeWalls)
-            {
-                if (w.GridspaceA.equals(gs) || w.GridspaceB.equals(gs))
-                {
-                    adjWalls.Add(w);
-                }
-            }
-            return adjWalls;
-        }
-
-        public List<Wall> getAdjPassages(Gridspace gs)
-        {
-            List<Wall> adjPassages = new List<Wall>();
-
-            foreach (Wall w in mazePassages)
-            {
-                if (w.GridspaceA.equals(gs) || w.GridspaceB.equals(gs))
-                {
-                    adjPassages.Add(w);
-                }
-            }
-            return adjPassages;
-        }
-
-        public void generateMazePrim(int startPointX, int startPointY)
-        {
-            Gridspace startpoint = new Gridspace();
-            List<Wall> theWalls = new List<Wall>();
-            List<Gridspace> inMaze = new List<Gridspace>();
-            if (startPointX < xDimension && startPointY < yDimension)
-            {
-                startpoint = new Gridspace(startPointX, startPointY);
-            }
-
-            //Add start point
-            inMaze.Add(startpoint);
-
-            //Starting point's walls.
-            foreach (Wall wal in getAdjWalls(startpoint))
-            {
-                theWalls.Add(wal);
-            }
-            //The actual Prim's algorithm
-            while (theWalls.Count > 0)
-            {
-                //Wall wall = theWalls[0];
-                Random r = new Random();
-                int index = r.Next(0, theWalls.Count);
-                Wall wall = theWalls[index];
-                Gridspace checkToAddA = wall.GridspaceA;
-                Gridspace checkToAddB = wall.GridspaceB;
-
-                if (!contains(inMaze,checkToAddA))
-                {
-                    inMaze.Add(checkToAddA);
-                    mazePassages.Add(wall);
-                    foreach (Wall wal in getAdjWalls(checkToAddA))
-                    {
-                        theWalls.Add(wal);
-                    }
-                }
-                else if (!contains(inMaze, checkToAddB))
-                {
-                    inMaze.Add(checkToAddB);
-                    mazePassages.Add(wall);
-                    //thePassages.Add(wall);
-                    foreach (Wall wal in getAdjWalls(checkToAddB))
-                    {
-                        theWalls.Add(wal);
-                    }
-                }
-                theWalls.Remove(wall);
-            }
-
-            foreach (Wall mazePass in mazePassages)
-            {
-                if(contains(mazeWalls, mazePass))
-                {
-                    mazeWalls.Remove(mazePass);
-                }
-            }
         }
 
         /*public void createMazePrim(int startPointX, int startPointY)
@@ -288,6 +293,7 @@ namespace MazeMaker
         public void print()
         {
             Debug.WriteLine("MAZE: ");
+
             //Console.WriteLine("MAZE: ");
             foreach (Gridspace g in list)
             {
@@ -307,10 +313,6 @@ namespace MazeMaker
             {
                 Console.WriteLine(pass.toString());
             }
-
         }
-
-        
-       
     }
 }

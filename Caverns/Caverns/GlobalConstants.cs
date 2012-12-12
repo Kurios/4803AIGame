@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Caverns
+﻿namespace Caverns
 {
-    static class GlobalConstants
+    internal static class GlobalConstants
     {
-
     }
 }

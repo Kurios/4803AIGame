@@ -1,14 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-
 
 namespace KuriosityXLib
 {
@@ -17,26 +9,24 @@ namespace KuriosityXLib
     /// </summary>
     public class GameState : Microsoft.Xna.Framework.DrawableGameComponent
     {
-
         #region Fields and Properties
 
-        List<GameComponent> childComponents;
+        protected GameStateManager GameStateManager;
+        private List<GameComponent> childComponents;
+
+        private GameState tag;
 
         public List<GameComponent> Components
         {
             get { return childComponents; }
         }
 
-        GameState tag;
-
         public GameState Tag
         {
             get { return tag; }
         }
 
-        protected GameStateManager GameStateManager;
-
-        #endregion
+        #endregion Fields and Properties
 
         #region Constructor
 
@@ -48,15 +38,29 @@ namespace KuriosityXLib
             tag = this;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region XNA Drawable Game Component Methods
+
+        public override void Draw(GameTime gameTime)
+        {
+            DrawableGameComponent drawComp;
+
+            foreach (GameComponent component in childComponents)
+                if (component is DrawableGameComponent)
+                {
+                    drawComp = component as DrawableGameComponent;
+
+                    if (drawComp.Visible)
+                        drawComp.Draw(gameTime);
+                }
+            base.Draw(gameTime);
+        }
 
         public override void Initialize()
         {
             base.Initialize();
         }
-
 
         public override void Update(GameTime gameTime)
         {
@@ -68,22 +72,7 @@ namespace KuriosityXLib
             base.Update(gameTime);
         }
 
-        public override void Draw(GameTime gameTime)
-        {
-            DrawableGameComponent drawComp;
-
-            foreach(GameComponent component in childComponents)
-                if (component is DrawableGameComponent)
-                {
-                    drawComp = component as DrawableGameComponent;
-
-                    if (drawComp.Visible)
-                        drawComp.Draw(gameTime);
-                }
-            base.Draw(gameTime);
-        }
-
-        #endregion
+        #endregion XNA Drawable Game Component Methods
 
         #region GameState Methods
 
@@ -93,18 +82,6 @@ namespace KuriosityXLib
                 Show();
             else
                 Hide();
-        }
-
-        protected virtual void Show()
-        {
-            Visible = true;
-            Enabled = true;
-            foreach (GameComponent component in childComponents)
-            {
-                component.Enabled = true;
-                if (component is DrawableGameComponent)
-                    ((DrawableGameComponent)component).Visible = true;
-            }
         }
 
         protected virtual void Hide()
@@ -119,6 +96,18 @@ namespace KuriosityXLib
             }
         }
 
-        #endregion
+        protected virtual void Show()
+        {
+            Visible = true;
+            Enabled = true;
+            foreach (GameComponent component in childComponents)
+            {
+                component.Enabled = true;
+                if (component is DrawableGameComponent)
+                    ((DrawableGameComponent)component).Visible = true;
+            }
+        }
+
+        #endregion GameState Methods
     }
 }

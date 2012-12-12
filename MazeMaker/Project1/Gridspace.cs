@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MazeMaker
 {
-
     public class Gridspace
     {
         //private int x,y;
@@ -35,7 +31,7 @@ namespace MazeMaker
 
         public bool equals(Gridspace b)
         {
-            if(this.x==b.x&&this.y==b.y)
+            if (this.x == b.x && this.y == b.y)
             {
                 return true;
             }
@@ -45,9 +41,7 @@ namespace MazeMaker
         public String toString()
         {
             String returned = "Gridspace: (" + this.x + ", " + this.y + ")";
-            return returned; 
+            return returned;
         }
-
-
     }
 }

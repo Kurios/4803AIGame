@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-
-using KuriosityXLib;
-using Microsoft.Xna.Framework.Input;
 
 using System.Diagnostics;
 
 namespace KuriosityXLib.Dialogs
 {
     /// <summary>
-    /// Our Dialog class is what will be handling the entire 'Dialog Map'.  
+    /// Our Dialog class is what will be handling the entire 'Dialog Map'.
     /// </summary>
     public class Dialog
     {
         #region Constructors
+
         /// <summary>
         /// Basic constructor for list of states
         /// </summary>
@@ -52,24 +47,15 @@ namespace KuriosityXLib.Dialogs
             for (int k = 0; k < dialogs.Count; k++)
             {
                 String dialogResponse = dialogs[k];
-                states.Add(new DialogState(k,dialogResponse));
+                states.Add(new DialogState(k, dialogResponse));
             }
 
             needResponse = true;
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Fields/Parameters
-
-        /// <summary>
-        /// Getter/Setter for list of states
-        /// </summary>
-        public List<DialogState> states { get; set; }
-
-        /// <summary>
-        /// Getter/Setter for ID of starting state
-        /// </summary>
-        public int startingStateID { get; set; }
 
         /// <summary>
         /// Getter/Setter for ID of current state
@@ -77,13 +63,25 @@ namespace KuriosityXLib.Dialogs
         public int currentID { get; set; }
 
         /// <summary>
-        /// Getter/Setter for if the NPC requires a response.  
+        /// Getter/Setter for if the NPC requires a response.
         /// This is a 'just in case' item.
         /// </summary>
         public Boolean needResponse { get; set; }
-        #endregion
+
+        /// <summary>
+        /// Getter/Setter for ID of starting state
+        /// </summary>
+        public int startingStateID { get; set; }
+
+        /// <summary>
+        /// Getter/Setter for list of states
+        /// </summary>
+        public List<DialogState> states { get; set; }
+
+        #endregion Fields/Parameters
 
         #region Adding States
+
         /// <summary>
         /// Adds the given DialogState
         /// </summary>
@@ -112,31 +110,17 @@ namespace KuriosityXLib.Dialogs
             states.Add(new DialogState(states.Count, dialog, responses));
         }
 
-        #endregion
+        #endregion Adding States
 
         #region Dialog Actions
 
         /// <summary>
-        /// This can be repeatedly called 
+        /// This can be repeatedly called
         /// </summary>
 
-        /// <summary>
-        /// Goes to the next dialog state
-        /// </summary>
-        public void toNextDialogState()
+        public DialogState getCurrentState()
         {
-
-            int nextStateID = states[currentID].currentResponse.nextStateID;
-
-            if (nextStateID == -1)
-            {
-                //Finished with dialog
-            }
-            else
-            {
-                currentID = nextStateID;
-            }
-
+            return states[currentID];
         }
 
         /// <summary>
@@ -152,7 +136,7 @@ namespace KuriosityXLib.Dialogs
 
             for (int i = 0; i < states.Count; i++)  //Find the starting state.
             {
-                if (startingStateID==(states[i]).stateID)
+                if (startingStateID == (states[i]).stateID)
                 {
                     return states[i];
                 }
@@ -160,13 +144,27 @@ namespace KuriosityXLib.Dialogs
             return null;    //No starting state found.
         }
 
-        public DialogState getCurrentState()
+        /// <summary>
+        /// Goes to the next dialog state
+        /// </summary>
+        public void toNextDialogState()
         {
-            return states[currentID];
+            int nextStateID = states[currentID].currentResponse.nextStateID;
+
+            if (nextStateID == -1)
+            {
+                //Finished with dialog
+            }
+            else
+            {
+                currentID = nextStateID;
+            }
         }
-        #endregion
+
+        #endregion Dialog Actions
 
         #region print
+
         /// <summary>
         /// Prints the current state of the dialog.
         /// </summary>
@@ -178,6 +176,7 @@ namespace KuriosityXLib.Dialogs
                 states[i].print();
             }
         }
-        #endregion
+
+        #endregion print
     }
 }

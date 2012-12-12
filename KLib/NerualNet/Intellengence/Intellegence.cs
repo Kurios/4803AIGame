@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace KLib.NerualNet.Intellengence
 {
@@ -12,12 +9,12 @@ namespace KLib.NerualNet.Intellengence
             throw new NotImplementedException();
         }
 
-        public void addEmotions(emotionState.EmotionState emotionState)
+        public void addConditioning(Conditioning.Conditioning conditioning)
         {
             throw new NotImplementedException();
         }
 
-        public void addConditioning(Conditioning.Conditioning conditioning)
+        public void addEmotions(emotionState.EmotionState emotionState)
         {
             throw new NotImplementedException();
         }

@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace KuriosityXLib.TileMap
+﻿namespace KuriosityXLib.TileMap
 {
-    class MapFactory
+    internal class MapFactory
     {
+        private int[,] maps;
         private SubMapFactory subMaps;
         private int x;
         private int y;
-        private int[,] maps;
-
 
         public MapFactory(SubMapFactory subMaps, int x, int y)
         {
@@ -22,16 +16,11 @@ namespace KuriosityXLib.TileMap
             maps = new int[x, y];
         }
 
-        //public 
-
-        internal void setSubSector(int x, int y, int subsector)
-        {
-            maps[x, y] = subsector;
-        }
+        //public
 
         internal Map generate(Microsoft.Xna.Framework.Graphics.Texture2D spriteMap)
         {
-            Map ret = new Map(x*32, y*32,spriteMap);
+            Map ret = new Map(x * 32, y * 32, spriteMap);
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
@@ -40,6 +29,11 @@ namespace KuriosityXLib.TileMap
                 }
             }
             return ret;
+        }
+
+        internal void setSubSector(int x, int y, int subsector)
+        {
+            maps[x, y] = subsector;
         }
     }
 }

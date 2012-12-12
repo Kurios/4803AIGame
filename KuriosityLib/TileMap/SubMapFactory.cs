@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace KuriosityXLib.TileMap
 {
-    class SubMapFactory
+    internal class SubMapFactory
     {
-        List<int[,]> def = new List<int[,]>();
-        int head = 0;
-        TileFactory fact;
+        private List<int[,]> def = new List<int[,]>();
+        private TileFactory fact;
+        private int head = 0;
 
         public SubMapFactory(TileFactory factory)
         {
@@ -22,17 +19,6 @@ namespace KuriosityXLib.TileMap
             def.Add(new int[32, 32]);
             head++;
             return head;
-        }
-
-        public void setTile(int x, int y, int tileType)
-        {
-            def[head][x,y] = tileType;
-        }
-
-        public void setTile(int x, int y, int tileType, int subMap)
-        {
-            while (subMap > head) AddSubMap();
-            def[subMap][x, y] = tileType;
         }
 
         public SubMap getMap()
@@ -59,6 +45,17 @@ namespace KuriosityXLib.TileMap
                 }
             }
             return ret;
+        }
+
+        public void setTile(int x, int y, int tileType)
+        {
+            def[head][x, y] = tileType;
+        }
+
+        public void setTile(int x, int y, int tileType, int subMap)
+        {
+            while (subMap > head) AddSubMap();
+            def[subMap][x, y] = tileType;
         }
     }
 }
