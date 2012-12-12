@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>238f71b5-3c0c-4e7f-ae1b-0e31b3aacbdc</ProjectGuid>
+    <ProjectGuid>{8F49F4BF-B26A-425F-9708-98285562E43D}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SocialSimStuff</RootNamespace>
-    <AssemblyName>SocialSimStuff</AssemblyName>
+    <RootNamespace>SocialSim</RootNamespace>
+    <AssemblyName>SocialSim</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -33,6 +33,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Agents\Agent.cs" />
+    <Compile Include="GameStuff\GameChoice.cs" />
+    <Compile Include="Knowledgebases\KBTester.cs" />
+    <Compile Include="Knowledgebases\KB_C.cs" />
+    <Compile Include="Knowledgebases\KB_S.cs" />
+    <Compile Include="GameStuff\SocialGame.cs" />
+    <Compile Include="Knowledgebases\SocialFact.cs" />
+    <Compile Include="Knowledgebases\Subject.cs" />
+    <Compile Include="Knowledgebases\Topic.cs" />
+    <Compile Include="Networks\SocialNetwork.cs" />
+    <Compile Include="Networks\SocialNetworkList.cs" />
+    <Compile Include="Networks\SocialPair.cs" />
+    <Compile Include="Testing\TestMain.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dialog\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

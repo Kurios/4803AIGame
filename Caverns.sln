@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VettingConsole", "VettingCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeMaker", "MazeMaker\Project1\MazeMaker.csproj", "{23A4DCE2-D962-4C77-80E2-DF5747317AF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialSim", "..\SocialSim\SocialSim\SocialSim.csproj", "{8F49F4BF-B26A-425F-9708-98285562E43D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialSimThings", "SocialSimThings\SocialSimThings.csproj", "{24F5471A-D1E3-4261-B378-C8F1217C5A50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,18 +119,18 @@ Global
 		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Release|Win32.ActiveCfg = Release|x86
 		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Release|x86.ActiveCfg = Release|x86
 		{23A4DCE2-D962-4C77-80E2-DF5747317AF4}.Release|x86.Build.0 = Release|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Debug|Win32.ActiveCfg = Debug|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Debug|x86.ActiveCfg = Debug|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Debug|x86.Build.0 = Debug|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Release|Any CPU.ActiveCfg = Release|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Release|Mixed Platforms.Build.0 = Release|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Release|Win32.ActiveCfg = Release|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Release|x86.ActiveCfg = Release|x86
-		{8F49F4BF-B26A-425F-9708-98285562E43D}.Release|x86.Build.0 = Release|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Debug|Win32.ActiveCfg = Debug|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Debug|x86.ActiveCfg = Debug|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Debug|x86.Build.0 = Debug|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Release|Any CPU.ActiveCfg = Release|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Release|Mixed Platforms.Build.0 = Release|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Release|Win32.ActiveCfg = Release|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Release|x86.ActiveCfg = Release|x86
+		{24F5471A-D1E3-4261-B378-C8F1217C5A50}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

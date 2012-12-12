@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{24F5471A-D1E3-4261-B378-C8F1217C5A50}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SocialSimThings</RootNamespace>
+    <AssemblyName>SocialSimThings</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="SocialSim.sln" />
+    <Content Include="SocialSim\bin\Debug\SocialSim.exe" />
+    <Content Include="SocialSim\bin\Debug\SocialSim.pdb" />
+    <Content Include="SocialSim\bin\Debug\SocialSim.vshost.exe" />
+    <Content Include="SocialSim\bin\Release\SocialSim.exe" />
+    <Content Include="SocialSim\bin\Release\SocialSim.pdb" />
+    <Content Include="SocialSim\bin\Release\SocialSim.vshost.exe" />
+    <Content Include="SocialSim\obj\x86\Debug\SocialSim.csproj.FileListAbsolute.txt" />
+    <Content Include="SocialSim\obj\x86\Debug\SocialSim.exe" />
+    <Content Include="SocialSim\obj\x86\Debug\SocialSim.pdb" />
+    <Content Include="SocialSim\obj\x86\Release\SocialSim.csproj.FileListAbsolute.txt" />
+    <Content Include="SocialSim\obj\x86\Release\SocialSim.exe" />
+    <Content Include="SocialSim\obj\x86\Release\SocialSim.pdb" />
+    <Content Include="SocialSim\SocialSim.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SocialSim\Agents\Agent.cs" />
+    <Compile Include="SocialSim\GameStuff\GameChoice.cs" />
+    <Compile Include="SocialSim\GameStuff\SocialGame.cs" />
+    <Compile Include="SocialSim\Knowledgebases\KBTester.cs" />
+    <Compile Include="SocialSim\Knowledgebases\KB_C.cs" />
+    <Compile Include="SocialSim\Knowledgebases\KB_S.cs" />
+    <Compile Include="SocialSim\Knowledgebases\SocialFact.cs" />
+    <Compile Include="SocialSim\Knowledgebases\Subject.cs" />
+    <Compile Include="SocialSim\Knowledgebases\Topic.cs" />
+    <Compile Include="SocialSim\Networks\SocialNetwork.cs" />
+    <Compile Include="SocialSim\Networks\SocialNetworkList.cs" />
+    <Compile Include="SocialSim\Networks\SocialPair.cs" />
+    <Compile Include="SocialSim\Testing\TestMain.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SocialSim.suo" />
+    <None Include="SocialSim\bin\Debug\SocialSim.vshost.exe.manifest" />
+    <None Include="SocialSim\bin\Release\SocialSim.vshost.exe.manifest" />
+    <None Include="SocialSim\obj\x86\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SocialSim\obj\x86\Debug\ResolveAssemblyReference.cache" />
+    <None Include="SocialSim\obj\x86\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SocialSim\Dialog\" />
+    <Folder Include="SocialSim\obj\x86\Debug\TempPE\" />
+    <Folder Include="SocialSim\obj\x86\Release\TempPE\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
