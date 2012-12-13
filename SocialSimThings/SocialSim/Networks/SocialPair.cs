@@ -82,7 +82,7 @@ namespace SocialSim.Networks
 
             if (game.gameType.SubjectName.Equals(SubjectType.Cave) || game.gameType.SubjectName.Equals(SubjectType.Girl) || game.gameType.SubjectName.Equals(SubjectType.Player) || game.gameType.SubjectName.Equals(SubjectType.Mushrooms))
             {
-                //IF THE TARGET IS NOT CONSIDERATE:
+                //IF THE TARGET IS NOT CONSIDERATE: DISREGARD PLAYER'S THOUGHTS
                 if (target.consideration < 0)
                 {
                     //If the target is comfortable with topic,
@@ -91,7 +91,7 @@ namespace SocialSim.Networks
                         return true;
                     }
                 }
-                //IF TARGET IS CONSIDERATE: 
+                //IF TARGET IS CONSIDERATE: TAKE PLAYER THOUGHTS INTO CONSIDERATION
                 else
                 {
                     if (player.comfort > game.gameType.comfortThreshold && target.comfort > game.gameType.comfortThreshold)
@@ -105,8 +105,6 @@ namespace SocialSim.Networks
             {
                 if (player.comfort > game.gameType.comfortThreshold && target.comfort > game.gameType.comfortThreshold)
                 {
-                    //Console.WriteLine("PLAYER: " + player.comfort + " TARGET: " + target.comfort + " THRESHOLD: " + game.comfortThreshold);
-                    //Console.WriteLine("BOTH ARE COMFORTABLE");
                     return true;
                 }
             }
@@ -154,16 +152,100 @@ namespace SocialSim.Networks
 
         //Player agent and target agent engage in the game
 
-        public void playGame(SocialGame game)
+        public void playGame(SocialGame game, TopicType gameType)
         {
             //Player and target interact between each other.  They just read two different scripts.
 
             //Based on statistics, conversation can change subtly.
 
-
-
-
             //Update values
+
+            //IF: 
+            Agent player;
+            Agent target;
+
+            if (AgentA.name.Equals("Player"))
+            {
+                player = AgentA;
+                target = AgentB;
+            }
+            else
+            {
+                player = AgentB;
+                target = AgentA;
+            }
+
+            //PLAYER-RELATED GAME.
+            if (gameType.Equals(TopicType.Player))
+                //game.gameType.Equals(SubjectType.Cave) || game.gameType.Equals(SubjectType.Girl) || game.gameType.Equals(SubjectType.Player) || game.gameType.Equals(SubjectType.Mushrooms))
+            {
+                //TOPICS RELEVANT TO PLAYER
+
+                if (player.comfort < 0)
+                {
+                    Console.WriteLine("I'm REALLY not comfortable talking about this topic.  Go away.");
+                    player.comfort = player.comfort - 0.06f; //Player comfort takes another hit.
+                    target.comfort = target.comfort - 0.09f;    //Target comfort takes a hit.
+                    target.curiosity = target.curiosity + 0.05f;    //Target becomes more curious about topic.
+                }
+                else
+                {
+                    if (player.comfort > 0)
+                    {
+                        if (player.comfort < 0.1)
+                        {
+                            Console.WriteLine("I'm a little uncomfortable with this topic.");
+                            if (target.comfort - player.comfort > 0)
+                            {
+
+                                player.comfort = player.comfort + (0.2f * target.consideration);
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        else if (player.comfort >= 0.1 && player.comfort < 0.3)
+                        {
+                            Console.WriteLine("I'm a little comfortable with this topic.");
+                        }
+                        else if (player.comfort >= 0.3 && player.comfort < 0.7)
+                        {
+                            Console.WriteLine("I'm comfortable with this topic.");
+                        }
+                        else if (player.comfort >= 0.7)
+                        {
+                            Console.WriteLine("Sure, let's talk!");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("");
+                Console.WriteLine("NON-PLAYER GAME");
+
+
+                if (gameType.Equals(TopicType.Fun))
+                {
+                    Console.WriteLine("Let's talk about fun!");
+                    player.comfort = player.comfort + 0.02f;
+                }
+                else if (gameType.Equals(TopicType.Friendly))
+                {
+                    Console.WriteLine("We're friends right?");
+                    player.comfort = player.comfort + 0.2f;
+                }
+                else if (gameType.Equals(TopicType.Scary))
+                {
+                    Console.WriteLine("How creepy...");
+                    player.comfort = player.comfort - 0.2f;
+                }
+                Console.WriteLine("");
+
+
+
+            }
             //AgentA.comfort = AgentA.comfort + game.comfortOffsets;
             //AgentA.consideration = AgentA.consideration + game.considerationOffsets;
             //AgentA.curiosity = AgentA.curiosity + game.curiosityOffsets;

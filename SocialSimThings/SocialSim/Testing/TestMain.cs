@@ -41,15 +41,28 @@ namespace SocialSim.Testing
            List<SocialGame> playableGames = sp.getPlayableGames(games);
            Console.WriteLine("NUMBER OF PLAYABLE GAMES: " + playableGames.Count);
 
-           Console.WriteLine("Agent: " + sp.AgentA.name);
-           Console.WriteLine("Values: " + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity);
 
-           sp.playGame(playableGames[0]);
+           //sp.playGame(playableGames[0], (CKB.getTopic(playableGames[0].gameType)).Name);//CKB.getTopic(playableGames[0].gameType.SubjectName));
 
-           Console.WriteLine("OFFSETS: " + playableGames[0].comfortOffsets + ", " + playableGames[0].considerationOffsets + ", " + playableGames[0].curiosityOffsets);
 
-           Console.WriteLine("Agent After: " + sp.AgentA.name);
-           Console.WriteLine("Values: " + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity);
+           Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
+           Console.WriteLine("Agent B: (" + sp.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
+
+           foreach (SocialGame sg in playableGames)
+           {
+               sp.playGame(sg, (CKB.getTopic(sg.gameType)).Name);
+           }
+
+           Console.WriteLine("AFTER GAMES");
+           Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
+           Console.WriteLine("Agent B: (" + sp.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
+
+
+
+           SocialPair sp2 = network1.getPair(agents[0], agents[2]);
+
+           Console.WriteLine("IS THE AGENT STILL HERE?");
+           Console.WriteLine("Agent A: (" + sp2.AgentA.comfort + ", " + sp2.AgentA.consideration + ", " + sp2.AgentA.curiosity + ")");
            Console.ReadKey();
             #endregion
 
@@ -125,8 +138,8 @@ namespace SocialSim.Testing
         {
 
             agents = new List<Agent>();
-            Agent agent0 = new Agent("Player", 0.25f, 0.9f, 0.01f);
-            Agent agent1 = new Agent("Agent 1",0.3f,0.5f,0.1f);
+            Agent agent0 = new Agent("Player", 0.25f, 0.2f, 0.01f);
+            Agent agent1 = new Agent("Agent 1",0.3f,0.0f,0.1f);
             Agent agent2 = new Agent("Agent 2", 0.1f, 0.1f, 0.1f);
             Agent agent3 = new Agent("Agent 3");
             Agent agent4 = new Agent("Agent 4");
