@@ -13,13 +13,15 @@ namespace SocialSim.GameStuff
     {
 
         public Subject gameType;   //The subject that pertains to the game.  What type of game is being played (What subject is being talked about?)
-        
 
+
+        public float curiosityThreshold;
+        public float comfortThreshold;
 
         public float comfortOffsets;
         public float considerationOffsets;
         public float curiosityOffsets;
-        
+
         List<String> actorScript;   //What the actor says.
         List<String> targetScript;  //What the target says.
 
@@ -30,13 +32,23 @@ namespace SocialSim.GameStuff
         public SocialGame(Subject typeOfGame)
         {
             gameType = typeOfGame;
-            //comfortThreshold = 0;
+            comfortThreshold = 0;
             //considerationThreshold = 0;
-            //curiosityThreshold = 0;
+            curiosityThreshold = 0;
             comfortOffsets = 0;
             considerationOffsets = 0;
             curiosityOffsets = 0;
-            
+
+        }
+
+        public SocialGame(Subject typeOfGame, float comfortThresh, float curiosityThresh)
+        {
+            gameType = typeOfGame;
+            comfortThreshold = comfortThresh;
+            curiosityThreshold = curiosityThresh;
+            comfortOffsets = 0;
+            considerationOffsets = 0;
+            curiosityOffsets = 0;
         }
 
         public SocialGame(Subject typeOfGame, float comfort, float consideration, float curiosity)

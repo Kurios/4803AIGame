@@ -38,9 +38,9 @@ namespace SocialSim
                 {
                     Console.WriteLine("Topic: Fun");
                 }
-                else if (t.Name == TopicType.Sad)
+                else if (t.Name == TopicType.Player)
                 {
-                    Console.WriteLine("Topic: Sad");
+                    Console.WriteLine("Topic: Related to Player");
                 }
                 else if (t.Name == TopicType.Scary)
                 {

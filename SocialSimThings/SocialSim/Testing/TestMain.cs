@@ -125,8 +125,8 @@ namespace SocialSim.Testing
         {
 
             agents = new List<Agent>();
-            Agent agent0 = new Agent("Player", 0.9f, 0.9f, 0.9f);
-            Agent agent1 = new Agent("Agent 1",0.0f,0.0f,0.0f);
+            Agent agent0 = new Agent("Player", 0.25f, 0.9f, 0.5f);
+            Agent agent1 = new Agent("Agent 1",0.3f,0.0f,0.5f);
             Agent agent2 = new Agent("Agent 2", 0.1f, 0.1f, 0.1f);
             Agent agent3 = new Agent("Agent 3");
             Agent agent4 = new Agent("Agent 4");
@@ -147,7 +147,7 @@ namespace SocialSim.Testing
         {
             networks = new SocialNetworkList();
 
-            SocialNetwork sadNetwork = new SocialNetwork(new Topic(TopicType.Sad));
+            SocialNetwork sadNetwork = new SocialNetwork(new Topic(TopicType.Player));
             SocialNetwork scaryNetwork = new SocialNetwork(new Topic(TopicType.Scary));
             SocialNetwork funNetwork = new SocialNetwork(new Topic(TopicType.Fun));
             SocialNetwork friendlyNetwork = new SocialNetwork(new Topic(TopicType.Friendly));

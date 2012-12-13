@@ -8,7 +8,7 @@ namespace SocialSim.Knowledgebases
     //A List of topic choices for the knowledgebases
     public enum TopicType
     {
-        Friendly, Fun, Sad, Scary
+        Friendly, Fun, Player, Scary
     }
 
     class Topic
@@ -21,7 +21,7 @@ namespace SocialSim.Knowledgebases
         public Topic()
         {
             //TopicType 
-            Name = TopicType.Sad;
+            Name = TopicType.Player;
             Subjects = new List<Subject>();
             comfortThreshold = 0;
             considerationThreshold = 0;
