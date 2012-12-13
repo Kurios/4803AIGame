@@ -19,6 +19,7 @@ namespace SocialSim.Networks
         public float curiosity;
         public float consideration;
         public float comfort;
+        public float friendliness;  //How friendly these two agents are toward one another.
 
         #region Constructors
 
@@ -79,7 +80,7 @@ namespace SocialSim.Networks
             }
 
 
-            if (game.gameType.Equals(SubjectType.Cave) || game.gameType.Equals(SubjectType.Girl) || game.gameType.Equals(SubjectType.Player) || game.gameType.Equals(SubjectType.Mushrooms))
+            if (game.gameType.SubjectName.Equals(SubjectType.Cave) || game.gameType.SubjectName.Equals(SubjectType.Girl) || game.gameType.SubjectName.Equals(SubjectType.Player) || game.gameType.SubjectName.Equals(SubjectType.Mushrooms))
             {
                 //IF THE TARGET IS NOT CONSIDERATE:
                 if (target.consideration < 0)
@@ -87,15 +88,14 @@ namespace SocialSim.Networks
                     //If the target is comfortable with topic,
                     if (target.comfort > game.gameType.comfortThreshold)
                     {
-                        Console.WriteLine("ADDED NO CONSIDERATION");
                         return true;
                     }
                 }
+                //IF TARGET IS CONSIDERATE: 
                 else
                 {
                     if (player.comfort > game.gameType.comfortThreshold && target.comfort > game.gameType.comfortThreshold)
                     {
-                        Console.WriteLine("ADDED");
                         return true;
                     }
                 }
@@ -110,28 +110,7 @@ namespace SocialSim.Networks
                     return true;
                 }
             }
-            /*else if (game.gameType.Equals(SubjectType.Festival))
-            {
-
-            }
-            else if (game.gameType.Equals(SubjectType.Flowers))
-            {
-            }
-            else if (game.gameType.Equals(SubjectType.Forest))
-            {
-            }
-            else if (game.gameType.Equals(SubjectType.Games))
-            {
-            }
-            else if (game.gameType.Equals(SubjectType.Ghosts))
-            {
-            }
-            else if (game.gameType.Equals(SubjectType.Gifts))
-            {
-            }
-            else if (game.gameType.Equals(SubjectType.Party))
-            {
-            }*/
+          
             return false;
         }
 

@@ -27,7 +27,7 @@ namespace SocialSim
         private void initialize()
         {
             //Sad Topics
-            Topic sadTopics = new Topic(TopicType.Player, 0.25f, 1.0f, 0.25f);
+            Topic sadTopics = new Topic(TopicType.Player, 0.2f, 1.0f, 0.25f);
             sadTopics.Subjects.Add(new Subject(SubjectType.Cave, sadTopics.comfortThreshold, sadTopics.considerationThreshold, sadTopics.curiosityThreshold));
             sadTopics.Subjects.Add(new Subject(SubjectType.Girl, sadTopics.comfortThreshold, sadTopics.considerationThreshold, sadTopics.curiosityThreshold));
             sadTopics.Subjects.Add(new Subject(SubjectType.Player, sadTopics.comfortThreshold, sadTopics.considerationThreshold, sadTopics.curiosityThreshold));

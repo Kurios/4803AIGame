@@ -125,8 +125,8 @@ namespace SocialSim.Testing
         {
 
             agents = new List<Agent>();
-            Agent agent0 = new Agent("Player", 0.25f, 0.9f, 0.5f);
-            Agent agent1 = new Agent("Agent 1",0.3f,0.0f,0.5f);
+            Agent agent0 = new Agent("Player", 0.25f, 0.9f, 0.01f);
+            Agent agent1 = new Agent("Agent 1",0.3f,0.5f,0.1f);
             Agent agent2 = new Agent("Agent 2", 0.1f, 0.1f, 0.1f);
             Agent agent3 = new Agent("Agent 3");
             Agent agent4 = new Agent("Agent 4");
