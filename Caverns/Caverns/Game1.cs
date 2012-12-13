@@ -43,7 +43,8 @@ namespace Caverns
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
 
-            //graphics.ToggleFullScreen();
+            if(graphics.IsFullScreen )
+                graphics.ToggleFullScreen();
             graphics.SynchronizeWithVerticalRetrace = false;
             graphics.PreferMultiSampling = true;
             graphics.PreferredDepthStencilFormat = DepthFormat.Depth16;
