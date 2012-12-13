@@ -30,6 +30,7 @@ namespace SocialSim.Networks
             curiosity = A.curiosity - B.curiosity;
             consideration = A.consideration - B.consideration;
             comfort = A.comfort - B.comfort;
+            friendliness = (float) Math.Abs(A.consideration - B.consideration);
         }
 
         #endregion
@@ -190,32 +191,52 @@ namespace SocialSim.Networks
                 }
                 else
                 {
-                    if (player.comfort > 0)
+                    if (player.comfort < game.comfortThreshold)
                     {
-                        if (player.comfort < 0.1)
+                        Console.WriteLine("I'm a little uncomfortable with this topic.");
+                        player.comfort = player.comfort - 0.03f;
+                        target.curiosity = target.curiosity + 0.01f;
+                    }
+                    else
+                    {
+                        if (player.comfort >= 0.1 && player.comfort < 0.3)
                         {
-                            Console.WriteLine("I'm a little uncomfortable with this topic.");
-                            if (target.comfort - player.comfort > 0)
+                            Console.WriteLine("I'm a little comfortable with this topic.");
+                            if (player.isImportant(target))
                             {
-
-                                player.comfort = player.comfort + (0.2f * target.consideration);
+                                player.comfort = player.comfort + 0.05f;
                             }
                             else
                             {
-
+                                player.comfort = player.comfort + 0.02f;
                             }
-                        }
-                        else if (player.comfort >= 0.1 && player.comfort < 0.3)
-                        {
-                            Console.WriteLine("I'm a little comfortable with this topic.");
                         }
                         else if (player.comfort >= 0.3 && player.comfort < 0.7)
                         {
+
+                            if (player.isImportant(target))
+                            {
+                                player.comfort = player.comfort + 0.08f;
+                            }
+                            else
+                            {
+                                player.comfort = player.comfort + 0.06f;
+                            }
+
                             Console.WriteLine("I'm comfortable with this topic.");
                         }
                         else if (player.comfort >= 0.7)
                         {
                             Console.WriteLine("Sure, let's talk!");
+
+                            if (player.isImportant(target))
+                            {
+                                player.comfort = player.comfort + 0.1f;
+                            }
+                            else
+                            {
+                                player.comfort = player.comfort + 0.09f;
+                            }
                         }
                     }
                 }
@@ -230,25 +251,61 @@ namespace SocialSim.Networks
                 {
                     Console.WriteLine("Let's talk about fun!");
                     player.comfort = player.comfort + 0.02f;
+                    target.comfort = target.comfort + 0.05f;
                 }
                 else if (gameType.Equals(TopicType.Friendly))
                 {
                     Console.WriteLine("We're friends right?");
-                    player.comfort = player.comfort + 0.2f;
+                    player.comfort = player.comfort + 0.04f;
+                   
+
+                    float bonus = considerationBonus();
+                    target.consideration = target.consideration + bonus;
+                    player.consideration = player.consideration + bonus;
+
                 }
                 else if (gameType.Equals(TopicType.Scary))
                 {
                     Console.WriteLine("How creepy...");
-                    player.comfort = player.comfort - 0.2f;
+                    player.comfort = player.comfort - 0.11f;
+                    target.comfort = target.comfort - 0.06f;
                 }
                 Console.WriteLine("");
 
 
 
             }
-            //AgentA.comfort = AgentA.comfort + game.comfortOffsets;
-            //AgentA.consideration = AgentA.consideration + game.considerationOffsets;
-            //AgentA.curiosity = AgentA.curiosity + game.curiosityOffsets;
+        }
+
+        private float considerationBonus()
+        {
+            float bonus = 0;
+            if (AgentA.consideration >= 0.4f && AgentA.consideration<0.6f)
+            {
+                bonus = 0.02f;
+            }
+            else if (AgentA.consideration >= 0.6f && AgentA.consideration < 0.8f)
+            {
+                bonus = 0.03f;
+            }
+            else
+            {
+                bonus = 0.05f;
+            }
+            
+            if (AgentB.consideration >= 0.4f && AgentB.consideration < 0.6f)
+            {
+                bonus =bonus + 0.02f;
+            }
+            else if (AgentB.consideration >= 0.6f && AgentB.consideration < 0.8f)
+            {
+                bonus = bonus + 0.03f;
+            }
+            else
+            {
+                bonus = bonus + 0.05f;
+            }
+            return bonus;
         }
         #endregion
 

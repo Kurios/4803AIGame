@@ -71,6 +71,18 @@ namespace SocialSim.Agents
             }
             return false;
         }
+
+        public void remove(Agent agen)
+        {
+            foreach (Agent a in importantAgents)
+            {
+                if (a.name.Equals(agen.name))
+                {
+                    importantAgents.Remove(a);
+                    break;
+                }
+            }
+        }
         #endregion
 
         #region Testing Methods
