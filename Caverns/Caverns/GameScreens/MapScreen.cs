@@ -134,10 +134,10 @@ namespace Caverns.GameScreens
             pc = new PlayerChar(catLady, map, Game);
             pc.Position = new Vector2(20, 20);
 
-            Ghost g = new Ghost(ghostSprite, caveMap, gameref, pc);
-            g.Position = new Vector2(40, 40);
-            caveMap.characterList.Add(g);
-            caveMap.enemyList.Add(g);
+            //Ghost g = new Ghost(ghostSprite, caveMap, gameref, pc);
+            //g.Position = new Vector2(40, 40);
+            //caveMap.characterList.Add(g);
+            //caveMap.enemyList.Add(g);
 
             //map.characterList.Add(pc);
             caveMap.characterList.Add(pc);
