@@ -219,6 +219,7 @@ namespace Caverns.Char
 
         private int WhereIWantToWalkTo()
         {
+            /*
             //Vector2 ret = new Vector2(Position.X,Position.Y);
 
             double targetAngle = Math.PI / 2 + Math.PI / 2 * emotionstate.eSpace.Anticipation;
@@ -228,6 +229,7 @@ namespace Caverns.Char
             /*
 
             //compute targets
+            /*
             if (flee)
             {
                 //PlayerChar target = gameref.MapScreen.pc;
@@ -344,6 +346,8 @@ namespace Caverns.Char
                 return 3;
             else
                 return 4;
+             */
+            return 0;
         }
     }
 }
