@@ -157,7 +157,7 @@ namespace Caverns.Char
             }*/
             d.addState(state);
             Dialog = d;
-            
+            Console.WriteLine(d.ToString());
             gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
 
             //Doesnt Return a String....
