@@ -63,6 +63,13 @@ namespace Caverns.GameScreens
             Texture2D nekoPort = gameref.Content.Load<Texture2D>("characters/portait/two");
 
             Texture2D blank = gameref.Content.Load<Texture2D>("characters/blank");
+            Texture2D blank1 = gameref.Content.Load<Texture2D>("characters/blank1");
+            Texture2D blank2 = gameref.Content.Load<Texture2D>("characters/blank2");
+            Texture2D blank3 = gameref.Content.Load<Texture2D>("characters/blank3");
+            Texture2D blank4 = gameref.Content.Load<Texture2D>("characters/blank4");
+            Texture2D blank5 = gameref.Content.Load<Texture2D>("characters/blank5");
+
+            Texture2D ghostblank = gameref.Content.Load<Texture2D>("characters/ghostblank");
 
             map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("ForestMap01"));
             map = Loader.CreateMap(gameref, spriteMap, System.IO.File.ReadAllLines("village.map"));
@@ -110,10 +117,41 @@ namespace Caverns.GameScreens
             kid1.Portrait = ashPort;
             map.characterList.Add(kid1);
  
-            BlankChar blank1 = new BlankChar(blank, map, gameref, new Agent("Character"));
-            blank1.Portrait = ashPort;
-            blank1.Position = new Vector2(10, 10);
-            map.characterList.Add(blank1);
+            BlankChar cblank1 = new BlankChar(blank, map, gameref, new Agent("Character"));
+            cblank1.Portrait = ashPort;
+            cblank1.Position = new Vector2(10, 10);
+            map.characterList.Add(cblank1);
+
+            BlankChar cblank2 = new BlankChar(blank1, map, gameref, new Agent("Character1"));
+            cblank2.Portrait = ashPort;
+            cblank2.Position = new Vector2(20, 10);
+            map.characterList.Add(cblank2);
+
+            BlankChar cblank3 = new BlankChar(blank2, map, gameref, new Agent("Character2"));
+            cblank3.Portrait = ashPort;
+            cblank3.Position = new Vector2(20, 10);
+            map.characterList.Add(cblank3);
+
+            BlankChar cblank4 = new BlankChar(blank3, map, gameref, new Agent("Character3"));
+            cblank4.Portrait = ashPort;
+            cblank4.Position = new Vector2(25, 44);
+            map.characterList.Add(cblank4);
+
+            BlankChar cblank5 = new BlankChar(blank4, map, gameref, new Agent("Character4"));
+            cblank5.Portrait = ashPort;
+            cblank5.Position = new Vector2(20, 34);
+            map.characterList.Add(cblank5);
+
+            BlankChar cblank6 = new BlankChar(blank5, map, gameref, new Agent("Character5"));
+            cblank6.Portrait = ashPort;
+            cblank6.Position = new Vector2(11, 32);
+            map.characterList.Add(cblank6);
+
+            BlankChar blankghost = new BlankChar(ghostblank, map, gameref, new Agent("Ghost"));
+            blankghost.Portrait = ashPort;
+            blankghost.Position = new Vector2(10, 44);
+            map.characterList.Add(blankghost);
+
 
             Kid2 kid2 = new Kid2(link, map, gameref);
             kid2.Portrait = linkPort;
@@ -124,8 +162,8 @@ namespace Caverns.GameScreens
             kid3.Portrait = nekoPort;
             map.characterList.Add(kid3);
 
-            CaveIn caveIn = new CaveIn(link, map, gameref, caveMap);
-            map.characterList.Add(caveIn);
+           //CaveIn caveIn = new CaveIn(link, map, gameref, caveMap);
+            //map.characterList.Add(caveIn);
 
             Waterfall waterfall = new Waterfall(spriteMap, caveMap, gameref);
             waterfall.Position = new Vector2(32 + 15, 32);
