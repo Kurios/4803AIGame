@@ -54,9 +54,6 @@ namespace SocialSim.GameStuff
         public SocialGame(Subject typeOfGame, float comfort, float consideration, float curiosity)
         {
             gameType = typeOfGame;
-            //comfortThreshold = comfort;
-            //considerationThreshold = consideration;
-            //curiosityThreshold = curiosity;
             comfortOffsets = comfort;
             considerationOffsets = consideration;
             curiosityOffsets = curiosity;
