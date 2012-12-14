@@ -8,7 +8,7 @@ using SocialSim.Knowledgebases;
 
 namespace SocialSim.Networks
 {
-    class SocialNetwork
+    public class SocialNetwork
     {
         public Topic TopicOfNetwork;    //The topic that is relevant to the social network
         public List<SocialPair> allPairs;   //The list of pairs

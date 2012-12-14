@@ -9,7 +9,7 @@ using SocialSim.GameStuff;
 
 namespace SocialSim
 {
-    class KBTester
+    public class KBTester
     {
         /*static void Main()
         {

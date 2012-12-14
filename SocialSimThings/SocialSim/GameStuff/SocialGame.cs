@@ -9,7 +9,7 @@ using SocialSim.Knowledgebases;
 
 namespace SocialSim.GameStuff
 {
-    class SocialGame
+    public class SocialGame
     {
 
         public Subject gameType;   //The subject that pertains to the game.  What type of game is being played (What subject is being talked about?)

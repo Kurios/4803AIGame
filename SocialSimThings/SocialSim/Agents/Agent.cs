@@ -42,7 +42,7 @@ namespace SocialSim.Agents
             importantAgents = new List<Agent>();
         }
 
-        public Agent(String aName, float comfortLevel, float curiosityLevel, float considerationLevel)
+        public Agent(String aName, float comfortLevel, float considerationLevel, float curiosityLevel)
         {
             name = aName;
             comfort = comfortLevel;
@@ -70,6 +70,18 @@ namespace SocialSim.Agents
                 }
             }
             return false;
+        }
+
+        public void remove(Agent agen)
+        {
+            foreach (Agent a in importantAgents)
+            {
+                if (a.name.Equals(agen.name))
+                {
+                    importantAgents.Remove(a);
+                    break;
+                }
+            }
         }
         #endregion
 

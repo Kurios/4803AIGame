@@ -16,7 +16,7 @@ namespace SocialSim.Knowledgebases
     //Target - To whom is the target of the game (Conversation)
     //Third-Party (List of Agents affected)
 
-    class SocialFact
+    public class SocialFact
     {
         public SocialGame gamePlayed;   //Social game that was played
         public Agent Initiator; //Initiator

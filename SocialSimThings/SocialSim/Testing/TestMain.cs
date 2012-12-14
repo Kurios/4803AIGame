@@ -14,9 +14,8 @@ namespace SocialSim.Testing
     {
         static KB_C CKB;
         static KB_S SKB;
+        static List<SocialFact> socialFacts;
         static List<SocialGame> games;
-        static List<Agent> agents;
-        static SocialNetworkList networks;
 
         static void Main()
         {
@@ -24,12 +23,67 @@ namespace SocialSim.Testing
 
            initializeKBs(); //Initializes the Knowledgebases
            initializeGames();   //Initializes all the games that can be played
-           initializeAgents();  //Initializes all the agents that will be in the game
-           initializeNetworks();    //Initializes all networks for the game
+           List<Agent> ages = initializeAgents();  //Initializes all the agents that will be in the game
+           SocialNetworkList networks = initializeNetworks(ages);    //Initializes all networks for the game
+           List<SocialFact> socialFacts = new List<SocialFact>();
             #endregion
 
+
+            #region SOCIAL NETWORKS AND GAMEPLAY
  
-            #region SOCIAL NETWORKS
+            //SELECT A CHARACTER TO INTERACT WITH.
+           SocialNetwork network1 = networks.socialNetworks[0];
+           SocialPair sp = network1.getPair(ages[0], ages[1]);
+
+           
+            //RETRIEVES ALL PLAYABLE GAMES.
+           List<SocialGame> playableGames = networks.getPlayableGames(sp, games);
+           Console.WriteLine("NUMBER OF PLAYABLE GAMES: " + playableGames.Count);
+
+           Console.WriteLine("BEFORE");
+           Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
+           Console.WriteLine("Agent B: (" + sp.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
+
+           Console.WriteLine("");
+
+            //SELECTS A PLAYABLE GAME.
+           if (playableGames.Count > 0)
+           {
+               sp.playGame(playableGames[1], CKB.getTopic(playableGames[1].gameType).Name);
+           }
+           Console.WriteLine("AFTER");
+           Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
+           Console.WriteLine("Agent B: (" + sp.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
+
+           Console.WriteLine("");
+
+           Console.WriteLine("HOW ABOUT IN ANOTHER NETWORK?");
+           SocialNetwork network2 = networks.socialNetworks[1];
+           SocialPair sp2 = network2.getPair(ages[0], ages[1]);
+
+           Console.WriteLine("Agent A: (" + sp2.AgentA.comfort + ", " + sp2.AgentA.consideration + ", " + sp2.AgentA.curiosity + ")");
+           Console.WriteLine("Agent B: (" + sp2.AgentB.comfort + ", " + sp2.AgentB.consideration + ", " + sp2.AgentB.curiosity + ")");
+
+
+           Console.WriteLine("");
+
+           Console.WriteLine("HOW ABOUT WITH ANOTHER PAIR?");
+           SocialPair sp3 = network1.getPair(ages[0], ages[2]);
+
+           Console.WriteLine("Agent A: (" + sp3.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
+           Console.WriteLine("Agent B: (" + sp3.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
+
+           SocialFact sb = new SocialFact(playableGames[1], sp.AgentA, sp.AgentB);
+           socialFacts.Add(sb);
+
+           Console.WriteLine("DONE");
+
+           Console.ReadKey();
+            #endregion
+
+
+
+            /*           #region SOCIAL NETWORKS
 
            SocialNetwork network1 = networks.socialNetworks[0];
            SocialPair sp = network1.getPair(agents[0], agents[1]);
@@ -74,7 +128,7 @@ namespace SocialSim.Testing
 
             //Topic specificTopic = CKB.getTopic(caveGame.gameType);
             #endregion
-
+*/
 
         }
          
@@ -106,40 +160,14 @@ namespace SocialSim.Testing
             //Console.WriteLine("NUMBER OF GAMES: " + games.Count);
 
             //Cave, Girl, Player, Party, Festival, Games, Gifts, Flowers, Forest, Ghosts, Mushrooms
-           /* SocialGame caveGame = new SocialGame(new Subject(SubjectType.Cave));
-            SocialGame girlGame = new SocialGame(new Subject(SubjectType.Girl));
-            SocialGame playerGame = new SocialGame(new Subject(SubjectType.Player));
-            SocialGame partyGame = new SocialGame(new Subject(SubjectType.Party));
-            SocialGame festivalGame = new SocialGame(new Subject(SubjectType.Festival));
-            SocialGame gamesGame = new SocialGame(new Subject(SubjectType.Games));
-            SocialGame giftsGame = new SocialGame(new Subject(SubjectType.Gifts));
-            SocialGame flowersGame = new SocialGame(new Subject(SubjectType.Flowers));
-            SocialGame forestGame = new SocialGame(new Subject(SubjectType.Forest));
-            SocialGame ghostsGame = new SocialGame(new Subject(SubjectType.Ghosts));
-            SocialGame mushroomsGame = new SocialGame(new Subject(SubjectType.Mushrooms));
-
-            games.Add(caveGame);
-            games.Add(girlGame);
-            games.Add(playerGame);
-
-            games.Add(mushroomsGame);
-            games.Add(partyGame);
-            games.Add(festivalGame);
-            games.Add(gamesGame);
-            games.Add(giftsGame);
-            games.Add(flowersGame);
-            games.Add(forestGame);
-            games.Add(ghostsGame);
-            */
-
         }
 
-        private static void initializeAgents()
+        private static List<Agent> initializeAgents()
         {
 
-            agents = new List<Agent>();
-            Agent agent0 = new Agent("Player", 0.25f, 0.2f, 0.01f);
-            Agent agent1 = new Agent("Agent 1",0.3f,0.0f,0.1f);
+            List<Agent> agents = new List<Agent>();
+            Agent agent0 = new Agent("Player", 0.2f, -0.1f, 0.25f);
+            Agent agent1 = new Agent("Agent 1",0.25f,-0.1f,0.25f);
             Agent agent2 = new Agent("Agent 2", 0.1f, 0.1f, 0.1f);
             Agent agent3 = new Agent("Agent 3");
             Agent agent4 = new Agent("Agent 4");
@@ -154,26 +182,34 @@ namespace SocialSim.Testing
             agents.Add(agent4);
             agents.Add(agent5);
             agents.Add(agent6);
+
+            return agents;
         }
 
-        private static void initializeNetworks()
+        private static SocialNetworkList initializeNetworks(List<Agent> agens)
         {
-            networks = new SocialNetworkList();
+            SocialNetworkList networkList = new SocialNetworkList();
+            //networks = new SocialNetworkList();
 
-            SocialNetwork sadNetwork = new SocialNetwork(new Topic(TopicType.Player));
-            SocialNetwork scaryNetwork = new SocialNetwork(new Topic(TopicType.Scary));
-            SocialNetwork funNetwork = new SocialNetwork(new Topic(TopicType.Fun));
-            SocialNetwork friendlyNetwork = new SocialNetwork(new Topic(TopicType.Friendly));
+            SocialNetwork sadNetwork = new SocialNetwork(CKB.TopicList[0]);
+            SocialNetwork scaryNetwork = new SocialNetwork(CKB.TopicList[1]);
+            SocialNetwork funNetwork = new SocialNetwork(CKB.TopicList[2]);
+            SocialNetwork friendlyNetwork = new SocialNetwork(CKB.TopicList[3]);
 
-            sadNetwork.generateNetwork(agents);
-            scaryNetwork.generateNetwork(agents);
-            funNetwork.generateNetwork(agents);
-            friendlyNetwork.generateNetwork(agents);
+            sadNetwork.generateNetwork(initializeAgents());
 
-            networks.addSocialNetwork(sadNetwork);
-            networks.addSocialNetwork(scaryNetwork);
-            networks.addSocialNetwork(funNetwork);
-            networks.addSocialNetwork(friendlyNetwork);
+            scaryNetwork.generateNetwork(initializeAgents());
+            
+            funNetwork.generateNetwork(initializeAgents());
+            
+            friendlyNetwork.generateNetwork(agens);
+
+            networkList.addSocialNetwork(sadNetwork);
+            networkList.addSocialNetwork(scaryNetwork);
+            networkList.addSocialNetwork(funNetwork);
+            networkList.addSocialNetwork(friendlyNetwork);
+
+            return networkList;
         }
 
         #endregion
