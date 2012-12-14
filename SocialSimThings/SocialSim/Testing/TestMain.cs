@@ -156,9 +156,6 @@ namespace SocialSim.Testing
                     games.Add(game);
                 }
             }
-
-            //Console.WriteLine("NUMBER OF GAMES: " + games.Count);
-
             //Cave, Girl, Player, Party, Festival, Games, Gifts, Flowers, Forest, Ghosts, Mushrooms
         }
 
