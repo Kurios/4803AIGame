@@ -62,13 +62,14 @@ namespace SocialSim
         {
 
             List<Agent> agents = new List<Agent>();
-            Agent agent0 = new Agent("Player", 0.2f, 0.5f, 0.25f);
+            Agent agent0 = new Agent("Player", 0.65f, 0.5f, 0.5f);
             Agent agent1 = new Agent("Character",0.25f,0.2f,0.25f);
-            Agent agent2 = new Agent("Ghost");
-            Agent agent3 = new Agent("Character2", 0.25f, -1.0f, 0.25f);
+            Agent agent2 = new Agent("Ghost", 0.1f, 0.0f, 0.2f);
+            Agent agent3 = new Agent("Character2", 0.25f, 0.2f, 0.25f);
             Agent agent4 = new Agent("Character3", 0.1f, 0.5f, 0.55f);
-            Agent agent5 = new Agent("Character4", 0.2f, 0.0f, 0.3f);
+            Agent agent5 = new Agent("Character4", 0.2f, 0.25f, 0.3f);
             Agent agent6 = new Agent("Character5", 0.1f, 0.2f, 0.1f);
+            Agent agent7 = new Agent("Character1", 0.2f, 0.0f, 0.3f);
 
 
             agents.Add(agent0);
@@ -78,6 +79,7 @@ namespace SocialSim
             agents.Add(agent4);
             agents.Add(agent5);
             agents.Add(agent6);
+            agents.Add(agent7);
 
             return agents;
         }

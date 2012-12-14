@@ -17,11 +17,6 @@ Content\characters\Parsee.xnb
 Content\characters\Item Key01.xnb
 Content\characters\FF6GhostSprites.xnb
 Content\backgrounds\white.xnb
-Content\font\title.xnb
-Content\font\dialog.xnb
-Content\font\system.xnb
-Content\shaders\cavernShader.xnb
-Content\shaders\charShader.xnb
 Content\characters\blank.xnb
 Content\characters\blank1.xnb
 Content\characters\blank2.xnb
@@ -29,7 +24,11 @@ Content\characters\blank3.xnb
 Content\characters\blank4.xnb
 Content\characters\blank5.xnb
 Content\characters\ghostblank.xnb
-village.map
+Content\font\title.xnb
+Content\font\dialog.xnb
+Content\font\system.xnb
+Content\shaders\cavernShader.xnb
+Content\shaders\charShader.xnb
 SubMaps\CaveSubMaps\CaveTileSubMap00
 SubMaps\CaveSubMaps\CaveTileSubMap10
 SubMaps\CaveSubMaps\CaveTileSubMap01
@@ -47,3 +46,4 @@ SubMaps\ForestSubMaps\ForestTileSubMap10
 CaveMap01
 ForestMap01
 map
+village.map

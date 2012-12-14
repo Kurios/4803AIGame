@@ -34,18 +34,18 @@ namespace SocialSim
             sadTopics.addSubject(SubjectType.Mushrooms, sadTopics.comfortThreshold, sadTopics.considerationThreshold, sadTopics.curiosityThreshold);
 
             //Fun Topics
-            Topic funTopics = new Topic(TopicType.Fun, 0.1f, 0.0f, 0.1f);
+            Topic funTopics = new Topic(TopicType.Fun, 0.0f, 0.0f, 0.1f);
             funTopics.addSubject(SubjectType.Party, funTopics.comfortThreshold, funTopics.considerationThreshold, funTopics.curiosityThreshold);
             funTopics.addSubject(SubjectType.Games, funTopics.comfortThreshold, funTopics.considerationThreshold, funTopics.curiosityThreshold);
             funTopics.addSubject(SubjectType.Festival, funTopics.comfortThreshold, funTopics.considerationThreshold, funTopics.curiosityThreshold);
 
             //Friendly Topics
-            Topic friendlyTopics = new Topic(TopicType.Friendly, 0.25f, 0.0f, 0.2f);
+            Topic friendlyTopics = new Topic(TopicType.Friendly, 0.1f, 0.0f, 0.2f);
             friendlyTopics.addSubject(SubjectType.Gifts, friendlyTopics.comfortThreshold, friendlyTopics.considerationThreshold, friendlyTopics.curiosityThreshold);
             friendlyTopics.addSubject(SubjectType.Flowers, friendlyTopics.comfortThreshold, friendlyTopics.considerationThreshold, friendlyTopics.curiosityThreshold);
 
             //Scary Topics
-            Topic scaryTopics = new Topic(TopicType.Scary, 0.6f, 0.0f, 0.2f);
+            Topic scaryTopics = new Topic(TopicType.Scary, 0.4f, 0.0f, 0.2f);
             scaryTopics.addSubject(SubjectType.Forest, scaryTopics.comfortThreshold, scaryTopics.considerationThreshold, scaryTopics.curiosityThreshold);
             scaryTopics.addSubject(SubjectType.Ghosts, scaryTopics.comfortThreshold, scaryTopics.considerationThreshold, scaryTopics.curiosityThreshold);
 

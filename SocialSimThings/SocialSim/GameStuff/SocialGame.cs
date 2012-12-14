@@ -92,13 +92,14 @@ namespace SocialSim.GameStuff
                 {
                     script.Add("She awaits you in the cave...");
                     script.Add("...Who?!");
+                    script.Add("<continue>");
                 }
                 else
                 {
                     script.Add("You are not ready to face her...");
                     script.Add("...");
+                    script.Add("<continue>");
                 }
-                return script;
             }
             else
             {
