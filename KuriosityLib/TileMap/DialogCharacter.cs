@@ -21,6 +21,7 @@ namespace KuriosityXLib.TileMap
         public Dialog Dialog
         {
             get { return dialog; }
+            set { dialog = value; }
         }
 
         public virtual void OnDialog(int num)

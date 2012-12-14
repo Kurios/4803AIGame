@@ -22,6 +22,8 @@ Content\font\dialog.xnb
 Content\font\system.xnb
 Content\shaders\cavernShader.xnb
 Content\shaders\charShader.xnb
+Content\characters\blank.xnb
+village.map
 SubMaps\CaveSubMaps\CaveTileSubMap00
 SubMaps\CaveSubMaps\CaveTileSubMap10
 SubMaps\CaveSubMaps\CaveTileSubMap01

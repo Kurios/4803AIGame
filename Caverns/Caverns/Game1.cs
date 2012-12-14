@@ -3,6 +3,8 @@ using KuriosityXLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SocialSim.Networks;
+using KuriosityXLib.Dialogs;
 
 ///Kurios: The starting point.
 ///Credit to where credit is due!
@@ -41,6 +43,10 @@ namespace Caverns
 
         public TimedInfoScreen InfoScreen { get; set; }
 
+        public SocialNetwork Network;
+
+        public SocialNetworkList Networks;
+
         public MapScreen MapScreen
         {
             get { return mapScreen; }
@@ -53,7 +59,7 @@ namespace Caverns
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.ToggleFullScreen();
+            //graphics.ToggleFullScreen();
 
             //graphics.GraphicsDevice.
             graphics.SynchronizeWithVerticalRetrace = false;
@@ -83,7 +89,10 @@ namespace Caverns
             gameStateManager.ChangeState(titleScreen);
             gameStateManager.PushState(etaScreen);
             gameStateManager.PushState(mapScreen);
+            
             DialogScreen = new DialogScreen(this, gameStateManager);
+
+           
         }
 
         /// <summary>

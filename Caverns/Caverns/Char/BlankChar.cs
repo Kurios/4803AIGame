@@ -6,6 +6,10 @@ using KuriosityXLib.TileMap;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SocialSim.Agents;
+using SocialSim.Networks;
+using SocialSim.GameStuff;
+using KuriosityXLib.Dialogs;
+using SocialSim;
 
 namespace Caverns.Char
 {
@@ -39,7 +43,7 @@ namespace Caverns.Char
         {
             //spriteBatch.Draw(Sprite, new Rectangle((getBoundingRect().X - offset.X) * 32, (getBoundingRect().Y-offset.Y) * 32, getBoundingRect().Width * 32, getBoundingRect().Height * 32), new Rectangle(32,32,32,32), Color.Black);
 
-            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (32 + 16), (int)(Position.Y - offset.Y) * 32 - 32, 64, 80), new Rectangle(64 * timeItt, 80 * facing, 64, 80), Color.White);
+            spriteBatch.Draw(Sprite, new Rectangle((int)(Position.X - offset.X) * 32 - (32 + 16), (int)(Position.Y - offset.Y) * 32 - 32, 50, 64), new Rectangle(32 * timeItt, 32 * facing, 32, 32), Color.White);
         }
 
         public override Rectangle getBoundingRect()
@@ -71,8 +75,44 @@ namespace Caverns.Char
         private void TalkToMe(Object sender, EventArgs e)
         {
             //((PlayerChar)sender).peopleFound++;
-            ((BlankChar)sender).
+            //gameref.Network.ToString();
+            SocialPair sp = gameref.Network.getPair(((BlankChar)sender).agent, this.agent);
+            List<SocialGame> games = new List<SocialGame>();
+            //TODO: Figure out how to initialize this games thing... 
+            gameref.Networks.getPlayableGames(sp, games);
+            KB_C CKB = new KB_C();
+            //END LIST
+            Dialog d = new Dialog();
+            DialogState state = new DialogState(0, "Awww. I thought you would never find me.\n\n   You wont get me next time though! I promise!");
+            for( int i =  0 ; Math.Abs(i) > games.Count ; i-- )
+            {
+                state.addResponse(games[i].gameType.SubjectName.ToString(), i);
+            }
+            d.addState(state);
+            Dialog = d;
+
             gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
+
+            //Doesnt Return a String....
+            sp.playGame(games[Math.Abs(d.currentID)], CKB.getTopic(games[Math.Abs(d.currentID)].gameType).Name);
+            //Assuming a Array of Strings, in the order NPC action, then. Player Dialog Options.
+            String[] spResponses = new String[2];
+            state = new DialogState(0,spResponses[0]);
+
+            for (int i = 1; i > spResponses.Length; i++)
+            {
+                state.addResponse(spResponses[i]);
+            }
+            d = new Dialog();
+            d.addState(state);
+            Dialog = d;
+
+            gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
+
+
+
+
+
             //this.PhysicalContact -= FoundMe;
         }
     }

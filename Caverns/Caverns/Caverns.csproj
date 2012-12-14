@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Char\BlankChar.cs" />
     <Compile Include="Char\CaveIn.cs" />
     <Compile Include="Char\Ghost.cs" />
     <Compile Include="Char\Girl.cs" />
@@ -190,6 +191,9 @@
     <None Include="map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="village.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\KLib\KLib.csproj">
@@ -203,6 +207,10 @@
     <ProjectReference Include="..\..\MazeMaker\Project1\MazeMaker.csproj">
       <Project>{23A4DCE2-D962-4C77-80E2-DF5747317AF4}</Project>
       <Name>MazeMaker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SocialSimThings\SocialSimThings.csproj">
+      <Project>{24F5471A-D1E3-4261-B378-C8F1217C5A50}</Project>
+      <Name>SocialSimThings</Name>
     </ProjectReference>
     <ProjectReference Include="..\CavernsContent\CavernsContent.contentproj">
       <Name>CavernsContent %28Content%29</Name>

@@ -10,6 +10,7 @@ using Caverns.Char;
 using KLib.NerualNet.emotionState;
 using Microsoft.Xna.Framework.Input;
 using MazeMaker;
+using SocialSim.Agents;
 
 namespace Caverns.GameScreens
 {
@@ -61,8 +62,10 @@ namespace Caverns.GameScreens
             Texture2D neko = gameref.Content.Load<Texture2D>("characters/Rin");
             Texture2D nekoPort = gameref.Content.Load<Texture2D>("characters/portait/two");
 
+            Texture2D blank = gameref.Content.Load<Texture2D>("characters/blank");
+
             map = Loader.CreateMap(gameref,spriteMap,System.IO.File.ReadAllLines("ForestMap01"));
-            
+            map = Loader.CreateMap(gameref, spriteMap, System.IO.File.ReadAllLines("village.map"));
             //MAZE STUFF ADDED HERE.
             Maze maze = new Maze(2, 3); //Dimensions: #cols, #rows
             maze.generateMazePrim(0, 0);    //Generates Prim's Maze.  (Starting col, Starting row).
@@ -107,6 +110,11 @@ namespace Caverns.GameScreens
             kid1.Portrait = ashPort;
             map.characterList.Add(kid1);
 
+            BlankChar blank1 = new BlankChar(blank, map, gameref, new Agent());
+            blank1.Portrait = ashPort;
+            blank1.Position = new Vector2(10, 10);
+            map.characterList.Add(blank1);
+
             Kid2 kid2 = new Kid2(link, map, gameref);
             kid2.Portrait = linkPort;
             kid2.Falling = linkFalling;
@@ -140,12 +148,20 @@ namespace Caverns.GameScreens
             //caveMap.enemyList.Add(g);
 
             //map.characterList.Add(pc);
-            caveMap.characterList.Add(pc);
+            map.characterList.Add(pc);
             camera.SetFocus(pc);
             //!!!
-            pc.Map = caveMap;
-            camera.setMap(caveMap);
-            map = caveMap;
+           // pc.Map = caveMap;
+            //camera.setMap(caveMap);
+           // map = caveMap;
+            //!!!
+
+            //cityMap.characterList.Add(pc);
+            //camera.SetFocus(pc);
+            //!!!
+            //pc.Map = cityMap;
+            //camera.setMap(cityMap);
+            //map = cityMap;
             //!!!
 
             girl = new Girl(girlText, caveMap, gameref,pc);
@@ -213,10 +229,13 @@ namespace Caverns.GameScreens
         }
         public override void Draw(GameTime gameTime)
         {
-            gameref.SpriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullCounterClockwise,pxShader);
+            gameref.SpriteBatch.Begin();//SpriteSortMode.BackToFront,BlendState.AlphaBlend,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullCounterClockwise,pxShader);
+            
             //gameref.SpriteBatch.Begin();
             base.Draw(gameTime);
             camera.Draw(gameTime);
+            gameref.SpriteBatch.End();
+            /*
             if (playerhit > 0) playerhit--;
             gameref.SpriteBatch.End();
             gameref.SpriteBatch.Begin();
@@ -262,7 +281,11 @@ namespace Caverns.GameScreens
                     gameref.SpriteBatch.DrawString(font, "supprise :" + (espace.Supprise.ToString()), new Vector2(600, 670), Color.Red);
             }
             gameref.SpriteBatch.End();
-        }
+        
+             * 
+             */ 
+           }
+             
         #endregion
 
         #endregion
