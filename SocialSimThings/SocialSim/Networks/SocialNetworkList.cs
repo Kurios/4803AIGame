@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using SocialSim.Knowledgebases;
+using SocialSim.GameStuff;
 
 namespace SocialSim.Networks
 {
@@ -46,6 +47,23 @@ namespace SocialSim.Networks
         public void addSocialNetwork(SocialNetwork sn)
         {
             socialNetworks.Add(sn);
+        }
+
+        public List<SocialGame> getPlayableGames(SocialPair sp, List<SocialGame> allGames)
+        {
+            List<SocialGame> playableGames = new List<SocialGame>();
+            foreach (SocialNetwork sn in socialNetworks)
+            {
+                Topic t= sn.TopicOfNetwork;
+                Console.WriteLine("NUM: " + t.Subjects.Count);
+                List<SocialGame> playableGamesPart = sp.getPlayableGames(allGames, t);
+                foreach (SocialGame game in playableGamesPart)
+                {
+                    playableGames.Add(game);
+                }
+            }
+            return playableGames;
+            //return sp.getPlayableGames(allGames);
         }
         #endregion
     }

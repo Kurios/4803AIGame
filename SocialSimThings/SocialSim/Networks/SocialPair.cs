@@ -15,10 +15,6 @@ namespace SocialSim.Networks
     {
         public Agent AgentA;
         public Agent AgentB;
-
-        public float curiosity;
-        public float consideration;
-        public float comfort;
         public float friendliness;  //How friendly these two agents are toward one another.
 
         #region Constructors
@@ -27,9 +23,6 @@ namespace SocialSim.Networks
         {
             AgentA = A;
             AgentB = B;
-            curiosity = A.curiosity - B.curiosity;
-            consideration = A.consideration - B.consideration;
-            comfort = A.comfort - B.comfort;
             friendliness = (float) Math.Abs(A.consideration - B.consideration);
         }
 
@@ -44,7 +37,7 @@ namespace SocialSim.Networks
 
         }
 
-        public List<SocialGame> getPlayableGames(List<SocialGame> games)
+        public List<SocialGame> getPlayableGames(List<SocialGame> games, Topic tt)
         {
             List<SocialGame> gamesThatCanBePlayed = new List<SocialGame>();
 
@@ -52,19 +45,23 @@ namespace SocialSim.Networks
             {
 
                 //if(game.gameType
-                Console.WriteLine("Threshold: " + game.gameType.comfortThreshold + ", " + game.gameType.considerationThreshold + ", " + game.gameType.curiosityThreshold);
-
-                if (isComfortableTopic(game)&&isCuriousTopic(game))
+                //Console.WriteLine("NUM SUBJECTS: " + tt.Subjects.Count);
+                if (tt.Subjects.Contains(game.gameType))
                 {
-                    //Console.WriteLine("ADDED");
-                    gamesThatCanBePlayed.Add(game);
+                    Console.WriteLine("Threshold: " + game.gameType.comfortThreshold + ", " + game.gameType.considerationThreshold + ", " + game.gameType.curiosityThreshold);
+
+                    if (isComfortableTopic(game, tt) && isCuriousTopic(game, tt))
+                    {
+                        //Console.WriteLine("ADDED");
+                        gamesThatCanBePlayed.Add(game);
+                    }
                 }
 
             }
             return gamesThatCanBePlayed;
         }
 
-        private bool isComfortableTopic(SocialGame game)
+        private bool isComfortableTopic(SocialGame game, Topic t)
         {
             Agent player;
             Agent target;
@@ -114,7 +111,7 @@ namespace SocialSim.Networks
         }
 
 
-        private bool isCuriousTopic(SocialGame game)
+        private bool isCuriousTopic(SocialGame game, Topic t)
         {
             Agent player;
             Agent target;
