@@ -32,9 +32,6 @@ namespace Caverns.Char
         private int timeItt = 0;
         protected Agent agent;
         private TimeSpan timer = new TimeSpan();
-        private SocialPair spLast;
-        private List<SocialGame> gameLast;
-        private KB_C topicLast;
 
         public BlankChar(Texture2D sprite, Map map, Game1 game, Agent agent)
             : base(sprite, map)
@@ -75,11 +72,6 @@ namespace Caverns.Char
                     stepsToRun--;
                 }
                  */
-            }
-            if (lastDialogEventNum < 0)
-            {
-                spLast.playGame(gameLast[Math.Abs(lastDialogEventNum)], topicLast.getTopic(gameLast[Math.Abs(this.lastDialogEventNum)].gameType).Name);
-                lastDialogEventNum = 0;
             }
             lastTime = time.TotalGameTime.Seconds;
         }
@@ -164,10 +156,7 @@ namespace Caverns.Char
             
             //sp.playGame(games[Math.Abs(d.currentID)], CKB.getTopic(games[Math.Abs(d.currentID)].gameType).Name);    //ONLY modifies values based on algorithm.
 
-            spLast = sp;
-            gameLast = playableGames;
-            topicLast = CKB;
-            //sp.playGame(playableGames[Math.Abs(this.lastDialogEventNum)], CKB.getTopic(playableGames[Math.Abs(this.lastDialogEventNum)].gameType).Name);    //ONLY modifies values based on algorithm.
+            sp.playGame(playableGames[Math.Abs(this.lastDialogEventNum)], CKB.getTopic(playableGames[Math.Abs(this.lastDialogEventNum)].gameType).Name);    //ONLY modifies values based on algorithm.
             
             
             //Assuming a Array of Strings, in the order NPC action, then. Player Dialog Options.
