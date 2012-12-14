@@ -62,6 +62,8 @@ namespace KuriosityXLib.Dialogs
 
         public List<Response> responses { get; set; }
 
+        
+
         /// <summary>
         /// Getter and Setter for the stateID.  This ID is used to tell which state we are at.
         /// </summary>

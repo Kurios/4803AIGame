@@ -54,6 +54,13 @@ namespace KuriosityXLib.Dialogs
             nextStateID = toNextState;
         }
 
+        public Response(String textForResponse, int toNextState, Func<int> OnSellect)
+        {
+            responseText = textForResponse;
+            nextStateID = toNextState;
+            this.OnSelect = OnSelect;
+        }
+
         #endregion Constructors
 
         #region Fields
@@ -61,6 +68,8 @@ namespace KuriosityXLib.Dialogs
         public int nextStateID { get; set; }
 
         public String responseText { get; set; }
+
+        public Func<int> OnSelect { get; set; }
 
         #endregion Fields
 

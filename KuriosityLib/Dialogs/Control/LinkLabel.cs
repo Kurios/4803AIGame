@@ -55,5 +55,7 @@ namespace KuriosityXLib.Control
         }
 
         #endregion Abstract Methods
+
+        public System.Func<int> Function { get; set; }
     }
 }

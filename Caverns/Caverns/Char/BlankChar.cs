@@ -62,7 +62,7 @@ namespace Caverns.Char
             if (timer > eightSecond)
             {
                 timer -= eightSecond;
-
+                /*
                 if (this.lastDialogEventNum < 0 && stepsToRun > 0)
                 {
                     timeItt++;
@@ -71,6 +71,7 @@ namespace Caverns.Char
                     facing = 3;
                     stepsToRun--;
                 }
+                 */
             }
             lastTime = time.TotalGameTime.Seconds;
         }
@@ -97,11 +98,11 @@ namespace Caverns.Char
             
             Dialog d = new Dialog();
             //INITIAL DIALOG STATE: 
-            DialogState state = new DialogState(0, "Awww. I thought you would never find me.\n\n   You wont get me next time though! I promise!");
+            DialogState state = new DialogState(0, "Hiya");
 
-            for (int i = 0; Math.Abs(i) > playableGames.Count; i--)
+            for (int i = 0; Math.Abs(i) < playableGames.Count; i--)
             {
-                state.addResponse(playableGames[i].gameType.SubjectName.ToString(), i);
+                state.addResponse(playableGames[Math.Abs(i)].gameType.SubjectName.ToString(), i-1);
             }
             /*for( int i =  0 ; Math.Abs(i) > games.Count ; i-- )
             {
@@ -110,7 +111,7 @@ namespace Caverns.Char
             }*/
             d.addState(state);
             Dialog = d;
-
+            
             gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
 
             //Doesnt Return a String....
@@ -123,7 +124,6 @@ namespace Caverns.Char
             
             //Assuming a Array of Strings, in the order NPC action, then. Player Dialog Options.
 
-
            /* String[] spResponses = new String[2];
             state = new DialogState(0,spResponses[0]);
             for (int i = 1; i > spResponses.Length; i++)
@@ -132,8 +132,9 @@ namespace Caverns.Char
             }
             */
 
+            //Subjects: NPC starts dialog. Player, Girl, Mushrooms, Cave
             List<String> spResponses = playableGames[Math.Abs(d.currentID)].getScript(sp);
-
+            state = new DialogState(0, spResponses[0]);
             for (int i = 1; i < spResponses.Count; i++) //0 = initial statement, 1 = first response. and so on...
             {
                 state.addResponse(spResponses[i]);
@@ -145,11 +146,9 @@ namespace Caverns.Char
 
             gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
 
-
-
-
-
             //this.PhysicalContact -= FoundMe;
         }
+
+        //private void ResumeDialog(Object sender, EventArgs e)
     }
 }

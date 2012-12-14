@@ -65,7 +65,9 @@ namespace Caverns.GameScreens
 
         private void dialog_selected(Object sender, EventArgs e)
         {
+            
             Char1.lastDialogEventNum = ((int)((LinkLabel)sender).Value);
+
             if (((int)((LinkLabel)sender).Value) < 0)
             {
                 Char1.dialogExitState = ((int)((LinkLabel)sender).Value);
@@ -75,6 +77,8 @@ namespace Caverns.GameScreens
             {
                 SetUpDialog(((int)((LinkLabel)sender).Value));
             }
+            if(((LinkLabel)sender).Function != null) 
+                ((LinkLabel)sender).Function();
         }
 
         private void SetUpDialog(int targetState)
@@ -97,6 +101,7 @@ namespace Caverns.GameScreens
                 LinkLabel response = new LinkLabel();
                 response.Text = res.responseText;
                 response.Value = res.nextStateID;
+                response.Function = res.OnSelect;
                 response.Position = pos;
                 response.Selected += dialog_selected;
                 response.SpriteFont = font;
