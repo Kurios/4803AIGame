@@ -109,8 +109,8 @@ namespace Caverns.GameScreens
             Kid1 kid1 = new Kid1(ash, map, gameref);
             kid1.Portrait = ashPort;
             map.characterList.Add(kid1);
-
-            BlankChar blank1 = new BlankChar(blank, map, gameref, new Agent());
+ 
+            BlankChar blank1 = new BlankChar(blank, map, gameref, new Agent("Character"));
             blank1.Portrait = ashPort;
             blank1.Position = new Vector2(10, 10);
             map.characterList.Add(blank1);
@@ -139,7 +139,7 @@ namespace Caverns.GameScreens
             key2.Position = new Vector2(22 + 32, 19 + 64);
             caveMap.characterList.Add(key2);
 
-            pc = new PlayerChar(catLady, map, Game);
+            pc = new PlayerChar(catLady, map, gameref, new Agent("Player"));
             pc.Position = new Vector2(20, 20);
 
             //Ghost g = new Ghost(ghostSprite, caveMap, gameref, pc);

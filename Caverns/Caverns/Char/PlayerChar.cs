@@ -5,6 +5,7 @@ using KuriosityXLib.TileMap;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SocialSim.Agents;
 
 namespace Caverns.Char
 {
@@ -13,7 +14,7 @@ namespace Caverns.Char
     /// <summary>
     /// This is the player character, a child of the Character class.
     /// </summary>
-    public class PlayerChar : DialogCharacter
+    public class PlayerChar : BlankChar
     {
         //0 DOWN
         //1 LEFT
@@ -47,8 +48,8 @@ namespace Caverns.Char
         /// </summary>
         /// <param name="sprite">The sprite to be used to move the Player Character.</param>
         /// <param name="map">The map associated with the Player Character.</param>
-        public PlayerChar(Texture2D sprite, Map map, Game game)
-            : base(sprite, map)
+        public PlayerChar(Texture2D sprite, Map map, Game1 game, Agent agent)
+            : base(sprite, map, game, agent)
         {
             PhysicalContact += hitMe;
             this.gameref = (Game1)game;
