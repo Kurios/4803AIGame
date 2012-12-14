@@ -27,6 +27,24 @@ namespace SocialSim.Networks
 
         #region Methods...
 
+        public SocialNetwork getSocialNetwork()
+        {
+            if (socialNetworks.Count > 0)
+            {
+                return socialNetworks[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public SocialNetwork getSocialNetwork(int index)
+        {
+            return socialNetworks[index];
+        }
+
+        
         public SocialNetwork getSocialNetwork(Topic t)
         {
             foreach (SocialNetwork sn in socialNetworks)
