@@ -77,8 +77,8 @@ namespace SocialSim.Networks
                 target = AgentA;
             }
 
-
-            if (game.gameType.SubjectName.Equals(SubjectType.Cave) || game.gameType.SubjectName.Equals(SubjectType.Girl) || game.gameType.SubjectName.Equals(SubjectType.Player) || game.gameType.SubjectName.Equals(SubjectType.Mushrooms))
+            if(t.Name.Equals(TopicType.Player))
+            //if (game.gameType.SubjectName.Equals(SubjectType.Cave) || game.gameType.SubjectName.Equals(SubjectType.Girl) || game.gameType.SubjectName.Equals(SubjectType.Player) || game.gameType.SubjectName.Equals(SubjectType.Mushrooms))
             {
                 //IF THE TARGET IS NOT CONSIDERATE: DISREGARD PLAYER'S THOUGHTS
                 if (target.consideration < 0)
@@ -128,7 +128,8 @@ namespace SocialSim.Networks
             }
 
 
-            if (game.gameType.Equals(SubjectType.Cave) || game.gameType.Equals(SubjectType.Girl) || game.gameType.Equals(SubjectType.Player) || game.gameType.Equals(SubjectType.Mushrooms))
+            if (t.Name.Equals(TopicType.Player))
+            //if (game.gameType.Equals(SubjectType.Cave) || game.gameType.Equals(SubjectType.Girl) || game.gameType.Equals(SubjectType.Player) || game.gameType.Equals(SubjectType.Mushrooms))
             {
 
                 if (target.curiosity > game.gameType.curiosityThreshold)
@@ -175,10 +176,9 @@ namespace SocialSim.Networks
 
             //PLAYER-RELATED GAME.
             if (gameType.Equals(TopicType.Player))
-                //game.gameType.Equals(SubjectType.Cave) || game.gameType.Equals(SubjectType.Girl) || game.gameType.Equals(SubjectType.Player) || game.gameType.Equals(SubjectType.Mushrooms))
             {
                 //TOPICS RELEVANT TO PLAYER
-
+                Console.WriteLine("PLAYER GAME");
                 if (player.comfort < 0)
                 {
                     Console.WriteLine("I'm REALLY not comfortable talking about this topic.  Go away.");

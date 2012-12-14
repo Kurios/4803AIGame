@@ -34,7 +34,7 @@ namespace SocialSim.Testing
            SocialPair sp = network1.getPair(ages[0], ages[1]);
 
            
-            //Gets all playable games.
+            //RETRIEVES ALL PLAYABLE GAMES.
            List<SocialGame> playableGames = networks.getPlayableGames(sp, games);
            Console.WriteLine("NUMBER OF PLAYABLE GAMES: " + playableGames.Count);
 
@@ -44,9 +44,11 @@ namespace SocialSim.Testing
 
            Console.WriteLine("");
 
-            //Selects a playable game.
-           sp.playGame(playableGames[0], CKB.getTopic(playableGames[0].gameType).Name);
-
+            //SELECTS A PLAYABLE GAME.
+           if (playableGames.Count > 0)
+           {
+               sp.playGame(playableGames[1], CKB.getTopic(playableGames[1].gameType).Name);
+           }
            Console.WriteLine("AFTER");
            Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
            Console.WriteLine("Agent B: (" + sp.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
@@ -160,8 +162,8 @@ namespace SocialSim.Testing
         {
 
             List<Agent> agents = new List<Agent>();
-            Agent agent0 = new Agent("Player", 0.25f, 0.2f, 0.01f);
-            Agent agent1 = new Agent("Agent 1",0.3f,0.0f,0.1f);
+            Agent agent0 = new Agent("Player", 0.2f, -0.1f, 0.25f);
+            Agent agent1 = new Agent("Agent 1",0.25f,-0.1f,0.25f);
             Agent agent2 = new Agent("Agent 2", 0.1f, 0.1f, 0.1f);
             Agent agent3 = new Agent("Agent 3");
             Agent agent4 = new Agent("Agent 4");

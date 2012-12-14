@@ -42,7 +42,7 @@ namespace SocialSim.Agents
             importantAgents = new List<Agent>();
         }
 
-        public Agent(String aName, float comfortLevel, float curiosityLevel, float considerationLevel)
+        public Agent(String aName, float comfortLevel, float considerationLevel, float curiosityLevel)
         {
             name = aName;
             comfort = comfortLevel;
