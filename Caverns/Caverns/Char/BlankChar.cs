@@ -97,7 +97,7 @@ namespace Caverns.Char
             
             Dialog d = new Dialog();
             //INITIAL DIALOG STATE: 
-            DialogState state = new DialogState(0, "Awww. I thought you would never find me.\n\n   You wont get me next time though! I promise!");
+            DialogState state = new DialogState(0, "Hi there.");
 
             for (int i = 0; Math.Abs(i) > playableGames.Count; i--)
             {
@@ -133,12 +133,12 @@ namespace Caverns.Char
             */
 
             List<String> spResponses = playableGames[Math.Abs(d.currentID)].getScript(sp);
-
+            state = new DialogState(0, spResponses[0]);
             for (int i = 1; i < spResponses.Count; i++) //0 = initial statement, 1 = first response. and so on...
             {
                 state.addResponse(spResponses[i]);
             }
-
+            
             d = new Dialog();
             d.addState(state);
             Dialog = d;
