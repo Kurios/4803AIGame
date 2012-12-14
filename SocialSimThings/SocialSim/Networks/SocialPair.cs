@@ -11,7 +11,7 @@ using SocialSim.Knowledgebases;
 namespace SocialSim.Networks
 {
     //A social pair is a linking between two agents.
-    class SocialPair
+    public class SocialPair
     {
         public Agent AgentA;
         public Agent AgentB;
@@ -78,7 +78,6 @@ namespace SocialSim.Networks
             }
 
             if(t.Name.Equals(TopicType.Player))
-            //if (game.gameType.SubjectName.Equals(SubjectType.Cave) || game.gameType.SubjectName.Equals(SubjectType.Girl) || game.gameType.SubjectName.Equals(SubjectType.Player) || game.gameType.SubjectName.Equals(SubjectType.Mushrooms))
             {
                 //IF THE TARGET IS NOT CONSIDERATE: DISREGARD PLAYER'S THOUGHTS
                 if (target.consideration < 0)
@@ -129,7 +128,6 @@ namespace SocialSim.Networks
 
 
             if (t.Name.Equals(TopicType.Player))
-            //if (game.gameType.Equals(SubjectType.Cave) || game.gameType.Equals(SubjectType.Girl) || game.gameType.Equals(SubjectType.Player) || game.gameType.Equals(SubjectType.Mushrooms))
             {
 
                 if (target.curiosity > game.gameType.curiosityThreshold)

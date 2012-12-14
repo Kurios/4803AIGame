@@ -11,7 +11,7 @@ namespace SocialSim
 
     //List of 
 
-    class KB_C
+    public class KB_C
     {
         public List<Topic> TopicList;
 

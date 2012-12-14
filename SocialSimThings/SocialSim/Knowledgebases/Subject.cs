@@ -10,7 +10,7 @@ namespace SocialSim.Knowledgebases
         Cave, Girl, Player, Party, Festival, Games, Gifts, Flowers, Forest, Ghosts, Mushrooms
     }
 
-    class Subject
+    public class Subject
     {
         public SubjectType SubjectName;
         public float comfortThreshold;

@@ -14,6 +14,7 @@ namespace SocialSim.Testing
     {
         static KB_C CKB;
         static KB_S SKB;
+        static List<SocialFact> socialFacts;
         static List<SocialGame> games;
 
         static void Main()
@@ -24,6 +25,7 @@ namespace SocialSim.Testing
            initializeGames();   //Initializes all the games that can be played
            List<Agent> ages = initializeAgents();  //Initializes all the agents that will be in the game
            SocialNetworkList networks = initializeNetworks(ages);    //Initializes all networks for the game
+           List<SocialFact> socialFacts = new List<SocialFact>();
             #endregion
 
 
@@ -71,6 +73,8 @@ namespace SocialSim.Testing
            Console.WriteLine("Agent A: (" + sp3.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
            Console.WriteLine("Agent B: (" + sp3.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
 
+           SocialFact sb = new SocialFact(playableGames[1], sp.AgentA, sp.AgentB);
+           socialFacts.Add(sb);
 
            Console.WriteLine("DONE");
 

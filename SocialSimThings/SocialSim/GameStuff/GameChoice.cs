@@ -7,7 +7,7 @@ using SocialSim.Knowledgebases;
 
 namespace SocialSim.GameStuff
 {
-    class GameChoice
+    public class GameChoice
     {
 
         //A Game Choice corresponds to a choice

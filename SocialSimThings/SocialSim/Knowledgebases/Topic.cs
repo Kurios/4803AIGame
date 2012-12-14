@@ -11,7 +11,7 @@ namespace SocialSim.Knowledgebases
         Friendly, Fun, Player, Scary
     }
 
-    class Topic
+    public class Topic
     {
         public TopicType Name;
         public float comfortThreshold;

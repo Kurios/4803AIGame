@@ -18,7 +18,7 @@ namespace SocialSim.Knowledgebases
 
     //NETWORKS
         //Social Network of agents
-    class KB_S
+    public class KB_S
     {
         List<SocialFact> events;
 

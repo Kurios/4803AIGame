@@ -8,7 +8,7 @@ using SocialSim.GameStuff;
 
 namespace SocialSim.Networks
 {
-    class SocialNetworkList
+    public class SocialNetworkList
     {
         public List<SocialNetwork> socialNetworks;
 
