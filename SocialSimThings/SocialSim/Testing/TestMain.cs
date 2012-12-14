@@ -80,6 +80,60 @@ namespace SocialSim.Testing
            SocialFact sb = new SocialFact(playableGames[1], sp.AgentA, sp.AgentB);
            socialFacts.Add(sb);
 
+           playableGames = networks.getPlayableGames(sp, games);
+           Console.WriteLine("NUMBER OF PLAYABLE GAMES: " + playableGames.Count);
+
+           Console.WriteLine("BEFORE");
+           Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
+           Console.WriteLine("Agent B: (" + sp.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
+
+           Console.WriteLine("");
+
+           //SELECTS A PLAYABLE GAME.
+           if (playableGames.Count > 0)
+           {
+               sp.playGame(playableGames[0], CKB.getTopic(playableGames[1].gameType).Name);
+               List<String> script = playableGames[0].getScript(sp);
+               Console.WriteLine(script[0]);
+               Console.WriteLine(script[1]);
+               Console.WriteLine(script[2]);
+           }
+           Console.WriteLine("AFTER");
+           Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
+           Console.WriteLine("Agent B: (" + sp.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
+
+           Console.WriteLine("");
+
+           playableGames = networks.getPlayableGames(sp, games);
+           Console.WriteLine("NUMBER OF PLAYABLE GAMES: " + playableGames.Count);
+
+           Console.WriteLine("BEFORE");
+           Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
+           Console.WriteLine("Agent B: (" + sp.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
+
+           Console.WriteLine("");
+
+           //SELECTS A PLAYABLE GAME.
+           if (playableGames.Count > 0)
+           {
+               sp.playGame(playableGames[0], CKB.getTopic(playableGames[1].gameType).Name);
+               List<String> script = playableGames[0].getScript(sp);
+               Console.WriteLine(script[0]);
+               Console.WriteLine(script[1]);
+               Console.WriteLine(script[2]);
+           }
+           Console.WriteLine("AFTER");
+           Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
+           Console.WriteLine("Agent B: (" + sp.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
+
+           Console.WriteLine("");
+
+           sp = network1.getPair(ages[0], ages[2]);
+           Console.WriteLine("Ages: " + ages[2].name);
+
+           sp.playGame(playableGames[0], CKB.getTopic(playableGames[1].gameType).Name);
+           List<String> script2 = playableGames[0].getScript(sp);
+           Console.WriteLine("Script2: " + script2[0]);
            Console.WriteLine("DONE");
 
            Console.ReadKey();
@@ -120,7 +174,7 @@ namespace SocialSim.Testing
             List<Agent> agents = new List<Agent>();
             Agent agent0 = new Agent("Player", 0.75f, -0.1f, 0.55f);
             Agent agent1 = new Agent("Agent 1",0.75f,-0.1f,0.55f);
-            Agent agent2 = new Agent("Agent 2", 0.1f, 0.1f, 0.1f);
+            Agent agent2 = new Agent("Ghost", 0.1f, 0.1f, 0.1f);
             Agent agent3 = new Agent("Agent 3");
             Agent agent4 = new Agent("Agent 4");
             Agent agent5 = new Agent("Agent 5");
