@@ -18,7 +18,7 @@ namespace KuriosityXLib.Dialogs
         public Dialog()
         {
             states = new List<DialogState>();
-            startingStateID = -1;
+            startingStateID = 0;
             currentID = startingStateID;
             needResponse = true;
         }
@@ -120,7 +120,19 @@ namespace KuriosityXLib.Dialogs
 
         public DialogState getCurrentState()
         {
-            return states[currentID];
+            if (currentID == -1)  //No starting state declared.
+            {
+                return null;
+            }
+
+            for (int i = 0; i < states.Count; i++)  //Find the starting state.
+            {
+                if (currentID == (states[i]).stateID)
+                {
+                    return states[i];
+                }
+            }
+            return null;    //No starting state found.
         }
 
         /// <summary>
@@ -147,13 +159,13 @@ namespace KuriosityXLib.Dialogs
         /// <summary>
         /// Goes to the next dialog state
         /// </summary>
-        public void toNextDialogState()
+        public void toNextDialogState(int nextStateID)
         {
-            int nextStateID = states[currentID].currentResponse.nextStateID;
+            //int nextStateID = states[currentID].currentResponse.nextStateID;
 
-            if (nextStateID == -1)
+            if (nextStateID < 0)
             {
-                //Finished with dialog
+                currentID = nextStateID;
             }
             else
             {

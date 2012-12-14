@@ -64,7 +64,7 @@ namespace SocialSim
             List<Agent> agents = new List<Agent>();
             Agent agent0 = new Agent("Player", 0.2f, -0.1f, 0.25f);
             Agent agent1 = new Agent("Character",0.25f,-0.1f,0.25f);
-            Agent agent2 = new Agent("Agent 2", 0.1f, 0.1f, 0.1f);
+            Agent agent2 = new Agent("Ghost");
             Agent agent3 = new Agent("Agent 3");
             Agent agent4 = new Agent("Agent 4");
             Agent agent5 = new Agent("Agent 5");
@@ -85,7 +85,6 @@ namespace SocialSim
         private SocialNetworkList initializeNetworks(List<Agent> agens)
         {
             SocialNetworkList networkList = new SocialNetworkList();
-            //networks = new SocialNetworkList();
 
             SocialNetwork sadNetwork = new SocialNetwork(CKB.TopicList[0]);
             SocialNetwork scaryNetwork = new SocialNetwork(CKB.TopicList[1]);

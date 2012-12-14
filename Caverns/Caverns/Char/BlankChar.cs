@@ -98,11 +98,49 @@ namespace Caverns.Char
             
             Dialog d = new Dialog();
             //INITIAL DIALOG STATE: 
-            DialogState state = new DialogState(0, "Hiya");
 
-            for (int i = 0; Math.Abs(i) < playableGames.Count; i--)
+            DialogState state = new DialogState(0, "Hi there.");
+
+
+            for (int i = 0; Math.Abs(i) < playableGames.Count; i++)
             {
-                state.addResponse(playableGames[Math.Abs(i)].gameType.SubjectName.ToString(), i-1);
+                state.addResponse(playableGames[Math.Abs(i)].gameType.SubjectName.ToString(), i+1);
+            }
+            //d.addState(state);
+            for (int i = 0; Math.Abs(i) < playableGames.Count; i++)
+            {
+                List<String> spResponses = playableGames[i].getScript(sp);
+                if (playableGames[i].gameType.SubjectName == SubjectType.Girl || playableGames[i].gameType.SubjectName == SubjectType.Mushrooms || playableGames[i].gameType.SubjectName == SubjectType.Cave || playableGames[i].gameType.SubjectName == SubjectType.Player)
+                {
+                    //Subjects: NPC starts dialog. Player, Girl, Mushrooms, Cave
+                    //state = new DialogState(0, spResponses[0]);
+                    for (int j = 0; j < spResponses.Count; j += 2) //0 = initial statement, 1 = first response. and so on...
+                    {
+                        d.addState(state);
+                        state = new DialogState(i + 1 + j * 20, spResponses[j]);
+                        if (spResponses.Count > j + 2)
+                            state.addResponse(spResponses[j + 1], i + 1 + (j + 1 ) * 20);
+                        else
+                            state.addResponse(spResponses[j + 1], i + 1 * -1);
+                    }
+                }
+                else
+                {
+                    d.addState(state);
+                    state = new DialogState(i + 1 , "");
+                    for (int j = 0; j < spResponses.Count; j += 2) //0 = initial statement, 1 = first response. and so on...
+                    {
+                        //state = new DialogState(i + 1 + j * 20, spResponses[j]);
+                        if (spResponses.Count > j + 1)
+                        {
+                            state.addResponse(spResponses[j], i + 1 + (j + 1) * 20);
+                            d.addState(state);
+                            state = new DialogState(i + 1 + (j + 1) * 20, spResponses[j + 1]);
+                        }
+                        else
+                            state.addResponse(spResponses[j], i + 1 * -1);
+                    }
+                }
             }
             /*for( int i =  0 ; Math.Abs(i) > games.Count ; i-- )
             {
@@ -116,10 +154,9 @@ namespace Caverns.Char
 
             //Doesnt Return a String....
             
-            
             //sp.playGame(games[Math.Abs(d.currentID)], CKB.getTopic(games[Math.Abs(d.currentID)].gameType).Name);    //ONLY modifies values based on algorithm.
-            
-            sp.playGame(playableGames[Math.Abs(d.currentID)], CKB.getTopic(playableGames[Math.Abs(d.currentID)].gameType).Name);    //ONLY modifies values based on algorithm.
+
+            sp.playGame(playableGames[Math.Abs(this.lastDialogEventNum)], CKB.getTopic(playableGames[Math.Abs(this.lastDialogEventNum)].gameType).Name);    //ONLY modifies values based on algorithm.
             
             
             //Assuming a Array of Strings, in the order NPC action, then. Player Dialog Options.
@@ -131,7 +168,7 @@ namespace Caverns.Char
                 state.addResponse(spResponses[i]);
             }
             */
-
+            /*
             //Subjects: NPC starts dialog. Player, Girl, Mushrooms, Cave
             List<String> spResponses = playableGames[Math.Abs(d.currentID)].getScript(sp);
             state = new DialogState(0, spResponses[0]);
@@ -139,7 +176,7 @@ namespace Caverns.Char
             {
                 state.addResponse(spResponses[i]);
             }
-
+            
             d = new Dialog();
             d.addState(state);
             Dialog = d;
@@ -147,6 +184,7 @@ namespace Caverns.Char
             gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
 
             //this.PhysicalContact -= FoundMe;
+             * */
         }
 
         //private void ResumeDialog(Object sender, EventArgs e)

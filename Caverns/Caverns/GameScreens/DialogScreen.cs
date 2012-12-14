@@ -68,6 +68,7 @@ namespace Caverns.GameScreens
             
             Char1.lastDialogEventNum = ((int)((LinkLabel)sender).Value);
 
+            Char1.Dialog.toNextDialogState((int)((LinkLabel)sender).Value);
             if (((int)((LinkLabel)sender).Value) < 0)
             {
                 Char1.dialogExitState = ((int)((LinkLabel)sender).Value);
@@ -88,7 +89,7 @@ namespace Caverns.GameScreens
 
             controls = new ControlManager(font);
             controls.selectedControl = 0;
-            curState = Char1.Dialog.states[targetState];
+            curState = Char1.Dialog.getCurrentState();
             DialogLabel.Text = curState.stateText;
             DialogLabel.TabStop = false;
             DialogLabel.Position = new Vector2(20, 20);
