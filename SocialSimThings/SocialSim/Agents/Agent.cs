@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SocialSim.Agents
 {
-    class Agent
+    public class Agent
     {
         //An agent knows its name, agents that are important to it (Influences the 'Third Party' aspect), and has a specific "parameterSpace"
             //The parameters are conditions that will be reviewed to determine if certain social games can be played.
