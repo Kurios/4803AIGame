@@ -49,7 +49,11 @@ namespace SocialSim.Testing
             //SELECTS A PLAYABLE GAME.
            if (playableGames.Count > 0)
            {
-               sp.playGame(playableGames[1], CKB.getTopic(playableGames[1].gameType).Name);
+               sp.playGame(playableGames[0], CKB.getTopic(playableGames[1].gameType).Name);
+               List<String> script = playableGames[0].getScript(sp);
+               Console.WriteLine(script[0]);
+               Console.WriteLine(script[1]);
+               Console.WriteLine(script[2]);
            }
            Console.WriteLine("AFTER");
            Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
@@ -80,55 +84,6 @@ namespace SocialSim.Testing
 
            Console.ReadKey();
             #endregion
-
-
-
-            /*           #region SOCIAL NETWORKS
-
-           SocialNetwork network1 = networks.socialNetworks[0];
-           SocialPair sp = network1.getPair(agents[0], agents[1]);
-
-           Console.WriteLine("SOCIAL PAIR: " + sp.AgentA.name + ", " + sp.AgentB.name);
-
-           Console.WriteLine("GAMES: " + games.Count);
-
-           List<SocialGame> playableGames = sp.getPlayableGames(games);
-           Console.WriteLine("NUMBER OF PLAYABLE GAMES: " + playableGames.Count);
-
-
-           //sp.playGame(playableGames[0], (CKB.getTopic(playableGames[0].gameType)).Name);//CKB.getTopic(playableGames[0].gameType.SubjectName));
-
-
-           Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
-           Console.WriteLine("Agent B: (" + sp.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
-
-           foreach (SocialGame sg in playableGames)
-           {
-               sp.playGame(sg, (CKB.getTopic(sg.gameType)).Name);
-           }
-
-           Console.WriteLine("AFTER GAMES");
-           Console.WriteLine("Agent A: (" + sp.AgentA.comfort + ", " + sp.AgentA.consideration + ", " + sp.AgentA.curiosity + ")");
-           Console.WriteLine("Agent B: (" + sp.AgentB.comfort + ", " + sp.AgentB.consideration + ", " + sp.AgentB.curiosity + ")");
-
-
-
-           SocialPair sp2 = network1.getPair(agents[0], agents[2]);
-
-           Console.WriteLine("IS THE AGENT STILL HERE?");
-           Console.WriteLine("Agent A: (" + sp2.AgentA.comfort + ", " + sp2.AgentA.consideration + ", " + sp2.AgentA.curiosity + ")");
-           Console.ReadKey();
-            #endregion
-
-           SocialFact sf = new SocialFact(playableGames[0], sp.AgentA, sp.AgentB);
-
-            #region SOCIAL GAMES
-
-            //Wanna play a game?
-
-            //Topic specificTopic = CKB.getTopic(caveGame.gameType);
-            #endregion
-*/
 
         }
          
@@ -163,8 +118,8 @@ namespace SocialSim.Testing
         {
 
             List<Agent> agents = new List<Agent>();
-            Agent agent0 = new Agent("Player", 0.2f, -0.1f, 0.25f);
-            Agent agent1 = new Agent("Agent 1",0.25f,-0.1f,0.25f);
+            Agent agent0 = new Agent("Player", 0.75f, -0.1f, 0.55f);
+            Agent agent1 = new Agent("Agent 1",0.75f,-0.1f,0.55f);
             Agent agent2 = new Agent("Agent 2", 0.1f, 0.1f, 0.1f);
             Agent agent3 = new Agent("Agent 3");
             Agent agent4 = new Agent("Agent 4");

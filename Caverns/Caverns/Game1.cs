@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SocialSim.Networks;
+using SocialSim;
 using KuriosityXLib.Dialogs;
 
 ///Kurios: The starting point.
@@ -47,6 +48,8 @@ namespace Caverns
 
         public SocialNetworkList Networks;
 
+        public SocialSimPack SocialSimStuff;
+
         public MapScreen MapScreen
         {
             get { return mapScreen; }
@@ -56,6 +59,12 @@ namespace Caverns
 
         public Game1()
         {
+            //SOCIAL SIM STUFF
+            SocialSimPack simPack = new SocialSimPack();
+            SocialSimStuff = simPack;
+            Networks = simPack.networks;
+            Network = simPack.networks.getSocialNetwork(0);
+            //END
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;

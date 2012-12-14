@@ -91,7 +91,9 @@ namespace SocialSim.Networks
                 //IF TARGET IS CONSIDERATE: TAKE PLAYER THOUGHTS INTO CONSIDERATION
                 else
                 {
-                    if (player.comfort > game.gameType.comfortThreshold && target.comfort > game.gameType.comfortThreshold)
+                    float playerC = player.comfort + target.consideration * 0.12f;
+
+                    if (playerC > game.gameType.comfortThreshold && target.comfort > game.gameType.comfortThreshold)
                     {
                         return true;
                     }
@@ -270,6 +272,40 @@ namespace SocialSim.Networks
 
 
             }
+            if (canBeImportant())
+            {
+                if (!player.isImportant(target))
+                {
+                    player.addAgent(target);
+                }
+                if (!target.isImportant(player))
+                {
+                    target.addAgent(player);
+                }
+            }
+        }
+
+        private bool canBeImportant()
+        {
+            Agent player;
+            Agent target;
+
+            if (AgentA.name.Equals("Player"))
+            {
+                player = AgentA;
+                target = AgentB;
+            }
+            else
+            {
+                player = AgentB;
+                target = AgentA;
+            }
+
+            if (target.consideration > player.comfort && target.comfort > player.comfort)
+            {
+                return true;
+            }
+            return false;
         }
 
         private float considerationBonus()
@@ -301,6 +337,11 @@ namespace SocialSim.Networks
                 bonus = bonus + 0.05f;
             }
             return bonus;
+        }
+
+        private float searchThroughSKB(KB_S SKB)
+        {
+            return 0;
         }
         #endregion
 

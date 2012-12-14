@@ -5,7 +5,10 @@ using KuriosityXLib;
 using KuriosityXLib.TileMap;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using SocialSim;
 using SocialSim.Agents;
+using SocialSim.Knowledgebases;
 using SocialSim.Networks;
 using SocialSim.GameStuff;
 using KuriosityXLib.Dialogs;
@@ -13,7 +16,7 @@ using SocialSim;
 
 namespace Caverns.Char
 {
-    internal class BlankChar : DialogCharacter
+    public class BlankChar : DialogCharacter
     {
         //0 DOWN
         //1 LEFT
@@ -76,33 +79,66 @@ namespace Caverns.Char
         {
             //((PlayerChar)sender).peopleFound++;
             //gameref.Network.ToString();
-            SocialPair sp = gameref.Network.getPair(((BlankChar)sender).agent, this.agent);
-            List<SocialGame> games = new List<SocialGame>();
+            
+            //List<SocialGame> games = new List<SocialGame>();
+
+
+            List<SocialGame> games = gameref.SocialSimStuff.games;  //List of games populated
             //TODO: Figure out how to initialize this games thing... 
-            gameref.Networks.getPlayableGames(sp, games);
-            KB_C CKB = new KB_C();
+            
+            /*TO JACK: Jack, I modified more further down.  The commented out code are your original lines*/
+
+            KB_C CKB = gameref.SocialSimStuff.CKB;  //CKB has been initialized.  CKB is populated.
+            KB_S SKB = gameref.SocialSimStuff.SKB;  //SKB has been initialized.  SKB is populated.
+            SocialPair sp = gameref.Network.getPair(((BlankChar)sender).agent, this.agent); //INVALID CAST EXCEPTION!
+            List<SocialGame> playableGames = gameref.Networks.getPlayableGames(sp, games);  //Retrieves the set of playable games.
+
             //END LIST
+            
             Dialog d = new Dialog();
+            //INITIAL DIALOG STATE: 
             DialogState state = new DialogState(0, "Awww. I thought you would never find me.\n\n   You wont get me next time though! I promise!");
-            for( int i =  0 ; Math.Abs(i) > games.Count ; i-- )
+
+            for (int i = 0; Math.Abs(i) > playableGames.Count; i--)
+            {
+                state.addResponse(playableGames[i].gameType.SubjectName.ToString(), i);
+            }
+            /*for( int i =  0 ; Math.Abs(i) > games.Count ; i-- )
             {
                 state.addResponse(games[i].gameType.SubjectName.ToString(), i);
-            }
+                //Adds responses based on game
+            }*/
             d.addState(state);
             Dialog = d;
 
             gameref.DialogScreen.CallDialog(this, (DialogCharacter)sender);
 
             //Doesnt Return a String....
-            sp.playGame(games[Math.Abs(d.currentID)], CKB.getTopic(games[Math.Abs(d.currentID)].gameType).Name);
+            
+            
+            //sp.playGame(games[Math.Abs(d.currentID)], CKB.getTopic(games[Math.Abs(d.currentID)].gameType).Name);    //ONLY modifies values based on algorithm.
+            
+            sp.playGame(playableGames[Math.Abs(d.currentID)], CKB.getTopic(playableGames[Math.Abs(d.currentID)].gameType).Name);    //ONLY modifies values based on algorithm.
+            
+            
             //Assuming a Array of Strings, in the order NPC action, then. Player Dialog Options.
-            String[] spResponses = new String[2];
-            state = new DialogState(0,spResponses[0]);
 
+
+           /* String[] spResponses = new String[2];
+            state = new DialogState(0,spResponses[0]);
             for (int i = 1; i > spResponses.Length; i++)
             {
                 state.addResponse(spResponses[i]);
             }
+            */
+
+            List<String> spResponses = playableGames[Math.Abs(d.currentID)].getScript(sp);
+
+            for (int i = 1; i < spResponses.Count; i++) //0 = initial statement, 1 = first response. and so on...
+            {
+                state.addResponse(spResponses[i]);
+            }
+
             d = new Dialog();
             d.addState(state);
             Dialog = d;
